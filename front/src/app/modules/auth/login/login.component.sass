@@ -1,0 +1,45 @@
+.container
+  display: flex
+  align-items: center
+  justify-content: center
+  min-height: 100vh
+  flex-direction: row
+  flex-wrap: wrap
+  &__content
+    flex-grow: 8
+    display: flex
+    margin: 10px 0
+    justify-content: center
+    &__card
+      min-width: 90%
+      min-height: 300px
+      align-self: center
+  &__form
+    flex-grow: 4
+    display: flex
+    margin: 10px 0
+    justify-content: center
+    &__card
+      min-width: 80%
+      min-height: 300px
+      align-self: center
+      &__title
+        color: red
+      &::before
+        content: ''
+        left: 0
+        top: 10px
+        height: 35px
+        border-left: 3px solid red
+        position: absolute
+
+
+@media (max-width: 900px)
+  .container
+    flex-direction: column-reverse
+    &__form
+      min-width: 100%
+      &__card
+        min-width: 60%
+    &__content
+      display: none
