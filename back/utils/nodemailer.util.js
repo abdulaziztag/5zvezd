@@ -1,25 +1,25 @@
-const nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer';
 
-const user = process.env.user
-const password = process.env.password
+const user = process.env.user;
+const pass = process.env.password;
 
 const transport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
     user,
-    pass: password
-  }
-})
+    pass,
+  },
+});
 
-module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
+export const sendConfirmationEmail = (name, email, confirmationCode) => {
   transport.sendMail({
     from: user,
     to: email,
-    subject: "Please confirm your account",
+    subject: 'Please confirm your account',
     html: `<h1>Email Confirmation</h1>
         <h2>Hello ${name}</h2>
         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
         <a href=http://localhost:4200/confirm/${confirmationCode}> Click here</a>
         </div>`,
-  })
+  });
 };
