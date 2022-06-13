@@ -74,9 +74,6 @@ export const register = async ({body: {password, name, email}}, res) => {
           user.confirmationCode,
       );
     });
-    res.status(500).send({
-      message: 'Something went wrong!',
-    });
   }
 };
 
