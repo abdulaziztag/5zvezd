@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from "./layouts/auth/auth.component";
 import { MainComponent } from "./layouts/main/main.component";
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    MainComponent
+    MainComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

@@ -2,44 +2,47 @@
   display: flex
   align-items: center
   justify-content: center
-  min-height: 100vh
+  height: 100vh
   flex-direction: row
   flex-wrap: wrap
   &__content
-    flex-grow: 8
     display: flex
-    margin: 10px 0
+    width: 65%
     justify-content: center
     &__card
-      min-width: 90%
+      width: 90%
       min-height: 300px
       align-self: center
   &__form
-    flex-grow: 4
+    width: 35%
     display: flex
-    margin: 10px 0
     justify-content: center
     &__card
-      min-width: 80%
+      width: 85%
       min-height: 300px
-      align-self: center
+      display: flex
+      flex-direction: column
       &__title
-        color: red
-      &::before
-        content: ''
-        left: 0
-        top: 10px
-        height: 35px
-        border-left: 3px solid red
-        position: absolute
+        color: #673ab7
+        padding: 10px 0
+        &::before
+          content: ''
+          left: 0
+          top: 18px
+          height: 40px
+          border-left: 5px solid #673ab7
+          position: absolute
+      &__actions
+        display: flex
+.action-button
+  width: 50%
 
-
-@media (max-width: 900px)
+@media (max-width: 950px)
   .container
     flex-direction: column-reverse
     &__form
-      min-width: 100%
+      width: 100%
       &__card
-        min-width: 60%
+        width: 80%
     &__content
       display: none
