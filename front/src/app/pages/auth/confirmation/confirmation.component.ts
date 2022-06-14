@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
-  styleUrls: ['./confirmation.component.sass']
+  styleUrls: ['./confirmation.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmationComponent implements OnInit {
 
