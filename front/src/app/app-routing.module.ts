@@ -1,29 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MainComponent} from "./layouts/main/main.component";
-import {AuthComponent} from "./layouts/auth/auth.component";
+import {MainLayoutComponent} from "./pages/main/layout/main.component";
+import {AuthLayoutComponent} from "./pages/auth/layout/auth.component";
 import {ErrorPageComponent} from "./shared/components/error-page/error-page.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule)
-      }
-    ]
+    component: MainLayoutComponent,
+    loadChildren: () => import('./pages/main/main.module').then(m => m.MainModule)
   },
   {
     path: 'auth',
-    component: AuthComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
-      }
-    ]
+    component: AuthLayoutComponent,
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '**',

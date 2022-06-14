@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-error-page',
-  templateUrl: './error-page.component.html',
-  styleUrls: ['./error-page.component.sass'],
+  selector: 'app-confirmation',
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ErrorPageComponent implements OnInit {
+export class ConfirmationComponent implements OnInit {
 
   constructor() { }
 
