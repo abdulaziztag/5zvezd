@@ -1,14 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatCardModule} from "@angular/material/card";
-import {MatFormFieldModule} from "@angular/material/form-field";
 import {AuthRoutingModule} from './auth-routing.module';
 import {LoginComponent} from './login/login.component';
-import {MatInputModule} from "@angular/material/input";
 import {ConfirmationComponent} from './confirmation/confirmation.component';
-import {MatButtonModule} from "@angular/material/button";
-import { RegistrationComponent } from './registration/registration.component';
-import {Title} from "@angular/platform-browser";
+import {RegistrationComponent} from './registration/registration.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -20,13 +16,9 @@ import {Title} from "@angular/platform-browser";
   imports: [
     CommonModule,
     AuthRoutingModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
+    SharedModule
   ],
   providers: [
-    Title
   ]
 })
 export class AuthModule {
