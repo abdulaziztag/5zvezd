@@ -1,1 +1,9 @@
-<p>drawer works!</p>
+<div [class]="['drawer', drawerState && 'active']">
+  {{drawerState}}
+</div>
+<div
+  [class]="['overlay', drawerState && 'active']"
+  (click)="drawerService.setDrawer(false)"
+>
+  d
+</div>
