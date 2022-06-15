@@ -16,7 +16,7 @@ import {HeaderComponent} from './components/header/header.component';
   declarations: [
     ErrorPageComponent,
     DrawerComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   exports: [
     CommonModule,
