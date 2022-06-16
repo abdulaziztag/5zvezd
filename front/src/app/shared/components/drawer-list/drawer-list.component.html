@@ -1,0 +1,23 @@
+<div
+  class="list"
+  matRipple
+  matRippleColor="rgba(127, 17, 224, .1)"
+  (click)="toggleS(subList)"
+>
+  <div class="list__title">
+    {{tab?.title}}
+  </div>
+  <div class="list__spacer"></div>
+  <mat-icon [class]="['list__icon', activeSubList && 'active']">arrow_forward_ios</mat-icon>
+</div>
+<div
+  [class]="['list__sublist', activeSubList && 'active']"
+  #subList
+>
+  <div
+    matRipple
+    matRippleColor="rgba(127, 17, 224, .1)"
+    class="list__sublist__title"
+    *ngFor="let subTitle of tab?.list"
+  >{{subTitle.listItemTitle}}</div>
+</div>
