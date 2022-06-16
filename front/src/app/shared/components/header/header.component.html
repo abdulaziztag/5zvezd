@@ -1,5 +1,9 @@
 <mat-toolbar color="primary" class="header">
-  <button mat-icon-button (click)="openDrawer()">
+  <button
+    mat-icon-button
+    (click)="openDrawer()"
+    class="burger-btn"
+  >
     <mat-icon>menu</mat-icon>
   </button>
   <div class="header__title">
@@ -7,7 +11,19 @@
     <mat-icon class="header__title__icon">star</mat-icon>
   </div>
   <span class="spacer"></span>
-  <button mat-icon-button>
+  <div class="header__items" *ngFor="let tab of tabs">
+    <button mat-button [matMenuTriggerFor]="menu">{{tab.title}}</button>
+    <mat-menu #menu="matMenu">
+      <button
+        mat-menu-item
+        [routerLink]="listItem.url"
+        *ngFor="let listItem of tab.list"
+      >
+        {{listItem.listItemTitle}}
+      </button>
+    </mat-menu>
+  </div>
+  <button class="header__items" mat-icon-button>
     <mat-icon>person_circle</mat-icon>
   </button>
 </mat-toolbar>

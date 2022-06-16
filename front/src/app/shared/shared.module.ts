@@ -6,6 +6,7 @@ import {ErrorPageComponent} from "./components/error-page/error-page.component";
 import {MainRoutingModule} from "../pages/main/main-routing.module";
 import {DrawerComponent} from './components/drawer/drawer.component';
 import {HeaderComponent} from './components/header/header.component';
+import { DrawerListComponent } from './components/drawer-list/drawer-list.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {HeaderComponent} from './components/header/header.component';
     ErrorPageComponent,
     DrawerComponent,
     HeaderComponent,
+    DrawerListComponent,
   ],
   exports: [
     CommonModule,
