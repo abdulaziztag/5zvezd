@@ -1,5 +1,6 @@
 \:host
   .drawer
+    padding-top: 10px
     position: fixed
     top: 0
     background: #fff
@@ -28,6 +29,40 @@
     &.active
       opacity: 1
       z-index: 1
+
+  .divider
+    width: 95%
+    margin: 0 auto
+
+  .account
+    display: flex
+    min-height: 100px
+    flex-direction: row
+    padding: 0 20px 20px 20px
+
+    &__avatar
+      border-radius: 100%
+      overflow: hidden
+      display: flex
+      justify-content: center
+      align-content: center
+
+      &__image
+        height: 100px
+        width: 100px
+        background-position: center
+        background-size: cover
+        background-repeat: no-repeat
+
+    &__info
+      margin-left: 10px
+      display: flex
+      flex-direction: column
+      width: 70%
+      justify-content: space-between
+
+      &__name
+        font-size: 16px
 
 @media (max-width: 950px) and (min-width: 650px)
   \:host

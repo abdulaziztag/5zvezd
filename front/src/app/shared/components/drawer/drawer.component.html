@@ -1,9 +1,38 @@
 <div [class]="['drawer', drawerState && 'active']">
-  {{drawerState}}
+  <div class="account">
+    <div
+      class="account__avatar"
+    >
+      <div
+        [style.background-image]="'url(' + 'https://thumbs.dreamstime.com/b/happy-smiling-geek-hipster-beard-man-cool-avatar-geek-man-avatar-104871313.jpg' + ')'"
+        class="account__avatar__image"
+      ></div>
+    </div>
+    <div class="account__info">
+      <div class=" mat-body-2">
+        Abdulaziz Manopov
+      </div>
+      <div class="mat-subheading-1">
+        amanopov@exadel.com
+      </div>
+      <div class="account__info__actions">
+        <button mat-icon-button>
+          <mat-icon>settings</mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let tab of tabs">
+    <mat-divider class="divider"></mat-divider>
+    <app-drawer-list
+      [tab]="tab"
+    ></app-drawer-list>
+  </div>
 </div>
 <div
   [class]="['overlay', drawerState && 'active']"
   (click)="drawerService.setDrawer(false)"
->
-  d
-</div>
+></div>

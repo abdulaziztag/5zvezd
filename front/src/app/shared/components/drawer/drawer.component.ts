@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DrawerService} from "../../services/drawer.service";
 import {Subscription} from "rxjs";
+import {TabInterface} from "../../models/tab.interface";
 
 @Component({
   selector: 'app-drawer',
@@ -8,6 +9,8 @@ import {Subscription} from "rxjs";
   styleUrls: ['./drawer.component.sass']
 })
 export class DrawerComponent implements OnInit, OnDestroy {
+  @Input() tabs: TabInterface[] = []
+
   private subscription?: Subscription
   public drawerState: boolean = false
   constructor(public drawerService: DrawerService) { }

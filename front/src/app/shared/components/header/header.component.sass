@@ -14,8 +14,14 @@
         margin-left: 3px
         font-size: 13px
         color: yellow
+    &__items
+      margin: 0 3px
 
 @media (min-width: 950px)
   \:host
     .burger-btn
+      display: none
+@media (max-width: 950px)
+  \:host
+    .header__items
       display: none

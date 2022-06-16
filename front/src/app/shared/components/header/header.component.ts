@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DrawerService} from "../../services/drawer.service";
+import {TabInterface} from "../../models/tab.interface";
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,7 @@ import {DrawerService} from "../../services/drawer.service";
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
+  @Input() tabs: TabInterface[] = []
   constructor(private drawerService: DrawerService) { }
 
   ngOnInit(): void {
