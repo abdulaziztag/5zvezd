@@ -33,6 +33,16 @@ const userSchema = new mongoose.Schema({
     enum: ['Admin', 'User'],
     default: 'User',
   },
+  settings: {
+    hideAvatar: {
+      type: Boolean,
+      default: false,
+    },
+    hideName: {
+      type: Boolean,
+      default: false,
+    },
+  },
 });
 
 export const User = mongoose.model('User', userSchema);
