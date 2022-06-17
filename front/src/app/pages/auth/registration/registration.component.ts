@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-registration',
@@ -8,11 +7,9 @@ import {Title} from "@angular/platform-browser";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit {
-  title: string = 'Sign Up'
-  constructor(private titleService: Title) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.titleService.setTitle(this.title)
   }
 
 }
