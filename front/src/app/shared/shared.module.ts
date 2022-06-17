@@ -7,12 +7,14 @@ import {MainRoutingModule} from "../pages/main/main-routing.module";
 import {DrawerComponent} from './components/drawer/drawer.component';
 import {HeaderComponent} from './components/header/header.component';
 import { DrawerListComponent } from './components/drawer-list/drawer-list.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     MainRoutingModule,
+    HttpClientModule
   ],
   declarations: [
     ErrorPageComponent,
