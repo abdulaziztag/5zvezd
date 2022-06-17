@@ -8,18 +8,22 @@ import {RegistrationComponent} from "./registration/registration.component";
 const routes: Routes = [
   {
     path: 'login',
+    title: 'Sign In',
     component: LoginComponent
   },
   {
-    path: 'confirmation',
+    path: 'confirmation/:code',
+    title: 'Confirmation',
     component: ConfirmationComponent
   },
   {
     path: 'registration',
+    title: 'Sign Up',
     component: RegistrationComponent
   },
   {
     path: '**',
+    title: 'Not found',
     component: ErrorPageComponent
   }
 ];
