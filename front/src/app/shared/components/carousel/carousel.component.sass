@@ -19,7 +19,7 @@
       left: 30px
       border: none
       color: white
-      font-size: calc(4vw + 10px)
+      font-size: calc(4vw + 15px)
       font-family: 'Pacifico', cursive
       height: 100%
       opacity: 90%
@@ -39,18 +39,32 @@
 
     &__information
       position: absolute
+      align-items: end
       bottom: 30px
       display: flex
+      color: white
+      font-family: 'Comic Sans MS', sans-serif
       width: 90%
       justify-content: space-between
       left: 5%
       right: 5%
+
+      &__mini-info>a
+        color: white
+        text-decoration: none
+        font-size: 1.25rem
+
+        &:hover
+          text-decoration: underline
 
       &__rating
         font-size: 2rem
         margin-bottom: 15px
         display: flex
         align-items: center
+
+        &>mat-icon
+          color: yellow
 
   .control
     border: none

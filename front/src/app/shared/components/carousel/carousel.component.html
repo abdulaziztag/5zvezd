@@ -2,10 +2,10 @@
   <ng-container *ngFor="let slide of slides; let i = index">
     <img
       *ngIf="i === currentSlide"
-      [src]="slide.src"
+      [src]="slide.imgSrc"
       class="slide"
       @carouselAnimation
-      [alt]="slide.src"
+      [alt]="slide.url"
     />
   </ng-container>
 
@@ -15,14 +15,24 @@
   <div class="slide__information">
     <div>
       <div class="slide__information__rating">
-        Pepsi - 4.6 <mat-icon style="color: yellow">star</mat-icon>
+        {{ slides[currentSlide].title }} -
+        {{ slides[currentSlide].rating }}
+        <mat-icon>star</mat-icon>
       </div>
       <div class="slide__information__mini-info">
-        Pepsi-Co, Drinks
+        <a [routerLink]="'/brand/' + slides[currentSlide].brand.toLowerCase()">
+          {{ slides[currentSlide].brand }}</a>,
+        <a [routerLink]="'/category/' + slides[currentSlide].category.toLowerCase()">
+          {{ slides[currentSlide].category }}
+        </a>
       </div>
     </div>
     <div>
-      <button mat-raised-button color="primary">More</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="'/product/' + slides[currentSlide].url"
+      >More</button>
     </div>
   </div>
   <button class="control prev" (click)="onPreviousClick()">

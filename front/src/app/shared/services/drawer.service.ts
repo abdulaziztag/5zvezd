@@ -12,6 +12,7 @@ export class DrawerService {
 
     this.drawer$.next(drawer)
   }
+
   public getDrawer() {
     return this.drawer$
   }
