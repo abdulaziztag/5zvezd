@@ -1,4 +1,4 @@
-<div [class]="['drawer', drawerState && 'active']">
+<div [class]="['drawer', (drawerService.getDrawer() | async) && 'active']">
   <div class="account">
     <div
       class="account__avatar"
@@ -33,6 +33,6 @@
   </div>
 </div>
 <div
-  [class]="['overlay', drawerState && 'active']"
+  [class]="['overlay', (drawerService.getDrawer() | async) && 'active']"
   (click)="drawerService.setDrawer(false)"
 ></div>
