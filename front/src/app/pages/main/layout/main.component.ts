@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabInterface } from '../../../shared/models/tab.interface'
+import { TabInterface } from '../../../shared/interfaces/tab.interface'
 
 @Component({
   selector: 'app-main',
@@ -13,11 +13,11 @@ export class MainLayoutComponent implements OnInit {
       list: [
         {
           listItemTitle: 'Pepsi-Co',
-          url: '/brands/pepsi-co'
+          url: '/brand/pepsi-co'
         },
         {
           listItemTitle: 'Lactel',
-          url: '/brands/lactel'
+          url: '/brand/lactel'
         }
       ]
     },
@@ -26,11 +26,11 @@ export class MainLayoutComponent implements OnInit {
       list: [
         {
           listItemTitle: 'Medicine',
-          url: '/categories/medicine'
+          url: '/category/medicine'
         },
         {
           listItemTitle: 'Drinks',
-          url: '/categories/drinks'
+          url: '/category/drinks'
         }
       ]
     }

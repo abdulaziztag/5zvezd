@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TabInterface} from "../../models/tab.interface";
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {TabInterface} from "../../interfaces/tab.interface";
 
 @Component({
   selector: 'app-drawer-list',
   templateUrl: './drawer-list.component.html',
-  styleUrls: ['./drawer-list.component.sass']
+  styleUrls: ['./drawer-list.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawerListComponent implements OnInit {
   @Input() tab?: TabInterface

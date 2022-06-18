@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {DrawerService} from "../../services/drawer.service";
-import {TabInterface} from "../../models/tab.interface";
+import {TabInterface} from "../../interfaces/tab.interface";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass']
+  styleUrls: ['./header.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
   @Input() tabs: TabInterface[] = []
@@ -14,6 +15,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
   public openDrawer(): void {
-    this.drawerService.setDrawer(true)
+    this.drawerService.setDrawer(true);
   }
 }
