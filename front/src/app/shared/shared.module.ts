@@ -6,21 +6,23 @@ import {ErrorPageComponent} from "./components/error-page/error-page.component";
 import {MainRoutingModule} from "../pages/main/main-routing.module";
 import {DrawerComponent} from './components/drawer/drawer.component';
 import {HeaderComponent} from './components/header/header.component';
-import { DrawerListComponent } from './components/drawer-list/drawer-list.component';
+import {DrawerListComponent} from './components/drawer-list/drawer-list.component';
 import {HttpClientModule} from "@angular/common/http";
+import {CarouselComponent} from './components/carousel/carousel.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     MainRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [
     ErrorPageComponent,
     DrawerComponent,
     HeaderComponent,
     DrawerListComponent,
+    CarouselComponent
   ],
   exports: [
     CommonModule,
@@ -28,7 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
     MaterialModule,
     ErrorPageComponent,
     DrawerComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarouselComponent
   ]
 })
 export class SharedModule {

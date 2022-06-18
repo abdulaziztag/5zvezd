@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TabInterface } from '../../../shared/models/tab.interface'
-import {AlertService} from "../../../shared/services/alert.service";
 
 @Component({
   selector: 'app-main',
@@ -36,10 +35,9 @@ export class MainLayoutComponent implements OnInit {
       ]
     }
   ]
-  constructor(private alertService: AlertService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.alertService.openSnackBar('Success')
   }
 
 }

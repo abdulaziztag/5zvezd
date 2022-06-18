@@ -1,0 +1,34 @@
+<div class="carousel">
+  <ng-container *ngFor="let slide of slides; let i = index">
+    <img
+      *ngIf="i === currentSlide"
+      [src]="slide.src"
+      class="slide"
+      @carouselAnimation
+      [alt]="slide.src"
+    />
+  </ng-container>
+
+  <div class="carousel__title">
+    Popular products
+  </div>
+  <div class="slide__information">
+    <div>
+      <div class="slide__information__rating">
+        Pepsi - 4.6 <mat-icon style="color: yellow">star</mat-icon>
+      </div>
+      <div class="slide__information__mini-info">
+        Pepsi-Co, Drinks
+      </div>
+    </div>
+    <div>
+      <button mat-raised-button color="primary">More</button>
+    </div>
+  </div>
+  <button class="control prev" (click)="onPreviousClick()">
+    <span class="arrow left"></span>
+  </button>
+  <button class="control next" (click)="onNextClick()">
+    <span class="arrow right"></span>
+  </button>
+</div>
