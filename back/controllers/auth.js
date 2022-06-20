@@ -49,7 +49,8 @@ export const register = async ({body: {password, firstName, email, lastName}}, r
   if (candidate) {
     if (candidate.status === 'Pending') {
       sendConfirmationEmail(
-          candidate.name,
+          candidate.firstName,
+          candidate.lastName,
           candidate.email,
           candidate.confirmationCode,
           res,
@@ -74,7 +75,8 @@ export const register = async ({body: {password, firstName, email, lastName}}, r
         return;
       }
       sendConfirmationEmail(
-          user.name,
+          user.firstName,
+          user.lastName,
           user.email,
           user.confirmationCode,
           res,
