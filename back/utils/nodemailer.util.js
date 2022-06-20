@@ -13,7 +13,7 @@ const transport = nodemailer.createTransport({
   },
 });
 
-export const sendConfirmationEmail = (name, email, confirmationCode) => {
+export const sendConfirmationEmail = (name, email, confirmationCode, res) => {
   transport.sendMail({
     from: user,
     to: email,
@@ -23,5 +23,14 @@ export const sendConfirmationEmail = (name, email, confirmationCode) => {
         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
         <a href=http://localhost:4200/confirm/${confirmationCode}> Click here</a>
         </div>`,
+  }, (err) => {
+    if (err) {
+      res.send({message: 'Error while sending confirmation message, please try again later!'});
+      return;
+    }
+    res.send({
+      message:
+        'User was registered successfully! Please check your email',
+    });
   });
 };

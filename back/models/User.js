@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
+    required: [true, 'Field firstName can not be empty'],
   },
   lastName: {
     type: String,
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    get(password) {
+    set(password) {
       const salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(password, salt);
     },
