@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {ConfirmationComponent} from './confirmation/confirmation.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {SharedModule} from "../../shared/shared.module";
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   providers: [
   ]
