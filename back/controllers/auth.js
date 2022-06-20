@@ -1,7 +1,7 @@
-import { User } from '../models/index.js';
+import {User} from '../models/index.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { sendConfirmationEmail } from '../utils/nodemailer.util.js';
+import {sendConfirmationEmail} from '../utils/nodemailer.util.js';
 
 export const login = async (req, res) => {
   const candidate = await User.findOne({email: req.body.email});
@@ -37,7 +37,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const register = async ({body: {password, name, email}}, res) => {
+export const register = async ({body: {password, firstName, email, lastName}}, res) => {
   const candidate = await User.findOne({email});
   const token = jwt.sign(
       {
@@ -47,31 +47,37 @@ export const register = async ({body: {password, name, email}}, res) => {
   );
 
   if (candidate) {
+    if (candidate.status === 'Pending') {
+      sendConfirmationEmail(
+          candidate.name,
+          candidate.email,
+          candidate.confirmationCode,
+          res,
+      );
+      return;
+    }
     res.status(409).send({
       message: 'This email already exist!',
     });
   } else {
     const user = new User({
-      name: name,
-      email: email,
+      firstName,
+      email,
+      lastName,
       password,
       confirmationCode: token,
     });
 
     await user.save((err) => {
       if (err) {
-        res.status(500).send({message: err});
+        res.status(500).send({message: err.message});
         return;
       }
-      res.send({
-        message:
-          'User was registered successfully! Please check your email',
-      });
-
       sendConfirmationEmail(
           user.name,
           user.email,
           user.confirmationCode,
+          res,
       );
     });
   }
