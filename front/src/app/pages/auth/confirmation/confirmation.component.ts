@@ -28,8 +28,12 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
     })
     this.authService.confirmEmail(this.code).pipe(takeUntil(this.notifier)).subscribe(() => {
       this.loaderService.setLoader(false)
-    }, () => {
-      this.alertService.openSnackBar('Something went wrong, please refresh the page', 'error', 1000*60*10)
+    }, (error) => {
+      this.alertService.openSnackBar(
+        error.error.message || 'Something went wrong, please refresh the page',
+        'error',
+        1000*60*10
+      )
     })
   }
 

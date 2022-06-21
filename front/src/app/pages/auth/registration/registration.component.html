@@ -10,33 +10,55 @@
         Sign-Up
       </mat-card-title>
       <mat-card-content>
-        <div style="display:flex; justify-content: space-between">
-          <mat-form-field appearance="outline" class="text-field-name">
-            <mat-label>First Name</mat-label>
-            <input matInput>
+        <form [formGroup]="form">
+          <div class="name-container">
+            <mat-form-field appearance="outline" class="text-field-name">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName">
+              <mat-error *ngIf="regForm['firstName']?.errors?.['required']" >
+                Name is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="text-field-name">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName">
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="outline" class="text-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="regForm['email']?.errors?.['required']">
+              Email can not be empty
+            </mat-error>
+            <mat-error *ngIf="regForm['email']?.errors?.['email']">
+              Enter valid email
+            </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" class="text-field-name">
-            <mat-label>Last Name</mat-label>
-            <input matInput>
+          <mat-form-field appearance="outline" class="text-field">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password">
+            <mat-error *ngIf="regForm['password']?.errors?.['required']">
+              Password can not be empty
+            </mat-error>
+            <mat-error *ngIf="regForm['password']?.errors?.['minlength']">
+              Password must be greater than 6
+            </mat-error>
           </mat-form-field>
-        </div>
-        <mat-form-field appearance="outline" class="text-field">
-          <mat-label>Email</mat-label>
-          <input matInput>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="text-field">
-          <mat-label>Password</mat-label>
-          <input matInput>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="text-field">
-          <mat-label>Confirm password</mat-label>
-          <input matInput>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="text-field">
+            <mat-label>Confirm password</mat-label>
+            <input matInput formControlName="confirmPassword">
+            <mat-error *ngIf="regForm['confirmPassword']?.errors?.['confirmedValidator']">
+              Passwords must be match
+            </mat-error>
+          </mat-form-field>
+        </form>
       </mat-card-content>
       <mat-card-actions class="container__form__card__actions">
         <button
           mat-raised-button
           color="primary"
+          [disabled]="isDisabled()"
+          (click)="registration()"
           class="action-button"
         >Register</button>
         <button
