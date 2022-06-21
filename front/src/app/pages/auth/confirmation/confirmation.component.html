@@ -1,5 +1,11 @@
 <div class="container">
-  <mat-card class="container__card">
+  <mat-spinner
+    *ngIf="(loaderService.getLoader() | async) === true"
+  ></mat-spinner>
+  <mat-card
+    *ngIf="(loaderService.getLoader() | async) === false"
+    class="container__card"
+  >
     <img
       src="https://icons-for-free.com/download-icon-check+checkbox+checkmark+confirm+success+yes+icon-1320196711226060446_512.png"
       alt="confirm"
@@ -11,7 +17,6 @@
     <mat-card-content>
       Congratulations, your account successfully confirmed! Please login by clicking button below
     </mat-card-content>
-    {{code}}
     <mat-card-actions class="container__card__actions">
       <button mat-raised-button>Login</button>
     </mat-card-actions>

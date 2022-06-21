@@ -8,11 +8,11 @@ export class AlertService {
 
   constructor(private _snackBar: MatSnackBar) { }
 
-  openSnackBar(message: string, color?: string) {
+  openSnackBar(message: string, color?: string, duration = 3000) {
     this._snackBar.open(message, 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      duration: 3000,
+      duration,
       panelClass: ['panel-class', color ? color : 'success']
     })
   }
