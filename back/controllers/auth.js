@@ -22,7 +22,8 @@ export const login = async (req, res) => {
 
       res.status(200).send({
         token: `Bearer ${token}`,
-        name: candidate.name,
+        firstName: candidate.firstName,
+        lastName: candidate.lastName,
         email: candidate.email,
       });
     } else {
