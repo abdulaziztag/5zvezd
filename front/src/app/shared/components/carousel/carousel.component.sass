@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap')
 
 \:host
+  user-select: none
+  -moz-user-select: none
+  -webkit-user-select: none
+  -ms-user-select: none
   width: 100%
   height: 80vh
   display: flex
@@ -90,6 +94,7 @@
     &:hover
       opacity: 1
       background: rgba(0, 0, 0, .2)
+
     &:focus
       outline: 0
       box-shadow: none
