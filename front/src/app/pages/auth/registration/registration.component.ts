@@ -62,7 +62,7 @@ export class RegistrationComponent implements OnInit {
       this.loaderService.setLoader(false)
       this.router.navigate(['/'])
     }, err => {
-      this.alertService.openSnackBar(err.error.message)
+      this.alertService.openSnackBar(err.error.message, 'error')
       this.loaderService.setLoader(false)
     })
   }

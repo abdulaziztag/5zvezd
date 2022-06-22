@@ -8,12 +8,12 @@ export class DrawerService {
   private drawer$ = new Subject<boolean>()
   constructor() { }
 
-  public setDrawer(drawer: boolean) {
+  public setDrawer(drawer: boolean): void {
 
     this.drawer$.next(drawer)
   }
 
-  public getDrawer() {
+  public getDrawer(): Subject<boolean> {
     return this.drawer$
   }
 }

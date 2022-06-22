@@ -4,6 +4,7 @@ import {AlertService} from "../../../shared/services/alert.service";
 import {FormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {LoaderService} from "../../../shared/services/loader.service";
+import {TokenStorageService} from "../../../shared/services/token-storage.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
-    public loaderService: LoaderService
+    public loaderService: LoaderService,
+    private tokenStorage: TokenStorageService
   ){}
 
 
@@ -26,7 +28,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loaderService.setLoader(true)
     this.subscription = this.authService.login(this.email.value, this.password.value).subscribe(data => {
       this.loaderService.setLoader(false);
-      console.log(data);
+      this.tokenStorage.saveToken(data.token);
+      this.tokenStorage.saveUser({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email
+      })
     }, error => {
       this.alertService.openSnackBar(
         error.error.message || 'Something went wrong, try again later',
