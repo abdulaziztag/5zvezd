@@ -95,7 +95,7 @@ export const confirmEmail = async ({body: {confirmationCode}}, res) => {
     }
     user.status = 'Active';
     user.save();
-    res.status(200);
+    res.status(200).send();
   } catch (e) {
     res.status(500).send({message: 'Something went wrong!'});
   }
