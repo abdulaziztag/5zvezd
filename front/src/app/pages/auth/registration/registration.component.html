@@ -57,10 +57,19 @@
         <button
           mat-raised-button
           color="primary"
-          [disabled]="isDisabled()"
+          [disabled]="isDisabled() || (loaderService.getLoader() | async)"
           (click)="registration()"
           class="action-button"
-        >Register</button>
+        >
+          <span *ngIf="(loaderService.getLoader() | async) === false">Registration</span>
+          <mat-spinner
+            *ngIf="loaderService.getLoader() | async"
+            style="margin: 0 auto"
+            strokeWidth="2"
+            diameter="25"
+            color="secondary"
+          ></mat-spinner>
+        </button>
         <button
           mat-stroked-button
           color="primary"

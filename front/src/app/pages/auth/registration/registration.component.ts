@@ -1,6 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmPasswordValidator} from '../../../shared/helpers/confirmPassword.validator'
+import {LoaderService} from "../../../shared/services/loader.service";
+import {AlertService} from "../../../shared/services/alert.service";
+import {AuthService} from "../../../shared/services/auth.service";
+import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -10,8 +15,15 @@ import {ConfirmPasswordValidator} from '../../../shared/helpers/confirmPassword.
 })
 export class RegistrationComponent implements OnInit {
   public form: FormGroup = new FormGroup({})
+  private subscription?: Subscription
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    public loaderService: LoaderService,
+    private alertService: AlertService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.form = fb.group({
       firstName: ['', [Validators.required]],
       lastName: '',
@@ -39,10 +51,24 @@ export class RegistrationComponent implements OnInit {
   }
 
   public registration(): void {
-    console.log(this.regForm)
+    this.loaderService.setLoader(true)
+    this.subscription = this.authService.register(
+      this.regForm['firstName'].value,
+      this.regForm['email'].value,
+      this.regForm['password'].value,
+      this.regForm['lastName'].value
+    ).subscribe(data => {
+      this.alertService.openSnackBar(data.message)
+      this.loaderService.setLoader(false)
+      this.router.navigate(['/'])
+    }, err => {
+      this.alertService.openSnackBar(err.error.message)
+      this.loaderService.setLoader(false)
+    })
   }
 
   ngOnInit(): void {
+    this.loaderService.setLoader(false)
   }
 
 }

@@ -6,6 +6,7 @@ import {ProductComponent} from "./product/product.component";
 const routes: Routes = [
   {
     path: '',
+    title: 'Home',
     component: HomeComponent
   },
   {

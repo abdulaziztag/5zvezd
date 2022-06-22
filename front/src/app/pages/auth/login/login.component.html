@@ -34,8 +34,18 @@
           mat-raised-button
           color="primary"
           class="action-button"
+          [disabled]="isDisabled() || (loaderService.getLoader() | async)"
           (click)="login()"
-        >Login</button>
+        >
+          <span *ngIf="(loaderService.getLoader() | async) === false">Login</span>
+          <mat-spinner
+            *ngIf="loaderService.getLoader() | async"
+            style="margin: 0 auto"
+            strokeWidth="2"
+            diameter="25"
+            color="secondary"
+          ></mat-spinner>
+        </button>
         <button
           mat-stroked-button
           color="primary"
