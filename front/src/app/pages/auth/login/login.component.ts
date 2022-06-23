@@ -5,6 +5,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {LoaderService} from "../../../shared/services/loader.service";
 import {TokenStorageService} from "../../../shared/services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertService: AlertService,
     public loaderService: LoaderService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private router: Router
   ){}
 
 
@@ -34,8 +36,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         lastName: data.lastName,
         email: data.email
       })
+      this.router.navigate(['/'])
     }, error => {
-      this.alertService.openSnackBar(
+        this.alertService.openSnackBar(
         error.error.message || 'Something went wrong, try again later',
         'error'
       );
