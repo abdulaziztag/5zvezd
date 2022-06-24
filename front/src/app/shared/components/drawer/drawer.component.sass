@@ -1,3 +1,18 @@
+@mixin resizeAccount
+  \:host
+    .account
+      flex-direction: column
+      aspect-ratio: 1/1
+      margin: 0 auto
+
+      &__avatar
+        width: 100px
+        align-self: center
+      &__info
+        text-align: center
+        width: 100%
+        margin: 0
+
 \:host
   .drawer
     padding-top: 10px
@@ -37,22 +52,28 @@
   .account
     display: flex
     min-height: 100px
+    max-height: 200px
     flex-direction: row
-    padding: 0 20px 20px 20px
+    padding: 0 20px 10px 20px
 
     &__avatar
       border-radius: 100%
       overflow: hidden
       display: flex
+      height: 100px
       justify-content: center
       align-content: center
-
+      cursor: pointer
       &__image
         height: 100px
         width: 100px
         background-position: center
         background-size: cover
         background-repeat: no-repeat
+        position: relative
+
+        &:hover > div
+          bottom: 0
 
     &__info
       margin-left: 10px
@@ -64,7 +85,44 @@
       &__name
         font-size: 16px
 
+  .search
+    width: 100%
+    display: flex
+    justify-content: center
+    margin: 0
+    padding: 0
+
+    &__form
+      width: 90%
+      margin: 0
+      padding: 0
+
+  .add-photo
+    width: 94.79px
+    height: 30px
+    position: absolute
+    bottom: -30px
+    background-color: rgba(0, 0, 0, .6)
+    transition: .3s bottom
+    align-items: center
+    display: flex
+    justify-content: center
+    color: white
+
+    & > mat-icon
+      transform: scale(.8)
+
+  ::ng-deep.mat-form-field-wrapper
+    padding: 0 0 10px 0
+    margin: 0
+
 @media (max-width: 950px) and (min-width: 650px)
   \:host
     .drawer
       width: 40%
+
+@media (min-width: 650px) and (max-width: 850px)
+  @include resizeAccount
+
+@media (max-width: 450px)
+  @include resizeAccount
