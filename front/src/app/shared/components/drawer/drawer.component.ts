@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DrawerService} from "../../services/drawer.service";
+import {ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, Optional} from '@angular/core';
+import {DrawerService, DrawerService1, DrawerServiceBase, DrawerServiceInterface} from "../../services/drawer.service";
 import {TabInterface} from "../../interfaces/tab.interface";
+import {CONFIG_PROVIDER, ConfigInterface, DRAWER_INTERFACE} from "../../../app.module";
 
 @Component({
   selector: 'app-drawer',
@@ -9,11 +10,12 @@ import {TabInterface} from "../../interfaces/tab.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawerComponent implements OnInit, OnDestroy {
-  @Input() tabs: TabInterface[] = []
+  @Input() tabs: TabInterface[] = [];
 
-  constructor(public drawerService: DrawerService) { }
+  constructor(@Optional() public drawerService: DrawerServiceBase, @Inject(CONFIG_PROVIDER) public config: ConfigInterface) { }
 
   ngOnInit(): void {
+
   }
 
   public close(): void {
