@@ -11,6 +11,21 @@
     <mat-icon class="header__title__icon">star</mat-icon>
   </div>
   <span class="spacer"></span>
+  <input
+    type="text"
+    matInput
+    class="header__search"
+    placeholder="Search"
+    autocomplete="off"
+  >
+  <button
+    mat-raised-button
+    mat-icon-button
+    style="margin-left: 7px"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+  <span class="spacer"></span>
   <div class="header__items" *ngFor="let tab of tabs">
     <button mat-button [matMenuTriggerFor]="menu">{{tab.title}}</button>
     <mat-menu #menu="matMenu">
