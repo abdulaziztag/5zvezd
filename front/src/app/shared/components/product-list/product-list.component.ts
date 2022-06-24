@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-product-list',
@@ -6,6 +6,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./product-list.component.sass']
 })
 export class ProductListComponent implements OnInit {
+  @Input() public title: string = ''
   @ViewChild('productList', {static: true}) private productList?: ElementRef
 
   public transformCounter: number = 0
@@ -19,10 +20,10 @@ export class ProductListComponent implements OnInit {
   }
 
   public rightClick(): void {
-    this.transformCounter < 9 && this.transformCounter++
-    console.log(
-      this.productList?.nativeElement.getBoundingClientRect(),
-      window.pageXOffset
-    )
+    let elementSize = this.productList?.nativeElement.getBoundingClientRect();
+    let difference = elementSize.width > 980 ? 250 : 0;
+    let isEndOfCarousel = -3000 - (elementSize.left - 20) > -elementSize.width - difference;
+    if (isEndOfCarousel) return
+    this.transformCounter < 12 && this.transformCounter++;
   }
 }
