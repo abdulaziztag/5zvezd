@@ -4,7 +4,7 @@ import {TabInterface} from "../../interfaces/tab.interface";
 @Component({
   selector: 'app-drawer-list',
   templateUrl: './drawer-list.component.html',
-  styleUrls: ['./drawer-list.component.sass'],
+  styleUrls: ['./drawer-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawerListComponent implements OnInit {

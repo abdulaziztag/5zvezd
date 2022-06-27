@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+.error {
+  background: #ff5252;
+}
+.success {
+  background: #4caf50;
+}
+.warning {
+  background: #fb8c00;
+}
+
+.panel-class {
+  color: white;
+}
+
+.mat-simple-snackbar-action {
+  color: black;
+}

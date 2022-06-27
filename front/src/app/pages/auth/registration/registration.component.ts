@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.sass'],
+  styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit {
@@ -62,7 +62,10 @@ export class RegistrationComponent implements OnInit {
       this.loaderService.setLoader(false)
       this.router.navigate(['/'])
     }, err => {
-      this.alertService.openSnackBar(err.error.message, 'error')
+      this.alertService.openSnackBar(
+        err.error.message || 'Something went wrong, try again later',
+        'error'
+      )
       this.loaderService.setLoader(false)
     })
   }
