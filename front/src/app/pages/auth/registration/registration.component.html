@@ -36,17 +36,36 @@
           </mat-form-field>
           <mat-form-field appearance="outline" class="text-field">
             <mat-label>Password</mat-label>
-            <input matInput formControlName="password">
+            <input
+              matInput
+              formControlName="password"
+              type="password"
+              #passwordType
+            >
             <mat-error *ngIf="regForm['password']?.errors?.['required']">
               Password can not be empty
             </mat-error>
             <mat-error *ngIf="regForm['password']?.errors?.['minlength']">
               Password must be greater than 6
             </mat-error>
+            <button
+              (click)="passwordType.type === 'text' ?
+                       passwordType.type = 'password' :
+                       passwordType.type = ''"
+              matSuffix
+              mat-icon-button
+            >
+              <mat-icon>{{passwordType.type === 'text' ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
           <mat-form-field appearance="outline" class="text-field">
             <mat-label>Confirm password</mat-label>
-            <input matInput formControlName="confirmPassword">
+            <input
+              matInput
+              formControlName="confirmPassword"
+              type="password"
+              #passwordType
+            >
             <mat-error *ngIf="regForm['confirmPassword']?.errors?.['confirmedValidator']">
               Passwords must be match
             </mat-error>
