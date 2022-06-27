@@ -33,6 +33,7 @@
         min-height: 300px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
 
         &__title {
           color: #673ab7;
@@ -47,10 +48,11 @@
             position: absolute;
           }
         }
-      }
 
-      &__actions {
-        display: flex;
+        &__actions {
+          display: flex;
+          justify-content: flex-end;
+        }
       }
     }
   }

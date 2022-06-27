@@ -15,11 +15,11 @@
         margin: 30px;
         width: 150px;
         align-self: center;
+      }
 
-        &__actions {
-          justify-content: flex-end;
-          display: flex;
-        }
+      &__actions {
+        justify-content: flex-end;
+        display: flex;
       }
     }
   }

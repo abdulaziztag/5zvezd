@@ -20,15 +20,16 @@
         margin: 0;
         color: rgba(0, 0, 0, .7);
         font-family: Calibri, sans-serif;
+      }
 
-        &__actions {
-          margin: 3px 0;
+      &__actions {
+        margin: 3px 0;
 
-          & button {
-            margin: 1px 4px;
-          }
+        & button {
+          margin: 1px 4px;
         }
       }
+
     }
 
     &__list {
