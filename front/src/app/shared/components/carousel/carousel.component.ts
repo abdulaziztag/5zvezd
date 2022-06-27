@@ -5,7 +5,7 @@ import { carouselItem } from '../../interfaces/carousel.interface'
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.sass'],
+  styleUrls: ['./carousel.component.scss'],
   animations: [
     trigger('carouselAnimation', [
       transition('void => *', [

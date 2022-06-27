@@ -8,7 +8,7 @@ import {LoaderService} from "../../../shared/services/loader.service";
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
-  styleUrls: ['./confirmation.component.sass'],
+  styleUrls: ['./confirmation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmationComponent implements OnInit, OnDestroy {

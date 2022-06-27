@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.sass'],
+  styleUrls: ['./registration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit {
