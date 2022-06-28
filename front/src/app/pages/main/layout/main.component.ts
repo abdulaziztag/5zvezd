@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TabInterface } from '../../../shared/interfaces/tab.interface'
+import {tabs} from "../../../shared/helpers/tabs.data";
 
 @Component({
   selector: 'app-main',
@@ -7,34 +8,7 @@ import { TabInterface } from '../../../shared/interfaces/tab.interface'
   styleUrls: ['./main.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  public tabs: TabInterface[] = [
-    {
-      title: 'Brands',
-      list: [
-        {
-          listItemTitle: 'Pepsi-Co',
-          url: '/brand/pepsi-co'
-        },
-        {
-          listItemTitle: 'Lactel',
-          url: '/brand/lactel'
-        }
-      ]
-    },
-    {
-      title: 'Categories',
-      list: [
-        {
-          listItemTitle: 'Medicine',
-          url: '/category/medicine'
-        },
-        {
-          listItemTitle: 'Drinks',
-          url: '/category/drinks'
-        }
-      ]
-    }
-  ]
+  public tabs: TabInterface[] = tabs()
   constructor() { }
 
   ngOnInit(): void {

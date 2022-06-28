@@ -6,7 +6,10 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <div class="header__title">
+  <div
+    class="header__title"
+    routerLink="/"
+  >
     5Zvezd
     <mat-icon class="header__title__icon">star</mat-icon>
   </div>
@@ -37,7 +40,30 @@
       </button>
     </mat-menu>
   </div>
-  <button class="header__items" mat-icon-button>
+  <button
+    class="header__items"
+    mat-icon-button
+    *ngIf="!!tokenService.getToken()"
+  >
     <mat-icon>person_circle</mat-icon>
   </button>
+  <div class="header__divider header__items"></div>
+  <div>
+    <button
+      class="header__items"
+      mat-stroked-button
+      routerLink="/auth/registration"
+      *ngIf="!tokenService.getToken()"
+    >
+      Sign Up
+    </button>
+    <button
+      class="header__items"
+      mat-button
+      routerLink="/auth/login"
+      *ngIf="!tokenService.getToken()"
+    >
+      Sign In
+    </button>
+  </div>
 </mat-toolbar>

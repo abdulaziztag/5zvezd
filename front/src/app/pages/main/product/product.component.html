@@ -1,1 +1,39 @@
-<p>product works!</p>
+<div class="container">
+  <div class="container__product">
+    <div class="container__product__image">
+      <img
+        [src]="product.imgUrl"
+        [alt]="product.title"
+      >
+    </div>
+    <div class="container__product__info">
+      <div>
+        <div class="container__product__info__title">
+          {{product.title}}
+        </div>
+        <div class="container__product__info__links">
+          <a [routerLink]="product.category.toLowerCase()">{{product.category}}</a>,
+          <a [routerLink]="product.company.toLowerCase()">{{product.company}}</a>
+        </div>
+        <div class="container__product__info__numbers">
+          <div class="rating">
+            Rating: {{product.averageRating}}
+            <mat-icon>star</mat-icon>
+          </div>
+          <div class="cost">
+            Cost: {{product.minCost}} - {{product.maxCost}} $
+          </div>
+        </div>
+        <div class="container__product__info__description">
+          {{product.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda commodi dignissimos, esse ipsum molestias non obcaecati quaerat quidem unde.s
+        </div>
+      </div>
+      <div class="container__product__info__date">
+        {{product.publishedData | date: 'dd MMM, yyyy'}}
+      </div>
+    </div>
+  </div>
+  <div class="container__reviews">
+
+  </div>
+</div>

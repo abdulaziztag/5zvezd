@@ -1,4 +1,4 @@
-export interface carouselItem {
+export interface CarouselItemInterface {
   imgSrc: string
   rating: number
   title: string

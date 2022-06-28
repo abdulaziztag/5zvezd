@@ -1,5 +1,5 @@
 <app-carousel
-  [slides]="slides"
+  [slides]="data.getCarouselItems() | async"
 ></app-carousel>
 <app-product-list title="Recently added"></app-product-list>
 <app-product-list title="Popular products"></app-product-list>

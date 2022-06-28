@@ -1,5 +1,5 @@
 <div [class]="['drawer', (drawerService.getDrawer() | async) && 'active']">
-  <div class="account">
+  <div class="account" *ngIf="!!tokenService.getToken()">
     <div
       class="account__avatar"
     >
@@ -32,6 +32,25 @@
         </button>
       </div>
     </div>
+  </div>
+  <div
+    class="sign-in-options"
+    *ngIf="!tokenService.getToken()"
+  >
+    <button
+      mat-stroked-button
+      color="primary"
+      routerLink="/auth/registration"
+    >
+      Sign Up
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/auth/login"
+    >
+      Sign In
+    </button>
   </div>
   <div class="search">
     <mat-form-field appearance="outline" class="search__form">

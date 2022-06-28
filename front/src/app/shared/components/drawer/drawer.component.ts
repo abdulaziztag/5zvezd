@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DrawerService} from "../../services/drawer.service";
 import {TabInterface} from "../../interfaces/tab.interface";
+import {TokenStorageService} from "../../services/token-storage.service";
 
 @Component({
   selector: 'app-drawer',
@@ -10,9 +11,12 @@ import {TabInterface} from "../../interfaces/tab.interface";
 })
 export class DrawerComponent implements OnInit, OnDestroy {
   @Input() tabs: TabInterface[] = []
-  @ViewChild('file', {static: true}) private nmadur?: ElementRef
+  @ViewChild('file', {static: true}) private fileInput?: ElementRef
 
-  constructor(public drawerService: DrawerService) { }
+  constructor(
+    public drawerService: DrawerService,
+    public tokenService: TokenStorageService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +26,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   }
 
   public chooseAvatar(): void {
-    this.nmadur?.nativeElement?.click()
+    this.fileInput?.nativeElement?.click()
   }
 
   ngOnDestroy() {
