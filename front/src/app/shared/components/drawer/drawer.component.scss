@@ -61,6 +61,17 @@
     margin: 0 auto;
   }
 
+  .sign-in-options {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    & > button {
+      width: 45%;
+      margin: 10px 0
+    }
+  }
+
   .account {
     display: flex;
     min-height: 100px;

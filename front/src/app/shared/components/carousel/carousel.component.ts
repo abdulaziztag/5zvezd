@@ -1,29 +1,21 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import { trigger, transition, style, animate } from "@angular/animations";
-import { carouselItem } from '../../interfaces/carousel.interface'
+import {CarouselItemInterface} from '../../interfaces/carousel.interface'
+import {carouselAnimation} from "../../helpers/carousel.animation";
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   animations: [
-    trigger('carouselAnimation', [
-      transition('void => *', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-      ]),
-      transition('* => void', [
-        animate('300ms', style({ opacity: 0 }))
-      ])
-    ])
+    carouselAnimation()
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements OnInit {
-  @Input() slides: carouselItem[] = []
+  @Input() slides: CarouselItemInterface[] = []
 
   public currentSlide: number = 0;
-  public activeSlide?: carouselItem
+  public activeSlide?: CarouselItemInterface
   constructor() { }
 
   ngOnInit(): void {
