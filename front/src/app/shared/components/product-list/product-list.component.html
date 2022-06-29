@@ -1,6 +1,7 @@
 <div class="container">
   <div class="container__header">
-    <p class="container__header__title">{{title}}</p>
+    <p class="container__header__title" *ngIf="!headerContent">{{ title }}</p>
+    <ng-content select="headerContent"></ng-content>
     <div class="container__header__actions">
       <button
         mat-icon-button
@@ -26,8 +27,16 @@
     class="container__list"
     [style.transform]="'translateX(' + -transformCounter * 251 + 'px)'"
   >
-    <app-product-card
-      *ngFor="let n of [1,2,3,4,5 ,6 ,7, 8, 9, 10,11,12]"
-    ></app-product-card>
+    <ng-container *ngFor="let n of [1,2,3,4,5 ,6 ,7, 8, 9, 10,11,12]; let i = index">
+        <ng-container
+          *ngTemplateOutlet="productCardTemplate || productCard?.template || defaultCard, context: {$implicit: i, title: title}"
+        >
+        </ng-container>
+    </ng-container>
   </div>
+  <ng-content select="[footer]"></ng-content>
 </div>
+
+<ng-template #defaultCard>
+  <app-product-card></app-product-card>
+</ng-template>

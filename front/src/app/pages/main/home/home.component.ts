@@ -10,6 +10,8 @@ import {HomePageService} from "../../../shared/services/home-page.service";
 export class HomeComponent implements OnInit {
   constructor(public data: HomePageService) { }
 
+  public flag = false;
+
   ngOnInit(): void {
   }
 

@@ -1,6 +1,27 @@
 <app-carousel
   [slides]="data.getCarouselItems() | async"
 ></app-carousel>
-<app-product-list title="Recently added"></app-product-list>
-<app-product-list title="Popular products"></app-product-list>
+<app-product-list [title]="'Recently added'">
+  <h3 #headerContent>Recently added !!!</h3>
+  <ng-template cardDirective let-order let-parent="title">
+    <app-example-card [order]="order" [parent]="parent"></app-example-card>
+  </ng-template>
+  <p footer>My footer</p>
+</app-product-list>
+<app-product-list title="Popular products">
+  <ng-template cardDirective let-order let-parent="title">
+    <ng-container [ngTemplateOutlet]="default" [ngTemplateOutletContext]="{ $implicit: parent }" ></ng-container>
+  </ng-template>
+</app-product-list>
 <app-product-list title="Category: 'Foods'"></app-product-list>
+<!--<div *ngIf="!flag; else someTemplate">-->
+<!--  <h2>Default  Template Works!!!</h2>-->
+<!--</div>-->
+
+<!--<ng-template #someTemplate>-->
+<!--  <h2>Some Template Works!!!</h2>-->
+<!--</ng-template>-->
+
+<ng-template #default let-order let-parent="title">
+  <h3> My OWN  {{ order }} </h3>
+</ng-template>

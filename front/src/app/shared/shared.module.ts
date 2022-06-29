@@ -9,8 +9,10 @@ import {HeaderComponent} from './components/header/header.component';
 import {DrawerListComponent} from './components/drawer-list/drawer-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CarouselComponent} from './components/carousel/carousel.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
+import {ProductListComponent} from './components/product-list/product-list.component';
+import {ProductCardComponent} from './components/product-card/product-card.component';
+import {ExampleCardComponent} from "./components/example-card/example-card.component";
+import {CardDirective} from "./directives/card.directive";
 
 @NgModule({
   imports: [
@@ -19,25 +21,28 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     MainRoutingModule,
     HttpClientModule,
   ],
-  declarations: [
+  declarations: [CardDirective,
     ErrorPageComponent,
     DrawerComponent,
     HeaderComponent,
     DrawerListComponent,
     CarouselComponent,
     ProductListComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ExampleCardComponent
   ],
-    exports: [
-        CommonModule,
-        FormsModule,
-        MaterialModule,
-        ErrorPageComponent,
-        DrawerComponent,
-        HeaderComponent,
-        CarouselComponent,
-        ProductListComponent
-    ]
+  exports: [
+    CardDirective,
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    ErrorPageComponent,
+    DrawerComponent,
+    HeaderComponent,
+    CarouselComponent,
+    ProductListComponent,
+    ExampleCardComponent
+  ]
 })
 export class SharedModule {
 }
