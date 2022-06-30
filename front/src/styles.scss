@@ -15,10 +15,20 @@
   background: #fb8c00;
 }
 
+.mat-button.mat-success,
+.mat-stroked-button.mat-success {
+  color: #4cb050;
+}
+
+.mat-button.mat-error,
+.mat-stroked-button.mat-error {
+  color: red;
+}
+
 .panel-class {
   color: white;
 }
 
 .mat-simple-snackbar-action {
-  color: black;
+  color: white;
 }
