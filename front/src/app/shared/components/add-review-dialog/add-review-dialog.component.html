@@ -4,14 +4,25 @@
     <mat-label>Title</mat-label>
     <input type="text" matInput>
   </mat-form-field>
+  <h3>Rate the product:</h3>
   <div class="rating" #ratingContainer>
-    <h2>Rate the product:</h2>
-    <mat-icon>star_outline</mat-icon>
-    <mat-icon>star_outline</mat-icon>
-    <mat-icon>star_outline</mat-icon>
-    <mat-icon>star_outline</mat-icon>
-    <mat-icon>star_outline</mat-icon>
+    <mat-icon
+      *ngFor="let index of [1,2,3,4,5]"
+      [attr.data-id]="index"
+      (mouseenter)="setStar($event)"
+      [class.star]="activeStarId >= index"
+    >{{ activeStarId >= index ? 'star' : 'star_outline'}}</mat-icon>
   </div>
+
+  <mat-form-field class="body-form" appearance="fill">
+    <mat-label>Experience about this product</mat-label>
+    <textarea
+      cdkTextareaAutosize
+      matInput
+      cdkAutosizeMinRows="10"
+    ></textarea>
+  </mat-form-field>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button
