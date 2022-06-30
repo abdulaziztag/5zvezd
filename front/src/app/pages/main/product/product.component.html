@@ -12,8 +12,8 @@
           {{product.title}}
         </div>
         <div class="container__product__info__links">
-          <a [routerLink]="product.category.toLowerCase()">{{product.category}}</a>,
-          <a [routerLink]="product.company.toLowerCase()">{{product.company}}</a>
+          <a [routerLink]="'/category/' + product.category.toLowerCase()">{{product.category}}</a>,
+          <a [routerLink]="'/brand/' + product.company.toLowerCase()">{{product.company}}</a>
         </div>
         <div class="container__product__info__numbers">
           <div class="rating">
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="container__product__info__description">
-          {{product.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda commodi dignissimos, esse ipsum molestias non obcaecati quaerat quidem unde.s
+          {{product.description}} Lorem lorem100 ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda commodi dignissimos, esse ipsum molestias non obcaecati quaerat quidem unde.s
         </div>
       </div>
       <div class="container__product__info__date">
@@ -33,7 +33,42 @@
       </div>
     </div>
   </div>
+  <div class="container__actions">
+    <ng-container *ngIf="!tokenService.getToken()">
+      <app-alert
+        background="#f44336"
+        borderColor="#f6746a"
+      >
+        <mat-icon icon>error_outline</mat-icon>
+        <h3>To leave feedback you should sign in to the system</h3>
+      </app-alert>
+      <div class="container__actions__div">
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/auth/login"
+        >Login</button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!!tokenService.getToken()">
+      <app-alert
+        background="#4cb050"
+        borderColor="#4bc47d"
+      >
+        <mat-icon icon>check_circle</mat-icon>
+        <h3>If you have experience with this item, please leave feedback to help to other people</h3>
+      </app-alert>
+      <div class="container__actions__div">
+        <button
+          mat-stroked-button
+          color="success"
+          (click)="openDialog()"
+        >Add review</button>
+      </div>
+    </ng-container>
+  </div>
   <div class="container__reviews">
-
+    <div class="title">Reviews</div>
+    <app-review *ngFor="let n of [1,2,3,4,5]"></app-review>
   </div>
 </div>
