@@ -47,7 +47,7 @@
   >
     <mat-icon>person_circle</mat-icon>
   </button>
-  <div class="header__divider header__items"></div>
+  <div class="header__divider header__items" *ngIf="!tokenService.getToken()"></div>
   <div>
     <button
       class="header__items"

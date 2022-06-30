@@ -10,19 +10,20 @@
     justify-content: center;
 
     &__product {
-      width: 100%;
+      width: 80%;
       display: flex;
       flex-direction: row;
+      align-self: center;
       justify-content: space-around;
       box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
       padding: 10px 0;
+      border-radius: 5px;
       &__image {
         width: 67.5%;
-        aspect-ratio: 2.5/1.5;
         & > img {
           object-fit: cover;
           width: 100%;
-          height: 100%;
+          aspect-ratio: 5/3;
           border-radius: 5px;
           box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         }
@@ -82,9 +83,66 @@
         }
         &__date {
           align-self: flex-end;
-
         }
+      }
+    }
+
+    &__actions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      &__div {
+        display: flex;
+        margin: 20px 0 0 0;
+        justify-content: center;
+      }
+    }
+
+    &__reviews {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin-top: 10px;
+      align-self: center;
+
+      .title {
+        font-size: 27px;
+        color: rgba(0, 0, 0, .8);
+        margin: 10px
+      }
+    }
+  }
+
+  h3 {
+    margin: 0 0 0 10px
+  }
+}
+
+@media (max-width: 950px) {
+  :host {
+    .container {
+
+      &__product {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        &__image {
+          width: 94%;
+          justify-content: center;
+        }
+
+        &__info {
+          width: 96%
+        }
+
+      }
+
+      &__reviews {
+        width: 100%
       }
     }
   }
 }
+

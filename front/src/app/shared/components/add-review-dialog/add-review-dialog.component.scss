@@ -1,0 +1,17 @@
+:host {
+  .title-form {
+    width: 100%
+  }
+  .rating {
+    display: flex;
+    flex-direction: row;
+    & mat-icon {
+      font-size: 30px;
+      width: 35px;
+      text-align: center;
+    }
+    & > h2 {
+      margin: 0 10px 0 10px;
+    }
+  }
+}

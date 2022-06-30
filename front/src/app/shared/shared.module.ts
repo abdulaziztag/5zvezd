@@ -9,8 +9,11 @@ import {HeaderComponent} from './components/header/header.component';
 import {DrawerListComponent} from './components/drawer-list/drawer-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CarouselComponent} from './components/carousel/carousel.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
+import {ProductListComponent} from './components/product-list/product-list.component';
+import {ProductCardComponent} from './components/product-card/product-card.component';
+import {ReviewComponent} from './components/review/review.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AddReviewDialogComponent } from './components/add-review-dialog/add-review-dialog.component';
 
 @NgModule({
   imports: [
@@ -26,18 +29,23 @@ import { ProductCardComponent } from './components/product-card/product-card.com
     DrawerListComponent,
     CarouselComponent,
     ProductListComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ReviewComponent,
+    AlertComponent,
+    AddReviewDialogComponent
   ],
-    exports: [
-        CommonModule,
-        FormsModule,
-        MaterialModule,
-        ErrorPageComponent,
-        DrawerComponent,
-        HeaderComponent,
-        CarouselComponent,
-        ProductListComponent
-    ]
+  exports: [
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    ErrorPageComponent,
+    DrawerComponent,
+    HeaderComponent,
+    CarouselComponent,
+    ProductListComponent,
+    ReviewComponent,
+    AlertComponent
+  ]
 })
 export class SharedModule {
 }
