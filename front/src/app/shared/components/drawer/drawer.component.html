@@ -27,7 +27,10 @@
         <button mat-icon-button>
           <mat-icon>settings</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button
+          mat-icon-button
+          (click)="signOut()"
+        >
           <mat-icon>logout</mat-icon>
         </button>
       </div>
