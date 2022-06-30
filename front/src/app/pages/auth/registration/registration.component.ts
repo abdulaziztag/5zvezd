@@ -14,8 +14,8 @@ import {Router} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit {
-  public form: FormGroup = new FormGroup({})
-  private subscription?: Subscription
+  public form: FormGroup = new FormGroup({});
+  private subscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -47,31 +47,31 @@ export class RegistrationComponent implements OnInit {
       this.regForm['password']?.errors?.['minlength'] ||
       this.regForm['email']?.errors?.['required'] ||
       this.regForm['email']?.errors?.['email']
-    )
+    );
   }
 
   public registration(): void {
-    this.loaderService.setLoader(true)
+    this.loaderService.setLoader(true);
     this.subscription = this.authService.register(
       this.regForm['firstName'].value,
       this.regForm['email'].value,
       this.regForm['password'].value,
       this.regForm['lastName'].value
     ).subscribe(data => {
-      this.alertService.openSnackBar(data.message)
-      this.loaderService.setLoader(false)
-      this.router.navigate(['/'])
+      this.alertService.openSnackBar(data.message);
+      this.loaderService.setLoader(false);
+      this.router.navigate(['/']);
     }, err => {
       this.alertService.openSnackBar(
         err.error.message || 'Something went wrong, try again later',
         'error'
-      )
-      this.loaderService.setLoader(false)
+      );
+      this.loaderService.setLoader(false);
     })
   }
 
   ngOnInit(): void {
-    this.loaderService.setLoader(false)
+    this.loaderService.setLoader(false);
   }
 
 }

@@ -10,7 +10,7 @@ import {TokenStorageService} from "../../services/token-storage.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  @Input() tabs: TabInterface[] = []
+  @Input() tabs: TabInterface[] = [];
   constructor(
     private drawerService: DrawerService,
     public tokenService: TokenStorageService

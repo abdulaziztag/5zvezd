@@ -6,8 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
-  @Input() public background: String
-  @Input() public borderColor: String
+  @Input() public background: String;
+  @Input() public borderColor: String;
 
   constructor() { }
 

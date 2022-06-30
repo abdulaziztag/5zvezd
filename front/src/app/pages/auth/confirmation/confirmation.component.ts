@@ -12,8 +12,8 @@ import {LoaderService} from "../../../shared/services/loader.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfirmationComponent implements OnInit, OnDestroy {
-  private notifier = new Subject<void>()
-  public code: string = ''
+  private notifier = new Subject<void>();
+  public code: string = '';
   constructor(
     public route: ActivatedRoute,
     private authService: AuthService,
@@ -22,23 +22,23 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.loaderService.setLoader(true)
+    this.loaderService.setLoader(true);
     this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
-      this.code = params['code']
-    })
+      this.code = params['code'];
+    });
     this.authService.confirmEmail(this.code).pipe(takeUntil(this.notifier)).subscribe(() => {
-      this.loaderService.setLoader(false)
+      this.loaderService.setLoader(false);
     }, (error) => {
       this.alertService.openSnackBar(
         error.error.message || 'Something went wrong, please refresh the page',
         'error',
         1000*60*10
-      )
+      );
     })
   }
 
   ngOnDestroy() {
-    this.notifier.next()
-    this.notifier.complete()
+    this.notifier.next();
+    this.notifier.complete();
   }
 }

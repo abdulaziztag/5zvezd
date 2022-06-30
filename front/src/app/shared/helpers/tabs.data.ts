@@ -1,8 +1,8 @@
 import {TabInterface} from "../interfaces/tab.interface";
 
 export const tabs = (): TabInterface[]  => {
-  const brand = 'brand'
-  const category = 'category'
+  const brand = 'brand';
+  const category = 'category';
 
   return [
     {

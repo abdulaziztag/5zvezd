@@ -21,7 +21,7 @@ export class AuthService {
         email, password
       },
       httpOptions
-    )
+    );
   }
 
   public register(
@@ -39,7 +39,7 @@ export class AuthService {
         email
       },
       httpOptions
-    )
+    );
   }
 
   public confirmEmail(code: string): Observable<any> {
@@ -49,6 +49,6 @@ export class AuthService {
         confirmationCode: code
       },
       httpOptions
-    )
+    );
   }
 }

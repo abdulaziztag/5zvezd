@@ -5,14 +5,14 @@ import {BehaviorSubject, Subject} from "rxjs";
   providedIn: 'root'
 })
 export class LoaderService {
-  private loader$ = new BehaviorSubject<boolean>(true)
+  private loader$ = new BehaviorSubject<boolean>(true);
   constructor() { }
 
   public setLoader(drawer: boolean): void {
-    this.loader$.next(drawer)
+    this.loader$.next(drawer);
   }
 
   public getLoader(): Subject<boolean> {
-    return this.loader$
+    return this.loader$;
   }
 }

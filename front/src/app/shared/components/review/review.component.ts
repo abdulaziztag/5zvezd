@@ -11,11 +11,11 @@ export class ReviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    const child = this.ratingContainer.nativeElement.childNodes
+    const child = this.ratingContainer.nativeElement.childNodes;
     child.forEach((el: any, index: number) => {
       if (index < 1) {
-        el.classList.add('star')
-        el.innerHTML = 'star'
+        el.classList.add('star');
+        el.innerHTML = 'star';
       }
     })
   }

@@ -35,6 +35,6 @@ export class HomePageService {
   constructor() {}
 
   public getCarouselItems(): Observable<CarouselItemInterface[]> {
-    return of(this.carouselItems$)
+    return of(this.carouselItems$);
   }
 }

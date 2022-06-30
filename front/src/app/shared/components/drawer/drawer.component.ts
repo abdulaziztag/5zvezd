@@ -26,18 +26,18 @@ export class DrawerComponent implements OnInit, OnDestroy {
   }
 
   public close(): void {
-    this.drawerService.setDrawer(false)
+    this.drawerService.setDrawer(false);
   }
 
   public chooseAvatar(): void {
-    this.fileInput?.nativeElement?.click()
+    this.fileInput?.nativeElement?.click();
   }
 
   public signOut(): void {
-    this.tokenService.signOut()
-    this.drawerService.setDrawer(false)
-    this.alertService.openSnackBar('Successfully signed out!')
-    this.router.navigate(['/'])
+    this.tokenService.signOut();
+    this.drawerService.setDrawer(false);
+    this.alertService.openSnackBar('Successfully signed out!');
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy() {

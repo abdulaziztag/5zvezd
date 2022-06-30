@@ -7,7 +7,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 })
 export class AddReviewDialogComponent implements OnInit {
   @ViewChild('ratingContainer', {static: true}) ratingContainer: ElementRef;
-  public activeStarId: number = 0
+  public activeStarId: number = 0;
 
   constructor() { }
 
@@ -15,6 +15,6 @@ export class AddReviewDialogComponent implements OnInit {
   }
 
   public setStar($event: Event): void {
-    this.activeStarId = +(<HTMLTextAreaElement>$event.target).dataset['id']
+    this.activeStarId = +(<HTMLTextAreaElement>$event.target).dataset['id'];
   }
 }

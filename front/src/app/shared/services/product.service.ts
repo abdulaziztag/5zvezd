@@ -34,6 +34,6 @@ export class ProductService {
       minCost: 1.5,
       maxCost: 3,
       publishedData: 1656415425994,
-    })
+    });
   }
 }

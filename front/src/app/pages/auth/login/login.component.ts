@@ -14,9 +14,9 @@ import {Router} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  public email: FormControl = new FormControl('', [Validators.required, Validators.email])
-  public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)])
-  private subscription?: Subscription
+  public email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  public password: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  private subscription?: Subscription;
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   public login(): void {
-    this.loaderService.setLoader(true)
+    this.loaderService.setLoader(true);
     this.subscription = this.authService.login(this.email.value, this.password.value).subscribe(data => {
       this.loaderService.setLoader(false);
       this.tokenStorage.saveToken(data.token);
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email
-      })
-      this.router.navigate(['/'])
+      });
+      this.router.navigate(['/']);
     }, error => {
         this.alertService.openSnackBar(
         error.error.message || 'Something went wrong, try again later',
@@ -52,15 +52,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.email.hasError('email') ||
       this.password.hasError('required') ||
       this.password.hasError('minlength')
-    )
+    );
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe()
+    this.subscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.loaderService.setLoader(false)
+    this.loaderService.setLoader(false);
   }
 
 }

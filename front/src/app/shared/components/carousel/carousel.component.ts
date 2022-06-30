@@ -12,14 +12,14 @@ import {carouselAnimation} from "../../helpers/carousel.animation";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements OnInit {
-  @Input() slides: CarouselItemInterface[] = []
+  @Input() slides: CarouselItemInterface[] = [];
 
   public currentSlide: number = 0;
-  public activeSlide?: CarouselItemInterface
+  public activeSlide?: CarouselItemInterface;
   constructor() { }
 
   ngOnInit(): void {
-    this.activeSlide = this.slides[0]
+    this.activeSlide = this.slides[0];
   }
   onPreviousClick(): void {
     const previous = this.currentSlide - 1;

@@ -16,9 +16,9 @@ import {AddReviewDialogComponent} from "../../../shared/components/add-review-di
 export class ProductComponent implements OnInit, OnDestroy {
   @ViewChild('el', {static: true}) private el: ElementRef
 
-  private notifier = new Subject<void>()
-  private productId: string = ''
-  public product?: ProductInterface
+  private notifier = new Subject<void>();
+  private productId: string = '';
+  public product?: ProductInterface;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,21 +30,21 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
       this.productId = params['productId']
-    })
+    });
     this.productService.getProduct().pipe(takeUntil(this.notifier)).subscribe(data => {
       this.product = data
-    })
+    });
   }
 
   public openDialog(): void {
     this.dialog.open(AddReviewDialogComponent, {
       disableClose: true,
       minWidth: '70vw'
-    })
+    });
   }
 
   ngOnDestroy(): void {
-    this.notifier.next()
-    this.notifier.complete()
+    this.notifier.next();
+    this.notifier.complete();
   }
 }

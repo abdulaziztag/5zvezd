@@ -5,15 +5,15 @@ import {Subject} from "rxjs";
   providedIn: 'root'
 })
 export class DrawerService {
-  private drawer$ = new Subject<boolean>()
+  private drawer$ = new Subject<boolean>();
   constructor() { }
 
   public setDrawer(drawer: boolean): void {
 
-    this.drawer$.next(drawer)
+    this.drawer$.next(drawer);
   }
 
   public getDrawer(): Subject<boolean> {
-    return this.drawer$
+    return this.drawer$;
   }
 }

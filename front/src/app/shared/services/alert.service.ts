@@ -14,6 +14,6 @@ export class AlertService {
       verticalPosition: 'top',
       duration,
       panelClass: ['panel-class', color]
-    })
+    });
   }
 }

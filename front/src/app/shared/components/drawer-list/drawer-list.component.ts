@@ -8,20 +8,20 @@ import {TabInterface} from "../../interfaces/tab.interface";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrawerListComponent implements OnInit {
-  @Input() tab?: TabInterface
+  @Input() tab?: TabInterface;
 
-  public activeSubList: boolean = false
+  public activeSubList: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public toggleS(element: any): void {
+  public toggleSubList(element: any): void {
     if (this.activeSubList) {
-      element.style.maxHeight = 0
+      element.style.maxHeight = 0;
     } else {
-      element.style.maxHeight = element.scrollHeight + 'px'
+      element.style.maxHeight = element.scrollHeight + 'px';
     }
-    this.activeSubList = !this.activeSubList
+    this.activeSubList = !this.activeSubList;
   }
 }

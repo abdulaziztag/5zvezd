@@ -9,5 +9,5 @@ export const carouselAnimation = () => {
     transition('* => void', [
       animate('300ms', style({ opacity: 0 }))
     ])
-  ])
+  ]);
 }
