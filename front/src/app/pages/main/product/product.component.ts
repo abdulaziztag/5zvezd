@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   public openDialog(): void {
     this.dialog.open(AddReviewDialogComponent, {
       disableClose: true,
-      minWidth: '80vw'
+      minWidth: '70vw'
     })
   }
 
