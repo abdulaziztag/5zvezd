@@ -1,4 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {ProductCardInterface} from "../../interfaces/product.interface";
 
 @Component({
   selector: 'app-product-list',
@@ -7,23 +8,39 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
   @Input() public title: string = '';
+  @Input() public data: ProductCardInterface[] = [];
   @ViewChild('productList', {static: true}) private productList?: ElementRef;
 
-  public transformCounter: number = 0;
-  constructor() { }
+  public transformValue: number = 0;
+  private CARD_WIDTH: number = 250;
+  private MARGINS: number = 30;
+
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
   public leftClick(): void {
-    this.transformCounter > 0 && this.transformCounter--;
+    if (this.transformValue + this.CARD_WIDTH > 0) {
+      this.transformValue = 0;
+    } else {
+      this.transformValue += this.CARD_WIDTH
+    }
   }
 
   public rightClick(): void {
-    const FULL_SIZE = 3000;
+    const FULL_SIZE = this.CARD_WIDTH * this.data.length;
     const elementSize = this.productList?.nativeElement.getBoundingClientRect();
-    let isEndOfCarousel = -FULL_SIZE - (elementSize.left - 20) > -elementSize.width - 250;
-    if (isEndOfCarousel) return;
-    this.transformCounter < 12 && this.transformCounter++;
+    const difference = Math.trunc(-FULL_SIZE - (elementSize.left - this.MARGINS) - -elementSize.width);
+    if (difference === 0) {
+      return;
+    }
+    if (difference + this.CARD_WIDTH > 0) {
+      this.transformValue += difference;
+    } else {
+      this.transformValue -= this.CARD_WIDTH;
+    }
   }
 }

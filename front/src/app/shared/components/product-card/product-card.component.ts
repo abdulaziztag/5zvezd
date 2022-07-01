@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ProductCardInterface} from "../../interfaces/product.interface";
 
 @Component({
   selector: 'app-product-card',
@@ -6,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
+  @Input() product: ProductCardInterface;
+
+  public get imgUrl(): string {
+    return `url("${this.product.imgUrl}")`
+  }
+
+  public get url(): string {
+    return `/product/${this.product.id}`
+  }
 
   constructor() { }
 

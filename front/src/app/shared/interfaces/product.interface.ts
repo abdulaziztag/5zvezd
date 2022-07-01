@@ -9,3 +9,10 @@ export interface ProductInterface {
   company: string
   publishedData: number
 }
+
+export interface ProductCardInterface {
+  title: string
+  imgUrl: string
+  averageRating: number
+  id: string
+}

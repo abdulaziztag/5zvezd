@@ -1,13 +1,13 @@
 <div
   class="container"
-  routerLink="/product"
+  [routerLink]="url"
 >
   <div
-    [style.background-image]="'url(' + 'https://images.unsplash.com/photo-1557800634-7bf3c7305596?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2001&q=80' + ')'"
+    [style.background-image]="imgUrl"
     class="container__card"
   >
     <div class="container__card__title">
-      Orange - 4.6
+      {{ product.title }} - {{ product.averageRating }}
       <mat-icon>star</mat-icon>
     </div>
   </div>
