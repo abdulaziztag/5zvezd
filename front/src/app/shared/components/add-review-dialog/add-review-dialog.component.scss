@@ -9,6 +9,7 @@
       font-size: 30px;
       width: 35px;
       text-align: center;
+      color: rgba(0, 0, 0, .5)
     }
     & > h2 {
       margin: 0 10px 0 10px;
@@ -20,6 +21,10 @@
     height: 100px;
   }
   .star {
-    color: #ffc400
+    color: #ffc400!important;
+  }
+
+  h2 {
+    margin: 0
   }
 }
