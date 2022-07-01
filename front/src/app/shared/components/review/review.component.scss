@@ -65,15 +65,16 @@
         margin-top: 7px;
 
         & mat-icon {
-          font-size: 17px;
-          width: 18px
+          font-size: 22px;
+          width: 25px;
+          color: rgba(0, 0, 0, .5)
         }
       }
     }
   }
 
   .star {
-    color: #ffc400
+    color: #ffc400!important;
   }
 }
 

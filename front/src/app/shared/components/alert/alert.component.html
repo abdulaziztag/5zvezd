@@ -3,6 +3,10 @@
   [style.background]="background"
   [style.border-right-color]="borderColor"
 >
-  <ng-content select="[icon]"></ng-content>
-  <ng-content></ng-content>
+  <mat-icon>
+    <ng-content select="[icon]"></ng-content>
+  </mat-icon>
+  <h3>
+    <ng-content></ng-content>
+  </h3>
 </div>
