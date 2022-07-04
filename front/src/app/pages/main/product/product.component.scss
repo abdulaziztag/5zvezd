@@ -115,6 +115,14 @@
   }
 }
 
+@media (max-width: 1150px) and (min-width: 950px) {
+  :host {
+    .container__product__info__numbers {
+      flex-direction: column;
+    }
+  }
+}
+
 @media (max-width: 950px) {
   :host {
     .container {
