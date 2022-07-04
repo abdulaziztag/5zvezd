@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-add-review-dialog',
   templateUrl: './add-review-dialog.component.html',
-  styleUrls: ['./add-review-dialog.component.scss']
+  styleUrls: ['./add-review-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddReviewDialogComponent implements OnInit {
   @ViewChild('ratingContainer', {static: true}) ratingContainer: ElementRef;

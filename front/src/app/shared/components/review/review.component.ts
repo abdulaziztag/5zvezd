@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss']
+  styleUrls: ['./review.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewComponent implements OnInit {
   @ViewChild('ratingContainer', {static: true}) ratingContainer: ElementRef;

@@ -19,5 +19,6 @@
     matRippleColor="rgba(127, 17, 224, .1)"
     class="list__sublist__title"
     *ngFor="let subTitle of tab?.list"
+    (click)="goToCatalog(tab.queryKey, subTitle.params)"
   >{{subTitle.listItemTitle}}</div>
 </div>

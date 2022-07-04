@@ -7,27 +7,29 @@ export const tabs = (): TabInterface[]  => {
   return [
     {
       title: 'Brands',
+      queryKey: brand,
       list: [
         {
           listItemTitle: 'Pepsi-Co',
-          url: `/${brand}/pepsi-co`
+          params: `pepsi-co`
         },
         {
           listItemTitle: 'Lactel',
-          url: `/${brand}/lactel`
+          params: `lactel`
         }
-      ]
+      ],
     },
     {
       title: 'Categories',
+      queryKey: category,
       list: [
         {
           listItemTitle: 'Medicine',
-          url: `/${category}/medicine`
+          params: `medicine`
         },
         {
           listItemTitle: 'Drinks',
-          url: `/${category}/drinks`
+          params: `drinks`
         }
       ]
     }
