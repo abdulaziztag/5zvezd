@@ -58,7 +58,7 @@
       class="chip mat-elevation-z3"
       *ngIf="brand"
     >
-      {{ brand.toUpperCase() }}
+      {{ brand.charAt(0).toUpperCase() + brand.slice(1) }}
       <mat-icon
         (click)="brand = null"
       >close</mat-icon>
@@ -67,7 +67,7 @@
       class="chip mat-elevation-z3"
       *ngIf="category"
     >
-      {{ category.toUpperCase() }}
+      {{ category.charAt(0).toUpperCase() + category.slice(1) }}
       <mat-icon (click)="category = null">close</mat-icon>
     </div>
   </div>
