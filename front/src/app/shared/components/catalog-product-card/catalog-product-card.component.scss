@@ -1,0 +1,30 @@
+:host {
+  margin: 10px;
+  .card {
+    max-width: 300px;
+
+    &__numbers {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 5px 0;
+
+      & .rating {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        margin: 5px 0;
+        color: rgba(0, 0, 0, .7);
+
+        & mat-icon {
+          color: #ffc400
+        }
+      }
+      & .cost {
+        font-size: 18px;
+        margin: 5px 0;
+        color: rgba(0, 0, 0, .7);
+      }
+    }
+  }
+}

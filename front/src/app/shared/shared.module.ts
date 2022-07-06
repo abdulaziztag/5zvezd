@@ -14,6 +14,7 @@ import {ProductCardComponent} from './components/product-card/product-card.compo
 import {ReviewComponent} from './components/review/review.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AddReviewDialogComponent } from './components/add-review-dialog/add-review-dialog.component';
+import { CatalogProductCardComponent } from './components/catalog-product-card/catalog-product-card.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { AddReviewDialogComponent } from './components/add-review-dialog/add-rev
     ProductCardComponent,
     ReviewComponent,
     AlertComponent,
-    AddReviewDialogComponent
+    AddReviewDialogComponent,
+    CatalogProductCardComponent
   ],
   exports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { AddReviewDialogComponent } from './components/add-review-dialog/add-rev
     CarouselComponent,
     ProductListComponent,
     ReviewComponent,
-    AlertComponent
+    AlertComponent,
+    CatalogProductCardComponent
   ]
 })
 export class SharedModule {
