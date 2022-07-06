@@ -19,7 +19,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
     public drawerService: DrawerService,
     public tokenService: TokenStorageService,
     private alertService: AlertService,
-    private router: Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {

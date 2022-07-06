@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private drawerService: DrawerService,
     public tokenService: TokenStorageService,
-    private router: Router
+    public router: Router
   ) { }
 
   ngOnInit(): void {

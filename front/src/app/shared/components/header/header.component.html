@@ -14,19 +14,23 @@
     <mat-icon class="header__title__icon">star</mat-icon>
   </div>
   <span class="spacer"></span>
-  <input
-    type="text"
-    class="header__search"
-    placeholder="Search"
-    autocomplete="off"
-  >
-  <button
-    mat-raised-button
-    mat-icon-button
-    class="header__search-btn"
-  >
-    <mat-icon>search</mat-icon>
-  </button>
+  <div class="header__search">
+    <input
+      type="text"
+      class="header__search__input mat-elevation-z2"
+      placeholder="Search"
+      autocomplete="off"
+      *ngIf="!router.url.startsWith('/all')"
+    >
+    <button
+      mat-raised-button
+      mat-icon-button
+      class="header__search__btn"
+      *ngIf="!router.url.startsWith('/all')"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
   <span class="spacer"></span>
   <div class="header__items" *ngFor="let tab of tabs">
     <button mat-button [matMenuTriggerFor]="menu">{{tab.title}}</button>

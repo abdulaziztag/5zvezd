@@ -1,1 +1,75 @@
-<p>catalog works!</p>
+<div
+  class="container"
+>
+  <div class="container__search">
+    <input
+      type="text"
+      placeholder="Search"
+      autocomplete="off"
+      class="search-input mat-elevation-z4"
+    >
+    <button
+      mat-icon-button
+      class="search-button"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+  <div class="container__filters">
+    <mat-form-field
+      appearance="outline"
+    >
+      <mat-label>{{ tabs[0].title }}</mat-label>
+      <mat-select
+        [(ngModel)]="brand"
+        (selectionChange)="changeValueBrand()"
+      >
+        <mat-option>--</mat-option>
+        <mat-option
+          *ngFor="let listItem of tabs[0].list"
+          [value]="listItem.params"
+        >
+          {{ listItem.listItemTitle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+    >
+      <mat-label>
+        {{ tabs[1].title }}
+      </mat-label>
+      <mat-select
+        [(ngModel)]="category"
+        (selectionChange)="changeValueCategory()"
+      >
+        <mat-option>--</mat-option>
+        <mat-option
+          *ngFor="let listItem of tabs[1].list"
+          [value]="listItem.params"
+        >
+          {{ listItem.listItemTitle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="container__chips">
+    <div
+      class="chip mat-elevation-z3"
+      *ngIf="brand"
+    >
+      {{ brand.toUpperCase() }}
+      <mat-icon
+        (click)="brand = null"
+      >close</mat-icon>
+    </div>
+    <div
+      class="chip mat-elevation-z3"
+      *ngIf="category"
+    >
+      {{ category.toUpperCase() }}
+      <mat-icon (click)="category = null">close</mat-icon>
+    </div>
+  </div>
+  <div class="container__products"></div>
+</div>

@@ -55,7 +55,10 @@
       Sign In
     </button>
   </div>
-  <div class="search">
+  <div
+    class="search"
+    *ngIf="!router.url.startsWith('/all')"
+  >
     <mat-form-field appearance="outline" class="search__form">
       <mat-label>Search</mat-label>
       <input type="text" autocomplete="off" matInput>
