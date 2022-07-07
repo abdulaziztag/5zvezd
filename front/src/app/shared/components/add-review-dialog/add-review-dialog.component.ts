@@ -8,7 +8,8 @@ import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from 
 })
 export class AddReviewDialogComponent implements OnInit {
   @ViewChild('ratingContainer', {static: true}) ratingContainer: ElementRef;
-  public activeStarId: number = 1;
+  public starId: number[] = [1, 2, 3, 4, 5];
+  public activeStarId: number = 0;
 
   constructor() { }
 

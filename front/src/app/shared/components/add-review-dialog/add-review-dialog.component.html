@@ -7,7 +7,7 @@
   <h2>Rate the product:</h2>
   <div class="rating" #ratingContainer>
     <button
-      *ngFor="let index of [1,2,3,4,5]"
+      *ngFor="let index of starId"
       mat-icon-button
       (mousedown)="setStar($event)"
       [attr.data-id]="index"
