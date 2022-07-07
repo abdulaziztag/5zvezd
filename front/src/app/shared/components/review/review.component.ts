@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-review',
@@ -7,18 +7,11 @@ import {ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild} from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewComponent implements OnInit {
-  @ViewChild('ratingContainer', {static: true}) ratingContainer: ElementRef;
-
+  public starId: number[] = [1, 2, 3, 4, 5];
+  public index: number = 1;
   constructor() { }
 
   ngOnInit(): void {
-    const child = this.ratingContainer.nativeElement.childNodes;
-    child.forEach((el: any, index: number) => {
-      if (index < 1) {
-        el.classList.add('star');
-        el.innerHTML = 'star';
-      }
-    })
   }
 
 }

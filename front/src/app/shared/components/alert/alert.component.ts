@@ -7,8 +7,8 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlertComponent implements OnInit {
-  @Input() public background: String;
-  @Input() public borderColor: String;
+  @Input() public background: string;
+  @Input() public borderColor: string;
 
   constructor() { }
 

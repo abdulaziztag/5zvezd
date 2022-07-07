@@ -18,12 +18,11 @@
     <div class="review__data__title">
       Good product
     </div>
-    <div class="review__data__rating" #ratingContainer>
-      <mat-icon>star_outline</mat-icon>
-      <mat-icon>star_outline</mat-icon>
-      <mat-icon>star_outline</mat-icon>
-      <mat-icon>star_outline</mat-icon>
-      <mat-icon>star_outline</mat-icon>
+    <div class="review__data__rating">
+      <mat-icon
+        *ngFor="let id of starId"
+        [class.star]="id <= index"
+      >{{id <= index ? 'star' : 'star_outline'}}</mat-icon>
     </div>
     <div class="review__data__body">
       Lorem ipsum dolor sit amet, consectetur adipi fuga nostrum odio quas soluta tempora.
