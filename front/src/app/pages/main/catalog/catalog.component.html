@@ -15,37 +15,21 @@
       <mat-icon>search</mat-icon>
     </button>
   </div>
-  <div class="container__filters">
+  <div
+    class="container__filters"
+    [formGroup]="form"
+  >
     <mat-form-field
       appearance="outline"
+      *ngFor="let tab of tabs"
     >
-      <mat-label>{{ tabs[0].title }}</mat-label>
+      <mat-label>{{ tab.title }}</mat-label>
       <mat-select
-        [(ngModel)]="brand"
-        (selectionChange)="changeValueBrand()"
+        multiple
+        [formControlName]="tab.queryKey"
       >
-        <mat-option>--</mat-option>
         <mat-option
-          *ngFor="let listItem of tabs[0].list"
-          [value]="listItem.params"
-        >
-          {{ listItem.listItemTitle }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field
-      appearance="outline"
-    >
-      <mat-label>
-        {{ tabs[1].title }}
-      </mat-label>
-      <mat-select
-        [(ngModel)]="category"
-        (selectionChange)="changeValueCategory()"
-      >
-        <mat-option>--</mat-option>
-        <mat-option
-          *ngFor="let listItem of tabs[1].list"
+          *ngFor="let listItem of tab.list"
           [value]="listItem.params"
         >
           {{ listItem.listItemTitle }}
@@ -53,22 +37,22 @@
       </mat-select>
     </mat-form-field>
   </div>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="filter()"
+    >
+      Apply filters
+    </button>
   <div class="container__chips">
     <div
-      class="chip mat-elevation-z3"
-      *ngIf="brand"
+      class="chip"
+      *ngFor="let chip of chips"
     >
-      {{ brand.charAt(0).toUpperCase() + brand.slice(1) }}
+      {{ chip.charAt(0).toUpperCase() + chip.slice(1) }}
       <mat-icon
-        (click)="brand = null"
+        (click)="deleteChip(chip)"
       >close</mat-icon>
-    </div>
-    <div
-      class="chip mat-elevation-z3"
-      *ngIf="category"
-    >
-      {{ category.charAt(0).toUpperCase() + category.slice(1) }}
-      <mat-icon (click)="category = null">close</mat-icon>
     </div>
   </div>
   <div class="container__products">

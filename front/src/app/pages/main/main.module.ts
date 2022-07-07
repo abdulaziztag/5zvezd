@@ -6,6 +6,7 @@ import {HomeComponent} from './home/home.component';
 import {ProductComponent} from './product/product.component';
 import {SharedModule} from "../../shared/shared.module";
 import { CatalogComponent } from './catalog/catalog.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CatalogComponent } from './catalog/catalog.component';
   imports: [
     CommonModule,
     MainRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class MainModule {

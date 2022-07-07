@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {tabs} from 'src/app/shared/helpers/tabs.data';
 import {TabInterface} from "../../../shared/interfaces/tab.interface";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-catalog',
@@ -12,31 +13,50 @@ import {TabInterface} from "../../../shared/interfaces/tab.interface";
 })
 export class CatalogComponent implements OnInit, OnDestroy {
   private notifier = new Subject<void>();
+  public form: FormGroup = new FormGroup({});
   public tabs: TabInterface[] = tabs()
-  public category: string;
-  public brand: string;
+  public chips: string[] = []
 
   constructor(
     private route: ActivatedRoute,
+    public fb: FormBuilder
   ) {
+    this.form = fb.group({
+      brand: [],
+      category: []
+    })
   }
 
   ngOnInit(): void {
     this.route.queryParams
       .pipe(takeUntil(this.notifier))
       .subscribe(params => {
-          this.brand = params?.['brand'];
-          this.category = params?.['category'];
+          this.form.patchValue({
+            brand: [params['brand']],
+            category: [params['category']]
+          })
+        params['brand'] && this.chips.push(params['brand'])
+        params['category'] && this.chips.push(params['category'])
         }
       );
   }
 
-  public changeValueBrand(): void {
-    console.log(this.brand)
+  public get getForm() {
+    return this.form.controls
   }
 
-  public changeValueCategory(): void {
-    console.log(this.category)
+  public filter(): void {
+    this.chips = []
+    this.getForm['brand'].value.forEach((key: string) => {
+      key && this.chips.push(key)
+    })
+    this.getForm['category'].value.forEach((key: string) => {
+      key && this.chips.push(key)
+    })
+  }
+
+  public deleteChip(chip: string): void {
+    this.chips = this.chips.filter(e => e !== chip)
   }
 
   ngOnDestroy(): void {
