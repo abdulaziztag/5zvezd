@@ -2,7 +2,6 @@ import {User} from '../models/index.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import {sendConfirmationEmail} from '../utils/nodemailer.util.js';
-import multer from 'multer';
 
 export const login = async (req, res) => {
   const candidate = await User.findOne({email: req.body.email});
@@ -100,34 +99,5 @@ export const confirmEmail = async ({body: {confirmationCode}}, res) => {
     res.status(200).send();
   } catch (e) {
     res.status(500).send({message: 'Something went wrong!'});
-  }
-};
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'files/');
-  },
-  filename: (req, file, cb) => {
-    const {originalname} = file;
-    cb(null, originalname);
-  },
-});
-
-export const upload = multer({storage});
-
-export const uploadAvatar = async (req, res) => {
-  try {
-    const updateAvatar = await User.findOneAndUpdate({
-      email: req.body.email,
-    }, {
-      imgSrc: `/files/${req.file.originalname}`,
-    }, {new: true});
-    if (updateAvatar) {
-      res.send(updateAvatar);
-    } else {
-      res.send({message: 'ds'});
-    }
-  } catch (e) {
-    console.log(e);
   }
 };

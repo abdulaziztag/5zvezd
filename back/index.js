@@ -10,6 +10,7 @@ const mongoUrl = `${process.env.MONGODB_URI}${process.env.DB_NAME}`;
 
 app.use(passport.initialize());
 import { passportGuard } from './middleware/passport.js';
+import {userRoutes} from './routes/userRoutes.js';
 passportGuard(passport);
 app.use(cors());
 app.use(express.json());
@@ -19,6 +20,7 @@ mongoose.connect(mongoUrl);
 const auth = passport.authenticate('jwt', { session: false });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 app.get('/', auth, (req, res) => {
   res.send('Hello!');
