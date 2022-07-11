@@ -1,14 +1,14 @@
 import {User} from '../models/index.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
 export const uploadAvatar = async (req, res) => {
   try {
-    console.log(req.file.filename);
     const updateAvatar = await User.findOneAndUpdate({
       email: req.body.email,
     }, {
@@ -23,6 +23,6 @@ export const uploadAvatar = async (req, res) => {
       res.send({message: 'User not found!'});
     }
   } catch (e) {
-    console.log(e);
+    res.send({message: 'Something went wrong!'});
   }
 };
