@@ -5,12 +5,12 @@ import cors from 'cors';
 import { config } from 'dotenv';
 const app = express();
 config();
-import { authRoutes } from './routes/index.js';
+import { authRoutes, productRoutes, commentRoutes, userRoutes } from './routes/index.js';
+
 const mongoUrl = `${process.env.MONGODB_URI}${process.env.DB_NAME}`;
 
 app.use(passport.initialize());
 import { passportGuard } from './middleware/passport.js';
-import {userRoutes} from './routes/userRoutes.js';
 passportGuard(passport);
 app.use(cors());
 app.use(express.json());
@@ -21,6 +21,8 @@ const auth = passport.authenticate('jwt', { session: false });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/product', productRoutes);
+app.use('/api/comment', commentRoutes);
 
 app.get('/', auth, (req, res) => {
   res.send('Hello!');

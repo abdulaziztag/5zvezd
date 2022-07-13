@@ -37,8 +37,9 @@ const userSchema = new mongoose.Schema({
     enum: ['Admin', 'User'],
     default: 'User',
   },
-  imgSrc: {
-    type: String,
+  img: {
+    data: Buffer,
+    contentType: String,
   },
   settings: {
     hideAvatar: {
