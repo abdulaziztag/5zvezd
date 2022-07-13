@@ -49,3 +49,12 @@ export const addProduct = async (req, res) => {
     res.status(500).send({message: 'Something went wrong'});
   }
 };
+
+export const deleteProduct = async (req, res) => {
+  try {
+    await Product.deleteOne({'_id': req.body.productId});
+    res.send({message: 'Successfully deleted!'});
+  } catch (e) {
+    res.send({message: 'Something went wrong!'});
+  }
+};
