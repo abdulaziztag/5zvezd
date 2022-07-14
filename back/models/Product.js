@@ -30,6 +30,8 @@ const productSchema = new mongoose.Schema({
   minCost: {
     type: Number,
   },
+}, {
+  timestamps: true,
 });
 
 export const Product = mongoose.model('Product', productSchema);
