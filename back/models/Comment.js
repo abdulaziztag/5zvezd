@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
   productId: {
     type: String,
@@ -20,6 +20,8 @@ const commentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
 export const Comment = mongoose.model('Comment', commentSchema);

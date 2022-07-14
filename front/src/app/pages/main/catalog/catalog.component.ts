@@ -1,9 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {tabs} from 'src/app/shared/helpers/tabs.data';
 import {TabInterface} from "../../../shared/interfaces/tab.interface";
 import {FormBuilder, FormGroup} from "@angular/forms";
+
+type RouteParams = Params | {brand: string, category: string};
 
 @Component({
   selector: 'app-catalog',
@@ -30,13 +32,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.queryParams
       .pipe(takeUntil(this.notifier))
-      .subscribe(params => {
+      .subscribe((params: RouteParams) => {
           this.form.patchValue({
-            brand: [params['brand']],
-            category: [params['category']]
-          })
-        params['brand'] && this.chips.push(params['brand'])
-        params['category'] && this.chips.push(params['category'])
+            brand: [params.brand],
+            category: [params.category]
+          });
+        this.chips = [params.brand, params.category].filter((item) => !!item);
         }
       );
   }
@@ -46,17 +47,17 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   public filter(): void {
-    this.chips = []
-    this.getForm['brand'].value.forEach((key: string) => {
-      key && this.chips.push(key)
-    })
-    this.getForm['category'].value.forEach((key: string) => {
-      key && this.chips.push(key)
-    })
+    this.chips = [...this.getForm['brand'].value, ...this.getForm['category'].value]
   }
 
   public deleteChip(chip: string): void {
     this.chips = this.chips.filter(e => e !== chip)
+    const brand = this.getForm['brand'].value.filter((item: string) => this.chips.includes(item));
+    const category = this.getForm['category'].value.filter((item: string) => this.chips.includes(item));
+    this.form.patchValue({
+      brand,
+      category
+    })
   }
 
   ngOnDestroy(): void {

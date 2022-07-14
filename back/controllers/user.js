@@ -26,3 +26,18 @@ export const uploadAvatar = async (req, res) => {
     res.send({message: 'Something went wrong!'});
   }
 };
+
+export const changeSettings = async ({body: {settings, userId}}, res) => {
+  try {
+    const user = await User.findOne({'_id': userId});
+    if (user) {
+      user.settings = settings;
+      user.save();
+      res.send({message: 'Successfully changed!'});
+    } else {
+      res.send({message: 'User not found!'});
+    }
+  } catch (e) {
+    res.send({message: 'Something went wrong!'});
+  }
+};
