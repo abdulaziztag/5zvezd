@@ -56,8 +56,14 @@ export const deleteProduct = async (req, res) => {
 
 export const getHomePageProducts = async (req, res) => {
   try {
-    const highestRating = await Product.find({}).sort({averageRating: -1}).limit(12);
-    const lastAdded = await Product.find({}).sort({created_at: 1}).limit(12);
+    const highestRating = await Product
+        .find({})
+        .sort({averageRating: -1})
+        .limit(req.body.count || 12);
+    const lastAdded = await Product
+        .find({})
+        .sort({created_at: -1})
+        .limit(req.body.count || 12);
     const orderByCategory = await Product.find({category: req.body.category || 'Food'}).limit(12);
     res.send({
       highestRating,
