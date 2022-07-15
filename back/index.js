@@ -22,7 +22,7 @@ const auth = passport.authenticate('jwt', { session: false });
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
-app.use('/api/comment', auth, commentRoutes);
+app.use('/api/comment', commentRoutes);
 
 app.get('/', auth, (req, res) => {
   res.send('Hello!');
