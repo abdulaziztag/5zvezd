@@ -18,6 +18,7 @@ export const login = async (req, res) => {
       const token = jwt.sign({
         email: candidate.email,
         userId: candidate._id,
+        role: candidate.role,
       }, process.env.JWT_SECRET, {expiresIn: 60 * 60 * 24 * 7});
 
       res.status(200).send({
@@ -25,6 +26,7 @@ export const login = async (req, res) => {
         firstName: candidate.firstName,
         lastName: candidate.lastName,
         email: candidate.email,
+        role: candidate.role,
       });
     } else {
       res.status(401).send({
@@ -96,7 +98,7 @@ export const confirmEmail = async ({body: {confirmationCode}}, res) => {
     }
     user.status = 'Active';
     user.save();
-    res.status(200).send();
+    res.status(200);
   } catch (e) {
     res.status(500).send({message: 'Something went wrong!'});
   }
