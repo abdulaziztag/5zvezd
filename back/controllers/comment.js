@@ -1,4 +1,4 @@
-import {Comment, User} from '../models/index.js';
+import {Comment} from '../models/index.js';
 import {calculateAverageRating} from './product.js';
 
 const checkSettingsAndSendFields = [
@@ -31,16 +31,18 @@ const checkSettingsAndSendFields = [
 
 export const addComment = async (
     {
-      body: {user, productId, title, body, rating},
+      body: {productId, title, body, rating},
+      headers,
+      user,
     }, res) => {
   try {
-    const hasReview = await Comment.findOne({'user': user});
+    const hasReview = await Comment.findOne({'user': user._id});
     if (hasReview) {
       res.send({message: 'This user already has review!'});
       return;
     }
     const comment = new Comment({
-      user,
+      user: user._id,
       productId,
       title,
       body,
@@ -85,36 +87,49 @@ export const getComments = async (req, res) => {
 };
 
 
-export const getBestComment = async (productId) => {
-  const comment = await Comment.aggregate([
-    {
-      '$match': {
-        'productId': productId,
+export const sortCommentByField = async (req, res) => {
+  try {
+    const comment = await Comment.aggregate([
+      {
+        '$match': {
+          'productId': req.body.productId,
+        },
       },
-    },
-    {
-      '$lookup': {
-        from: 'users',
-        localField: 'user',
-        foreignField: '_id',
-        pipeline: checkSettingsAndSendFields,
-        as: 'userInfo',
+      {
+        '$lookup': {
+          from: 'users',
+          localField: 'user',
+          foreignField: '_id',
+          pipeline: checkSettingsAndSendFields,
+          as: 'userInfo',
+        },
       },
-    },
-  ]).sort({rating: -1}).limit(1);
-  return comment[0];
+    ])
+        .sort({
+          [req.body.field]: req.body.fieldValue,
+        })
+        .limit(req.body.limit || 1);
+    res.send({
+      comment,
+    });
+  } catch (e) {
+    res.send({message: 'Something went wrong!'});
+  }
 };
 
-export const deleteComment = async ({body}, res) => {
+export const deleteComment = async ({body, headers, user}, res) => {
   try {
-    const user = await User.findOne({'_id': body.userId});
-    if (user) {
+    const comment = await Comment
+        .findOne({'_id': body.commentId}, ['_id'])
+        .lean()
+        .populate('user', ['_id']);
+    if (comment.user._id.toString() === req.user._id.toString()) {
       await Comment.deleteOne({'_id': body.commentId});
       res.send({message: 'Successfully deleted!'});
     } else {
-      res.status(404).send({message: 'User not found'});
+      res.status(403).send({message: 'You do not have permission to do this!'});
     }
   } catch (e) {
-    res.send({message: 'Something went wrong!'});
+    res.send({message: 'Comment not found or you are not author of this comment!'});
   }
 };
