@@ -12,7 +12,7 @@ export const passportGuard = (passport) => {
   passport.use(
       new JwtStrategy(options, async (payload, done) => {
         try {
-          const user = await User.findById(payload.userId).select('email id');
+          const user = await User.findById(payload.userId).select('email _id role');
           done(null, user||false);
         } catch (e) {
           console.log(e);

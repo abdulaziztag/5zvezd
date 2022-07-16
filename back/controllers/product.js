@@ -2,19 +2,20 @@ import {Product, Comment} from '../models/index.js';
 import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import {getBestComment} from './comment.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const selectArguments = [
+  'title', 'averageRating', 'img',
+  'company', 'category', 'minCost', 'maxCost', 'createdAt'];
+
 export const getProductById = async ({body: {productId}}, res) => {
   try {
     const product = await Product.findOne({_id: productId});
-    const bestComment = await getBestComment(productId);
 
     res.status(200).send({
       product,
-      comment: bestComment,
     });
   } catch (e) {
     res.status(500).send({message: 'Something went wrong'});
@@ -23,13 +24,19 @@ export const getProductById = async ({body: {productId}}, res) => {
 
 export const addProduct = async (req, res) => {
   try {
+    if (req.user.role !== 'Admin') {
+      res.status(403).send({message: 'You do not have permissions do this operation!'});
+      return;
+    }
+    const filePath = path.join(__dirname + '/../uploads/' + req.file.filename);
+
     const product = new Product({
       title: req.body.title,
       description: req.body.description,
       category: req.body.category,
       company: req.body.company,
       img: {
-        data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
+        data: fs.readFileSync(filePath),
         contentType: 'image/png',
       },
     });
@@ -40,13 +47,20 @@ export const addProduct = async (req, res) => {
         res.status(200).send({message: 'Successfully added!'});
       }
     });
+    fs.unlinkSync(filePath);
   } catch (e) {
+    console.log(e);
     res.status(500).send({message: 'Something went wrong'});
   }
 };
 
 export const deleteProduct = async (req, res) => {
   try {
+    if (req.user.role !== 'Admin') {
+      res.status(403).send({message: 'You do not have permissions do this operation!'});
+      return;
+    }
+
     await Product.deleteOne({'_id': req.body.productId});
     res.send({message: 'Successfully deleted!'});
   } catch (e) {
@@ -54,22 +68,15 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-export const getHomePageProducts = async (req, res) => {
+export const sortProductByField = async (req, res) => {
   try {
-    const highestRating = await Product
-        .find({})
-        .sort({averageRating: -1})
-        .limit(req.body.count || 12);
-    const lastAdded = await Product
-        .find({})
-        .sort({created_at: -1})
-        .limit(req.body.count || 12);
-    const orderByCategory = await Product.find({category: req.body.category || 'Food'}).limit(12);
-    res.send({
-      highestRating,
-      lastAdded,
-      orderByCategory,
-    });
+    const filteredProduct = await Product.find({})
+        .sort({
+          [req.body.field]: req.body.fieldValue,
+        })
+        .limit(req.body.limit || 12);
+
+    res.send({filteredProduct});
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
@@ -102,14 +109,26 @@ export const calculateAverageRating = async (productId, res) => {
 
 export const filterProducts = async ({body}, res) => {
   try {
-    const products = await Product
+    const category = await Product
         .find({
-          category: {'$in': body.category},
+          $or: [
+            {
+              category: {'$in': body.category},
+            },
+            {
+              company: {'$in': body.company},
+            },
+            {
+              title: body.title,
+            },
+          ],
         })
-        .select(['title', 'averageRating', 'img', 'company', 'category', 'minCost', 'maxCost']);
-    console.log(products);
-    res.send(products);
+        .select(selectArguments);
+    res.send({
+      category,
+    });
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
 };
+
