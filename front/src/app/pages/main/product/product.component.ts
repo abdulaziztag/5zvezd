@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {ProductService} from "../../../shared/services/product.service";
@@ -10,14 +10,12 @@ import {AddReviewDialogComponent} from "../../../shared/components/add-review-di
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit, OnDestroy {
   @ViewChild('el', {static: true}) private el: ElementRef
 
   private notifier = new Subject<void>();
-  private productId: string = '';
   public product?: ProductInterface;
 
   constructor(
@@ -25,15 +23,18 @@ export class ProductComponent implements OnInit, OnDestroy {
     public productService: ProductService,
     public tokenService: TokenStorageService,
     private dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
-      this.productId = params['productId']
-    });
-    this.productService.getProduct().pipe(takeUntil(this.notifier)).subscribe(data => {
-      this.product = data
-    });
+    this.productService
+      .requestProduct(this.route.snapshot.params['productId'])
+      .pipe(takeUntil(this.notifier))
+      .subscribe(data => {
+        this.productService.setProduct(data.product)
+      }, error => {
+        console.log(error)
+      });
   }
 
   public openDialog(): void {
