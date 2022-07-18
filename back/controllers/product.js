@@ -2,6 +2,7 @@ import {Product, Comment} from '../models/index.js';
 import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
+import mongoose from 'mongoose';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,12 +13,25 @@ const selectArguments = [
 
 export const getProductById = async ({body: {productId}}, res) => {
   try {
-    const product = await Product.findOne({_id: productId});
+    if (mongoose.isValidObjectId(productId)) {
+      const product = await Product.findOne({_id: productId});
 
-    res.status(200).send({
-      product,
-    });
+      if (product) {
+        res.status(200).send({
+          product,
+        });
+      } else {
+        res.status(404).send({
+          message: 'Product by this id not found!',
+        });
+      }
+    } else {
+      res.status(404).send({
+        message: 'Product by this id not found!',
+      });
+    }
   } catch (e) {
+    console.log(e);
     res.status(500).send({message: 'Something went wrong'});
   }
 };
