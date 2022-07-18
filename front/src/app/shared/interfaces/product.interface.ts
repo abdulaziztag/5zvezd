@@ -7,7 +7,7 @@ export interface ProductInterface {
   maxCost: number
   category: string
   company: string
-  publishedData: number
+  createdAt: number
 }
 
 export interface ProductCardInterface {
