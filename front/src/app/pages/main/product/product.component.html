@@ -1,13 +1,13 @@
 <div class="container">
-  <div class="container__product">
+  <div class="container__product" *ngIf="productService.product$ | async as product">
     <div class="container__product__image">
-      <!--<img
-        [src]="product.imgUrl"
+      <img
+        [src]="'data: ' + product.img.contentType + ';base64, ' + convertedBase64 | safeHtml"
         [alt]="product.title"
-      >-->
+      >
     </div>
-    <div class="container__product__info" >
-      <ng-container *ngIf="productService.product$ | async as product">
+    <div class="container__product__info">
+      <ng-container>
         <div class="container__product__info__title">
           {{product.title}}
         </div>
@@ -42,13 +42,13 @@
         <div class="container__product__info__description">
           {{product.description}}
         </div>
-        product
-        <ng-container *ngIf="product">
+
+        <ng-container *ngIf="!product">
           saassas
         </ng-container>
       </ng-container>
       <div class="container__product__info__date">
-        <!--{{product.createdAt | date: 'dd MMM, yyyy'}}-->
+        {{product.createdAt | date: 'dd MMM, yyyy'}}
       </div>
     </div>
   </div>
