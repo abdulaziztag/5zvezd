@@ -15,6 +15,7 @@ import {ReviewComponent} from './components/review/review.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AddReviewDialogComponent } from './components/add-review-dialog/add-review-dialog.component';
 import { CatalogProductCardComponent } from './components/catalog-product-card/catalog-product-card.component';
+import {SafeHtml} from "./pipes/safeHtml";
 
 @NgModule({
   imports: [
@@ -34,11 +35,13 @@ import { CatalogProductCardComponent } from './components/catalog-product-card/c
     ReviewComponent,
     AlertComponent,
     AddReviewDialogComponent,
-    CatalogProductCardComponent
+    CatalogProductCardComponent,
+    SafeHtml
   ],
   exports: [
     CommonModule,
     FormsModule,
+    SafeHtml,
     MaterialModule,
     ErrorPageComponent,
     DrawerComponent,

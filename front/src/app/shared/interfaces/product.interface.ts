@@ -1,6 +1,9 @@
 export interface ProductInterface {
   title: string
-  imgUrl: string
+  img: {
+    contentType: string,
+    data: any,
+  }
   averageRating: number
   description: string
   minCost: number
