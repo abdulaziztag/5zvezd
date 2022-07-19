@@ -9,6 +9,10 @@
     flex-direction: column;
     justify-content: center;
 
+    .spinner {
+      align-self: center;
+    }
+
     &__product {
       width: 80%;
       display: flex;
@@ -20,11 +24,10 @@
       border-radius: 5px;
       &__image {
         width: 67.5%;
-        display: flex;
         & > img {
           object-fit: cover;
           width: 100%;
-          height: 100%;
+          aspect-ratio: 5/3;
           border-radius: 5px;
           box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         }
@@ -35,6 +38,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         &__title {
           font-family: Roboto, 'sans-serif';
           font-size: 32px;
@@ -107,11 +111,20 @@
       margin-top: 10px;
       align-self: center;
 
-      .title {
+      .title > span {
         font-size: 27px;
         color: rgba(0, 0, 0, .8);
         margin: 10px
       }
+    }
+
+    .no-reviews {
+      border: 1px solid rgba(0, 0, 0, .4);
+      display: flex;
+      justify-content: center;
+      border-radius: 5px;
+      padding: 10px 0;
+      align-items: center;
     }
   }
 }

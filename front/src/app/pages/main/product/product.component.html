@@ -1,13 +1,16 @@
 <div class="container">
-  <div class="container__product" *ngIf="productService.product$ | async as product">
+  <div
+    class="container__product"
+    *ngIf="productService.product$ | async as product"
+  >
     <div class="container__product__image">
       <img
-        [src]="'data: ' + product.img.contentType + ';base64, ' + convertedBase64 | safeHtml"
+        [src]="'data: ' + product.img?.contentType + ';base64, ' + convertedBase64 | safeHtml"
         [alt]="product.title"
       >
     </div>
     <div class="container__product__info">
-      <ng-container>
+      <div>
         <div class="container__product__info__title">
           {{product.title}}
         </div>
@@ -27,7 +30,7 @@
         </div>
         <div class="container__product__info__numbers">
           <div class="rating">
-            Rating: {{product.averageRating}}
+            Rating: {{product.averageRating | number : '1.0-1'}}
             <mat-icon>star</mat-icon>
           </div>
           <div class="cost">
@@ -46,13 +49,16 @@
         <ng-container *ngIf="!product">
           saassas
         </ng-container>
-      </ng-container>
+      </div>
       <div class="container__product__info__date">
         {{product.createdAt | date: 'dd MMM, yyyy'}}
       </div>
     </div>
   </div>
-  <div class="container__actions">
+  <div
+    class="container__actions"
+    *ngIf="(loaderService.getLoader() | async) === false"
+  >
     <ng-container *ngIf="!tokenService.getToken()">
       <app-alert
         background="#f44336"
@@ -66,7 +72,8 @@
           mat-stroked-button
           color="primary"
           routerLink="/auth/login"
-        >Login</button>
+        >Login
+        </button>
       </div>
     </ng-container>
     <ng-container *ngIf="!!tokenService.getToken()">
@@ -75,19 +82,56 @@
         borderColor="#4bc47d"
       >
         <ng-container icon>check_circle</ng-container>
-        <ng-container>If you have experience with this item, please leave feedback to help to other people</ng-container>
+        <ng-container>If you have experience with this item, please leave feedback to help to other people
+        </ng-container>
       </app-alert>
       <div class="container__actions__div">
         <button
           mat-stroked-button
           color="success"
           (click)="openDialog()"
-        >Add review</button>
+        >Add review
+        </button>
       </div>
     </ng-container>
   </div>
-  <div class="container__reviews">
-    <div class="title">Reviews</div>
-    <app-review *ngFor="let n of [1,2,3,4,5]"></app-review>
+  <mat-spinner
+    class="spinner"
+    *ngIf="(loaderService.getLoader() | async) === true"
+  ></mat-spinner>
+  <div class="container__reviews" *ngIf="commentService.comment$ | async as comments">
+    <div class="title" *ngIf="comments.length !== 0">
+      <span *ngIf="loadAllReviews">Reviews</span>
+      <span *ngIf="!loadAllReviews">Best review</span>
+    </div>
+    <ng-container>
+      <app-review
+        *ngFor="let comment of comments"
+        [comment]="comment"
+      ></app-review>
+    </ng-container>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="loadReviews()"
+      [disabled]="reviewLoader"
+      *ngIf="!loadAllReviews && comments.length !== 0"
+    >
+      <span *ngIf="!reviewLoader">Load all reviews</span>
+      <mat-spinner
+        strokeWidth="2"
+        diameter="25"
+        style="margin: 0 auto"
+        *ngIf="reviewLoader"
+      >
+
+      </mat-spinner>
+    </button>
+    <div
+      *ngIf="comments.length === 0"
+      class="no-reviews"
+    >
+      There is no reviews yet!
+    </div>
   </div>
 </div>
