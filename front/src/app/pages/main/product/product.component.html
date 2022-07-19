@@ -34,8 +34,8 @@
             <mat-icon>star</mat-icon>
           </div>
           <div class="cost">
-            <ng-container *ngIf="product.minCost">
-              Cost: {{product.minCost}} - {{product.maxCost}} $
+            <ng-container *ngIf="product.minCost !== 0">
+              Cost: {{product.minCost}} {{ product.maxCost !== 0 ? (' - ' + product.maxCost) : ''}} $
             </ng-container>
             <ng-container *ngIf="!product.minCost">
               Cost is not defined
