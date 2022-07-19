@@ -1,4 +1,4 @@
-import {Comment} from '../models/index.js';
+import {Comment, Product} from '../models/index.js';
 import {calculateAverageRating} from './product.js';
 
 const checkSettingsAndSendFields = [
@@ -31,12 +31,21 @@ const checkSettingsAndSendFields = [
 
 export const addComment = async (
     {
-      body: {productId, title, body, rating},
+      body: {productId, title, body, rating, cost},
       headers,
       user,
     }, res) => {
   try {
-    const hasReview = await Comment.findOne({'user': user._id});
+    const hasReview = await Comment.findOne({
+      $and: [
+        {
+          user: user._id,
+        },
+        {
+          productId,
+        },
+      ],
+    });
     if (hasReview) {
       res.send({message: 'This user already has review!'});
       return;
@@ -55,9 +64,16 @@ export const addComment = async (
       }
     });
 
+    const product = await Product.findOne({'_id': productId});
+
+    if (product.minCost > +cost || product.minCost === 0) {
+      await Product.findOneAndUpdate({'_id': productId}, {minCost: +cost});
+    } else if (product.maxCost < +cost) {
+      await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
+    }
+
     await calculateAverageRating(productId, res); // in product controller
   } catch (e) {
-    console.log(e);
     res.status(500).send({message: 'Something went wrong!'});
   }
 };
@@ -117,14 +133,14 @@ export const sortCommentByField = async (req, res) => {
   }
 };
 
-export const deleteComment = async ({body, headers, user}, res) => {
+export const deleteComment = async ({headers, user}, res) => {
   try {
     const comment = await Comment
-        .findOne({'_id': body.commentId}, ['_id'])
+        .findOne({'user': user._id}, ['_id'])
         .lean()
         .populate('user', ['_id']);
-    if (comment.user._id.toString() === req.user._id.toString()) {
-      await Comment.deleteOne({'_id': body.commentId});
+    if (comment.user._id.toString() === user._id.toString()) {
+      await Comment.deleteOne({'user': user._id});
       res.send({message: 'Successfully deleted!'});
     } else {
       res.status(403).send({message: 'You do not have permission to do this!'});
