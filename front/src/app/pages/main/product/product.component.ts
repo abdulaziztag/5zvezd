@@ -1,11 +1,14 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Subject, takeUntil} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
+import {catchError, delay, Subject, switchMap, takeUntil, throwError} from "rxjs";
 import {ProductService} from "../../../shared/services/product.service";
-import {ProductInterface} from "../../../shared/interfaces/product.interface";
 import {TokenStorageService} from "../../../shared/services/token-storage.service";
 import {MatDialog} from '@angular/material/dialog';
 import {AddReviewDialogComponent} from "../../../shared/components/add-review-dialog/add-review-dialog.component";
+import {AlertService} from "../../../shared/services/alert.service";
+import {CommentService} from "../../../shared/services/comment.service";
+import {base64ArrayBuffer} from '../../../shared/helpers/base64ArrayBuffer.function'
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-product',
@@ -16,25 +19,51 @@ export class ProductComponent implements OnInit, OnDestroy {
   @ViewChild('el', {static: true}) private el: ElementRef
 
   private notifier = new Subject<void>();
-  public product?: ProductInterface;
+  public convertedBase64: string = ''
+  public loadAllReviews: boolean = false
+  public reviewLoader: boolean = false
 
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
     public tokenService: TokenStorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private alertService: AlertService,
+    private router: Router,
+    public commentService: CommentService,
+    public loaderService: LoaderService
   ) {
   }
 
   ngOnInit(): void {
-    this.productService
-      .requestProduct(this.route.snapshot.params['productId'])
+    const productId = this.route.snapshot.params['productId'];
+    this.loaderService.setLoader(true);
+
+    const productRequest$ = this.productService
+      .requestProduct(productId)
+      .pipe(
+        delay(1000),
+        catchError((error) => {
+          this.alertService.openSnackBar(error.error.message, 'error');
+          this.router.navigate([
+            '/error'
+          ])
+          return throwError(error);
+        }),
+        switchMap((data) => {
+          this.productService.setProduct(data.product)
+          this.convertedBase64 = base64ArrayBuffer(data.product.img?.data?.data)
+
+          return this.commentService.requestComment(productId)
+        })
+      )
+
+    productRequest$
       .pipe(takeUntil(this.notifier))
       .subscribe(data => {
-        this.productService.setProduct(data.product)
-      }, error => {
-        console.log(error)
-      });
+        this.commentService.setComment(data.comment);
+        this.loaderService.setLoader(false);
+      })
   }
 
   public openDialog(): void {
@@ -42,6 +71,16 @@ export class ProductComponent implements OnInit, OnDestroy {
       disableClose: true,
       minWidth: '70vw'
     });
+  }
+
+  public loadReviews(): void {
+    this.reviewLoader = true
+    this.commentService.requestAllComments(this.route.snapshot.params['productId'])
+      .pipe(takeUntil(this.notifier))
+      .subscribe(data => {
+        this.commentService.setComment(data.comments)
+      })
+    this.loadAllReviews = true
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {CommentInterface} from "../../interfaces/comment.interface";
+import {base64ArrayBuffer} from "../../helpers/base64ArrayBuffer.function";
 
 @Component({
   selector: 'app-review',
@@ -7,11 +9,16 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewComponent implements OnInit {
+  @Input() comment: CommentInterface;
+
+  public convertedBase64: string = ''
   public starId: number[] = [1, 2, 3, 4, 5];
-  public index: number = 1;
   constructor() { }
 
   ngOnInit(): void {
+    if (this.comment.userInfo[0]?.img) {
+      this.convertedBase64 = base64ArrayBuffer(this.comment.userInfo[0]?.img?.data)
+    }
   }
 
 }

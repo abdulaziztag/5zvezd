@@ -26,9 +26,11 @@ const productSchema = new mongoose.Schema({
   },
   maxCost: {
     type: Number,
+    default: 0,
   },
   minCost: {
     type: Number,
+    default: 0,
   },
 }, {
   timestamps: true,
