@@ -1,8 +1,9 @@
 import express from 'express';
 import passport from 'passport';
+import {addComment, deleteComment, getComments, sortCommentByField} from '../controllers/comment.js';
+
 const router = express.Router();
 const auth = passport.authenticate('jwt', { session: false });
-import {addComment, deleteComment, getComments, sortCommentByField} from '../controllers/comment.js';
 
 router.post('/add', auth, addComment);
 router.post('/get', getComments);
