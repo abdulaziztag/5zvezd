@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {CommentInterface} from "../../interfaces/comment.interface";
 import {base64ArrayBuffer} from "../../helpers/base64ArrayBuffer.function";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteCommentDialogComponent} from '../delete-comment-dialog/delete-comment-dialog.component';
 
 @Component({
   selector: 'app-review',
@@ -10,10 +12,12 @@ import {base64ArrayBuffer} from "../../helpers/base64ArrayBuffer.function";
 })
 export class ReviewComponent implements OnInit {
   @Input() comment: CommentInterface;
-
+  @Input() yourComment: boolean;
   public convertedBase64: string = ''
   public starId: number[] = [1, 2, 3, 4, 5];
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     if (this.comment.userInfo[0]?.img) {
@@ -21,4 +25,9 @@ export class ReviewComponent implements OnInit {
     }
   }
 
+  public deleteComment(): void {
+    this.dialog.open(DeleteCommentDialogComponent, {
+      disableClose: true
+    })
+  }
 }
