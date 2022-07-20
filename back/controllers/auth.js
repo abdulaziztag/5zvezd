@@ -26,7 +26,7 @@ export const login = async (req, res) => {
         firstName: candidate.firstName,
         lastName: candidate.lastName,
         email: candidate.email,
-        role: candidate.role,
+        userId: candidate._id,
       });
     } else {
       res.status(401).send({
