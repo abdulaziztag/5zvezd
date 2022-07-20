@@ -20,9 +20,14 @@
   color: #4cb050;
 }
 
+.mat-icon-button.mat-warning {
+  color: #fb8c00
+}
+
 .mat-button.mat-error,
-.mat-stroked-button.mat-error {
-  color: red;
+.mat-stroked-button.mat-error,
+.mat-icon-button.mat-error {
+  color: #ff5252;
 }
 
 .panel-class {
