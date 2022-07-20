@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.tokenStorage.saveUser({
         firstName: data.firstName,
         lastName: data.lastName,
-        email: data.email
+        email: data.email,
+        userId: data.userId,
       });
       this.router.navigate(['/']);
     }, error => {

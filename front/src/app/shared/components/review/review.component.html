@@ -35,5 +35,18 @@
     <div class="review__data__body">
       {{comment.body}}
     </div>
+
+    <div class="comment-owner" *ngIf="yourComment">
+      <button mat-icon-button color="warning">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="error"
+        (click)="deleteComment()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
