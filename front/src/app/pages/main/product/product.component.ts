@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {catchError, delay, Subject, switchMap, takeUntil, throwError} from "rxjs";
+import {catchError, delay, map, Subject, switchMap, takeUntil, throwError} from "rxjs";
 import {ProductService} from "../../../shared/services/product.service";
 import {TokenStorageService} from "../../../shared/services/token-storage.service";
 import {MatDialog} from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import {AlertService} from "../../../shared/services/alert.service";
 import {CommentService} from "../../../shared/services/comment.service";
 import {base64ArrayBuffer} from '../../../shared/helpers/base64ArrayBuffer.function'
 import {LoaderService} from "../../../shared/services/loader.service";
+import {CommentInterface} from "../../../shared/interfaces/comment.interface";
 
 @Component({
   selector: 'app-product',
@@ -22,6 +23,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   public convertedBase64: string = ''
   public loadAllReviews: boolean = false
   public reviewLoader: boolean = false
+  public commentOwner: CommentInterface;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,9 +61,19 @@ export class ProductComponent implements OnInit, OnDestroy {
       )
 
     productRequest$
-      .pipe(takeUntil(this.notifier))
+      .pipe(
+        takeUntil(this.notifier),
+        map(key => {
+          return key.comment.filter((key: CommentInterface) => {
+            if (key.user === this.tokenService.getUser().userId) {
+              this.commentOwner = key
+            }
+            return key.user !== this.tokenService.getUser().userId
+          })
+        })
+      )
       .subscribe(data => {
-        this.commentService.setComment(data.comment);
+        this.commentService.setComment(data);
         this.loaderService.setLoader(false);
       })
   }
@@ -76,9 +88,19 @@ export class ProductComponent implements OnInit, OnDestroy {
   public loadReviews(): void {
     this.reviewLoader = true
     this.commentService.requestAllComments(this.route.snapshot.params['productId'])
-      .pipe(takeUntil(this.notifier))
+      .pipe(
+        takeUntil(this.notifier),
+        map(key => {
+          return key.comments.filter((key: CommentInterface) => {
+            if (key.user === this.tokenService.getUser().userId) {
+              this.commentOwner = key
+            }
+            return key.user !== this.tokenService.getUser().userId
+          })
+        })
+      )
       .subscribe(data => {
-        this.commentService.setComment(data.comments)
+        this.commentService.setComment(data)
       })
     this.loadAllReviews = true
   }

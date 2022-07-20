@@ -55,9 +55,17 @@
       </div>
     </div>
   </div>
+  <div class="container__reviews">
+    <ng-container *ngIf="commentOwner">
+      <app-review
+        [comment]="commentOwner"
+        [yourComment]="true"
+      ></app-review>
+    </ng-container>
+  </div>
   <div
     class="container__actions"
-    *ngIf="(loaderService.getLoader() | async) === false"
+    *ngIf="(loaderService.getLoader() | async) === false && !commentOwner"
   >
     <ng-container *ngIf="!tokenService.getToken()">
       <app-alert
@@ -115,7 +123,7 @@
       color="primary"
       (click)="loadReviews()"
       [disabled]="reviewLoader"
-      *ngIf="!loadAllReviews && comments.length !== 0"
+      *ngIf="!loadAllReviews"
     >
       <span *ngIf="!reviewLoader">Load all reviews</span>
       <mat-spinner
@@ -128,7 +136,7 @@
       </mat-spinner>
     </button>
     <div
-      *ngIf="comments.length === 0"
+      *ngIf="comments.length === 0 && loadAllReviews"
       class="no-reviews"
     >
       There is no reviews yet!

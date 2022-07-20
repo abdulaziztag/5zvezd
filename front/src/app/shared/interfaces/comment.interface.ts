@@ -5,6 +5,7 @@ export interface CommentInterface {
   lastName: string,
   rating: number,
   createdAt: number,
+  user: string,
   userInfo: {
     firstName?: string,
     lastName?: string,

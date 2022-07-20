@@ -6,7 +6,7 @@ import {CommentInterface} from "../interfaces/comment.interface";
 
 const AUTH_API: string = environment.host + 'comment/';
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 }
 
 @Injectable({
@@ -18,7 +18,8 @@ export class CommentService {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   public requestComment(
     productId: string,
@@ -51,4 +52,5 @@ export class CommentService {
   public setComment(comment: CommentInterface[]): void {
     this.comment$.next(comment)
   }
+
 }
