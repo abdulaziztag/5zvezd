@@ -55,8 +55,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         switchMap((data) => {
           this.productService.setProduct(data.product)
           this.convertedBase64 = base64ArrayBuffer(data.product.img?.data?.data)
+          const userId = this.tokenService.getUser().userId
 
-          return this.commentService.requestComment(productId)
+          return this.commentService.requestComment(
+            productId,
+            undefined,
+            undefined,
+             (!userId ? 1 : 2),
+            userId
+          )
         })
       )
 

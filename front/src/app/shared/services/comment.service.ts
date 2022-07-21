@@ -26,7 +26,8 @@ export class CommentService {
     productId: string,
     field = 'rating',
     fieldValue = 'desc',
-    limit = 1
+    limit: number = 1,
+    userId?: string
   ): Observable<any> {
     return this.http.post(
       AUTH_API + 'sortByField',
@@ -34,7 +35,8 @@ export class CommentService {
         productId,
         field,
         fieldValue,
-        limit
+        limit,
+        userId
       },
       httpOptions
     );
