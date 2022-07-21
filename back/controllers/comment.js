@@ -3,23 +3,23 @@ import {calculateAverageRating} from './product.js';
 
 const checkSettingsAndSendFields = [
   {
-    '$project': {
+    $project: {
       firstName: {
-        '$cond': {
+        $cond: {
           if: '$settings.hideName',
           then: 'Hidden name',
           else: '$firstName',
         },
       },
       lastName: {
-        '$cond': {
+        $cond: {
           if: '$settings.hideName',
           then: 0,
           else: '$lastName',
         },
       },
       img: {
-        '$cond': {
+        $cond: {
           if: '$settings.hideAvatar',
           then: 0,
           else: '$img',
@@ -82,12 +82,12 @@ export const getComments = async (req, res) => {
   try {
     const comments = await Comment.aggregate([
       {
-        '$match': {
+        $match: {
           'productId': req.body.productId,
         },
       },
       {
-        '$lookup': {
+        $lookup: {
           from: 'users',
           localField: 'user',
           foreignField: '_id',
@@ -107,12 +107,19 @@ export const sortCommentByField = async (req, res) => {
   try {
     const comment = await Comment.aggregate([
       {
-        '$match': {
-          'productId': req.body.productId,
+        $match: {
+          $or: [
+            {
+              productId: req.body.productId,
+            },
+            {
+              user: req.body.userId ? req.body.userId : '',
+            },
+          ],
         },
       },
       {
-        '$lookup': {
+        $lookup: {
           from: 'users',
           localField: 'user',
           foreignField: '_id',
