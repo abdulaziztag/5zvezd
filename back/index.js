@@ -9,7 +9,7 @@ import {passportGuard} from './middleware/passport.js';
 const app = express();
 config();
 
-const mongoUrl = `${process.env.MONGODB_URI}${process.env.DB_NAME}`;
+const mongoUrl = `${process.env.MONGODB_URI}`;
 
 app.use(passport.initialize());
 passportGuard(passport);
