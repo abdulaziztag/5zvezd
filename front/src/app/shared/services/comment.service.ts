@@ -15,6 +15,7 @@ const httpOptions = {
 
 export class CommentService {
   public comment$ = new Subject<CommentInterface[]>();
+  public commentOwner$ = new Subject<CommentInterface>()
 
   constructor(
     private http: HttpClient
@@ -49,8 +50,17 @@ export class CommentService {
     );
   }
 
+  public deleteComment(): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      AUTH_API + 'delete',
+    )
+  }
+
   public setComment(comment: CommentInterface[]): void {
     this.comment$.next(comment)
   }
 
+  public setCommentOwner(comment: CommentInterface): void {
+    this.commentOwner$.next(comment)
+  }
 }
