@@ -2,15 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import cors from 'cors';
-import { config } from 'dotenv';
+import {config} from 'dotenv';
+import {authRoutes, commentRoutes, productRoutes, userRoutes} from './routes/index.js';
+import {passportGuard} from './middleware/passport.js';
+
 const app = express();
 config();
-import { authRoutes, productRoutes, commentRoutes, userRoutes } from './routes/index.js';
 
-const mongoUrl = `${process.env.MONGODB_URI}${process.env.DB_NAME}`;
+const mongoUrl = `${process.env.MONGODB_URI}`;
 
 app.use(passport.initialize());
-import { passportGuard } from './middleware/passport.js';
 passportGuard(passport);
 app.use(cors());
 app.use(express.json());

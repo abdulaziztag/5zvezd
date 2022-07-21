@@ -1,16 +1,16 @@
 import express from 'express';
 import passport from 'passport';
-
-const router = express.Router();
-const auth = passport.authenticate('jwt', { session: false });
 import {
-  getProductById,
   addProduct,
   deleteProduct,
   filterProducts,
+  getProductById,
   sortProductByField,
 } from '../controllers/product.js';
 import {upload} from '../utils/multer.util.js';
+
+const router = express.Router();
+const auth = passport.authenticate('jwt', { session: false });
 
 router.post('/get', getProductById);
 router.post('/add', [auth, upload.single('img')], addProduct);

@@ -34,8 +34,8 @@
             <mat-icon>star</mat-icon>
           </div>
           <div class="cost">
-            <ng-container *ngIf="product.minCost !== 0">
-              Cost: {{product.minCost}} {{ product.maxCost !== 0 ? (' - ' + product.maxCost) : ''}} $
+            <ng-container *ngIf="product.minCost">
+              Cost: {{product.minCost}} {{product.maxCost ? (' - ' + product.maxCost) : ''}} $
             </ng-container>
             <ng-container *ngIf="!product.minCost">
               Cost is not defined
@@ -56,7 +56,7 @@
     </div>
   </div>
   <div class="container__reviews">
-    <ng-container *ngIf="commentOwner">
+    <ng-container *ngIf="commentService.commentOwner$ | async as commentOwner">
       <app-review
         [comment]="commentOwner"
         [yourComment]="true"

@@ -31,7 +31,6 @@ export const getProductById = async ({body: {productId}}, res) => {
       });
     }
   } catch (e) {
-    console.log(e);
     res.status(500).send({message: 'Something went wrong'});
   }
 };
@@ -42,6 +41,7 @@ export const addProduct = async (req, res) => {
       res.status(403).send({message: 'You do not have permissions do this operation!'});
       return;
     }
+
     const filePath = path.join(__dirname + '/../uploads/' + req.file.filename);
 
     const product = new Product({

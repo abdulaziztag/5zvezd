@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   public convertedBase64: string = ''
   public loadAllReviews: boolean = false
   public reviewLoader: boolean = false
-  public commentOwner: CommentInterface;
+  public commentOwner: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,8 +55,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         switchMap((data) => {
           this.productService.setProduct(data.product)
           this.convertedBase64 = base64ArrayBuffer(data.product.img?.data?.data)
+          const userId = this.tokenService.getUser().userId
 
-          return this.commentService.requestComment(productId)
+          return this.commentService.requestComment(
+            productId,
+            undefined,
+            undefined,
+             (!userId ? 1 : 2),
+            userId
+          )
         })
       )
 
@@ -66,7 +73,8 @@ export class ProductComponent implements OnInit, OnDestroy {
         map(key => {
           return key.comment.filter((key: CommentInterface) => {
             if (key.user === this.tokenService.getUser().userId) {
-              this.commentOwner = key
+              this.commentService.setCommentOwner(key)
+              this.commentOwner = true
             }
             return key.user !== this.tokenService.getUser().userId
           })
@@ -93,7 +101,8 @@ export class ProductComponent implements OnInit, OnDestroy {
         map(key => {
           return key.comments.filter((key: CommentInterface) => {
             if (key.user === this.tokenService.getUser().userId) {
-              this.commentOwner = key
+              this.commentService.setCommentOwner(key)
+              this.commentOwner = true
             }
             return key.user !== this.tokenService.getUser().userId
           })
