@@ -15,7 +15,10 @@ export interface ProductInterface {
 
 export interface ProductCardInterface {
   title: string
-  imgUrl: string
+  img: {
+    data: any,
+    contentType: string,
+  }
   averageRating: number
-  id: string
+  _id: string
 }

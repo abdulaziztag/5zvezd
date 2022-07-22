@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {catchError, delay, map, Subject, switchMap, takeUntil, throwError} from "rxjs";
+import {catchError, map, Subject, switchMap, takeUntil, throwError} from "rxjs";
 import {ProductService} from "../../../shared/services/product.service";
 import {TokenStorageService} from "../../../shared/services/token-storage.service";
 import {MatDialog} from '@angular/material/dialog';
@@ -44,7 +44,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     const productRequest$ = this.productService
       .requestProduct(productId)
       .pipe(
-        delay(1000),
         catchError((error) => {
           this.alertService.openSnackBar(error.error.message, 'error');
           this.router.navigate([

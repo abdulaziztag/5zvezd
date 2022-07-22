@@ -13,7 +13,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild('productList', {static: true}) private productList?: ElementRef;
 
   public transformValue: number = 0;
-  private CARD_WIDTH: number = 250;
+  private CARD_WIDTH: number = 270;
   private MARGINS: number = 30;
 
 
