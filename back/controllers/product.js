@@ -84,7 +84,7 @@ export const deleteProduct = async (req, res) => {
 
 export const sortProductByField = async (req, res) => {
   try {
-    const filteredProduct = await Product.find({})
+    const filteredProduct = await Product.find({}, ['title', '_id', 'img', 'averageRating'])
         .sort({
           [req.body.field]: req.body.fieldValue,
         })

@@ -1,15 +1,35 @@
 <app-carousel
   [slides]="data.getCarouselItems() | async"
 ></app-carousel>
-<app-product-list
+<!--<app-product-list
   title="Recently added"
   [data]="productList"
-></app-product-list>
-<app-product-list
-  title="Popular products"
-  [data]="productList"
-></app-product-list>
-<app-product-list
+></app-product-list>-->
+<ng-container
+  *ngIf="productService.popular$ | async as popular"
+>
+  <app-product-list
+    title="Popular products"
+    [data]="popular"
+  ></app-product-list>
+</ng-container>
+<ng-container
+  *ngIf="productService.popular$ | async as popular"
+>
+  <app-product-list
+    title="Popular products"
+    [data]="popular"
+  ></app-product-list>
+</ng-container>
+<ng-container
+  *ngIf="productService.popular$ | async as popular"
+>
+  <app-product-list
+    title="Popular products"
+    [data]="popular"
+  ></app-product-list>
+</ng-container>
+<!--<app-product-list
   title="Category: 'Foods'"
   [data]="productList"
-></app-product-list>
+></app-product-list>-->

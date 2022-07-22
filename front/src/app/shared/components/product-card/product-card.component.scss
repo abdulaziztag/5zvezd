@@ -6,41 +6,46 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 
-  .container {
-    display: inline-block;
+  .card {
+    display: block;
+    position: relative;
+    aspect-ratio: 9/12;
+    width: 250px;
+    margin: 0 10px 0 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
 
-    &__card {
-      aspect-ratio: 9/12;
-      width: 230px;
-      margin: 0 10px 0 10px;
+    &__image {
+      object-fit: cover;
+      width: 100%;
       border-radius: 5px;
-      position: relative;
-      background-position: center;
-      background-size: 110%;
-      background-repeat: no-repeat;
-      transition: .4s background-size, box-shadow;
-      cursor: pointer;
+      height: 100%;
+      transition: .3s transform;
 
       &:hover {
-        background-size: 120%;
+        transform: scale(1.1);
       }
+    }
 
-      &__title {
-        position: absolute;
-        bottom: 20px;
-        display: flex;
-        align-items: center;
-        left: 15px;
-        color: white;
-        font-size: 23px;
+    &__info {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      left: 15px;
+      color: #000;
+      padding: 3px 5px;
+      border-radius: 5px;
+      background: #ffffff;
+      font-size: 23px;
 
-        & > mat-icon {
-          color: yellow;
-          align-self: center;
-          font-size: 17px;
-          padding-top: 4px;
-          text-align: center;
-        }
+      & > mat-icon {
+        color: #ffc400;
+        align-self: center;
+        font-size: 17px;
+        padding-top: 4px;
+        text-align: center;
       }
     }
   }
