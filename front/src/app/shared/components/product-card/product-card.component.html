@@ -1,14 +1,14 @@
 <div
-  class="container"
+  class="card mat-elevation-z4"
   [routerLink]="url"
 >
-  <div
-    [style.background-image]="imgUrl"
-    class="container__card"
-  >
-    <div class="container__card__title">
-      {{ product.title }} - {{ product.averageRating }}
-      <mat-icon>star</mat-icon>
-    </div>
+  <img
+    [src]="'data: ' + product.img?.contentType + ';base64, ' + convertedBase64 | safeHtml"
+    class="card__image"
+    [alt]="product.title"
+  />
+  <div class="card__info mat-elevation-z2">
+    {{ product.title }} - {{ product.averageRating }}
+    <mat-icon>star</mat-icon>
   </div>
 </div>
