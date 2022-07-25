@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {ProductCardInterface} from "../../interfaces/product.interface";
-import {base64ArrayBuffer} from "../../helpers/base64ArrayBuffer.function";
 
 @Component({
   selector: 'app-product-card',
@@ -10,10 +9,6 @@ import {base64ArrayBuffer} from "../../helpers/base64ArrayBuffer.function";
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: ProductCardInterface;
-
-  public get convertedBase64(): string {
-    return base64ArrayBuffer(this.product.img?.data?.data)
-  }
 
   public get url(): string {
     return `/product/${this.product._id}`

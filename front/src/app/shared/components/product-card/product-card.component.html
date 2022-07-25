@@ -3,7 +3,7 @@
   [routerLink]="url"
 >
   <img
-    [src]="'data: ' + product.img?.contentType + ';base64, ' + convertedBase64 | safeHtml"
+    [src]="product.img"
     class="card__image"
     [alt]="product.title"
   />
