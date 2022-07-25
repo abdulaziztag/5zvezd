@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownAnchorTarget -->
 <div class="container">
   <div
     class="container__product"
@@ -5,7 +6,7 @@
   >
     <div class="container__product__image">
       <img
-        [src]="'data: ' + product.img?.contentType + ';base64, ' + convertedBase64 | safeHtml"
+        [src]="product.img"
         [alt]="product.title"
       >
     </div>
