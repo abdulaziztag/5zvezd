@@ -7,7 +7,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddReviewDialogComponent} from "../../../shared/components/add-review-dialog/add-review-dialog.component";
 import {AlertService} from "../../../shared/services/alert.service";
 import {CommentService} from "../../../shared/services/comment.service";
-import {base64ArrayBuffer} from '../../../shared/helpers/base64ArrayBuffer.function'
 import {LoaderService} from "../../../shared/services/loader.service";
 import {CommentInterface} from "../../../shared/interfaces/comment.interface";
 
@@ -52,8 +51,7 @@ export class ProductComponent implements OnInit, OnDestroy {
           return throwError(error);
         }),
         switchMap((data) => {
-          this.productService.setProduct(data.product)
-          this.convertedBase64 = base64ArrayBuffer(data.product.img?.data?.data)
+          this.productService.setProduct({...data.product.product, img: data.product.img})
           const userId = this.tokenService.getUser().userId
 
           return this.commentService.requestComment(
