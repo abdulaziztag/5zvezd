@@ -1,9 +1,6 @@
 export interface ProductInterface {
   title: string
-  img: {
-    contentType: string,
-    data: any,
-  }
+  img: string,
   averageRating: number
   description: string
   minCost: number
@@ -15,10 +12,7 @@ export interface ProductInterface {
 
 export interface ProductCardInterface {
   title: string
-  img: {
-    data: any,
-    contentType: string,
-  }
+  img: string,
   averageRating: number
   _id: string
 }
