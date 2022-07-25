@@ -52,9 +52,32 @@ export class CommentService {
     );
   }
 
-  public deleteComment(): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(
+  public addComment(
+      title: string,
+      cost: number,
+      rating: number,
+      body: string,
+      productId: string
+    ): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      AUTH_API + 'add',
+      {
+        title,
+        cost,
+        rating,
+        body,
+        productId
+      },
+      httpOptions
+    )
+  }
+
+  public deleteComment(productId: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
       AUTH_API + 'delete',
+      {
+        productId
+      }
     )
   }
 

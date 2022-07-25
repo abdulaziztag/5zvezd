@@ -1,44 +1,69 @@
 <h2 mat-dialog-title>Leave feedback</h2>
 <mat-dialog-content>
-  <mat-form-field class="title-form" appearance="outline">
-    <mat-label>Title</mat-label>
-    <input type="text" matInput>
-  </mat-form-field>
-  <h2>Rate the product:</h2>
-  <div class="rating" #ratingContainer>
-    <button
-      *ngFor="let index of starId"
-      mat-icon-button
-      (mousedown)="setStar($event)"
-      [attr.data-id]="index"
-    >
-      <mat-icon
-        [class.star]="activeStarId >= index"
+  <form [formGroup]="form">
+    <mat-form-field class="title-form" appearance="outline">
+      <mat-label>Title</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="title"
+      >
+      <mat-error *ngIf="reviewForm['title']?.errors?.['required']" >
+        Title is required
+      </mat-error>
+    </mat-form-field>
+    <h2>Rate the product:</h2>
+    <div class="rating" #ratingContainer>
+      <button
+        *ngFor="let index of starId"
+        mat-icon-button
+        (mousedown)="setStar($event)"
         [attr.data-id]="index"
-      >{{ activeStarId >= index ? 'star' : 'star_outline'}}</mat-icon>
-    </button>
-  </div>
+      >
+        <mat-icon
+          [class.star]="activeStarId >= index"
+          [attr.data-id]="index"
+        >{{ activeStarId >= index ? 'star' : 'star_outline'}}</mat-icon>
+      </button>
+    </div>
+    <mat-form-field appearance="outline" class="price-input">
+      <mat-label>
+        Price on your side
+      </mat-label>
+      <input
+        matInput
+        formControlName="price"
+        type="number"
+      >
+      <mat-error *ngIf="reviewForm['price']?.errors?.['min']" >
+        Price must be more than 0
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="body-form" appearance="fill">
+      <mat-label>Experience about this product</mat-label>
+      <textarea
+        cdkTextareaAutosize
+        matInput
+        formControlName="body"
+        cdkAutosizeMinRows="10"
+      ></textarea>
+    </mat-form-field>
 
-  <mat-form-field class="body-form" appearance="fill">
-    <mat-label>Experience about this product</mat-label>
-    <textarea
-      cdkTextareaAutosize
-      matInput
-      cdkAutosizeMinRows="10"
-    ></textarea>
-  </mat-form-field>
-
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button
     mat-button
     mat-dialog-close
     color="error"
+    [disabled]="loader"
   >Close
   </button>
   <button
     mat-button
     color="success"
+    [disabled]="enableAddBtn() || loader"
+    (click)="addReview()"
   >Add
   </button>
 </mat-dialog-actions>
