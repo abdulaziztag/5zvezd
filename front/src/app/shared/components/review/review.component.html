@@ -2,15 +2,15 @@
   <div class="review__user-info">
     <div class="review__user-info__avatar">
       <img
-        [src]="'data: ' + comment.userInfo[0].img.contentType + ';base64, ' + convertedBase64 | safeHtml"
+        [src]="comment.userInfo[0].img"
         [alt]="comment.title"
         class="mat-elevation-z3"
-        *ngIf="convertedBase64 !== ''"
+        *ngIf="comment.userInfo[0].img !== '' && comment.userInfo[0].img"
       >
       <img
         src="../../../../assets/hiddenAvatar.png"
         alt=""
-        *ngIf="convertedBase64 === ''"
+        *ngIf="!comment.userInfo[0].img"
       >
     </div>
     <div class="review__user-info__name">
