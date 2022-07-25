@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import mongoose from 'mongoose';
+import sharp from 'sharp';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,14 +12,27 @@ const selectArguments = [
   'title', 'averageRating', 'img',
   'company', 'category', 'minCost', 'maxCost', 'createdAt'];
 
+// eslint-disable-next-line require-jsdoc
+async function resize(img, width, height) {
+  const buffer = await sharp(Buffer.from(img.data, 'base64'))
+      .resize(width || null, height || null)
+      .toBuffer();
+  const resizedImageData = buffer.toString('base64');
+  return `data:${img.contentType};base64,${resizedImageData}`;
+}
+
 export const getProductById = async ({body: {productId}}, res) => {
   try {
     if (mongoose.isValidObjectId(productId)) {
-      const product = await Product.findOne({_id: productId});
+      const product = await Product.findOne({_id: productId}).select('-img');
+      const img = await Product.findOne({_id: productId}).select('img');
 
       if (product) {
         res.status(200).send({
-          product,
+          product: {
+            img: await resize(img.img),
+            product,
+          },
         });
       } else {
         res.status(404).send({
@@ -63,7 +77,6 @@ export const addProduct = async (req, res) => {
     });
     fs.unlinkSync(filePath);
   } catch (e) {
-    console.log(e);
     res.status(500).send({message: 'Something went wrong'});
   }
 };
@@ -84,19 +97,31 @@ export const deleteProduct = async (req, res) => {
 
 export const sortProductByField = async (req, res) => {
   try {
-    const filteredProduct = await Product.find({}, ['title', '_id', 'img', 'averageRating'])
+    const products = await Product
+        .find({}, ['title', '_id', 'img', 'averageRating'])
         .sort({
           [req.body.field]: req.body.fieldValue,
         })
         .limit(req.body.limit || 12);
 
-    res.send({filteredProduct});
+    const filteredProduct = await Promise.all(
+        products.map(async (product) => {
+          const img = await resize(product.img, 300, 400);
+          return {
+            img,
+            title: product.title,
+            _id: product._id,
+            averageRating: product.averageRating,
+          };
+        }),
+    );
+    res.json({filteredProduct});
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
 };
 
-export const calculateAverageRating = async (productId, res) => {
+export const calculateAverageRating = async (productId, res, message) => {
   try {
     const average = await Comment.aggregate([
       {
@@ -115,7 +140,8 @@ export const calculateAverageRating = async (productId, res) => {
         {'_id': productId},
         {'averageRating': average[0].AverageRating.toFixed(1)},
     );
-    res.send({message: 'Successfully added!'});
+
+    res.send({message});
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
