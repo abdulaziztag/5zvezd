@@ -21,8 +21,8 @@ export class ProductService {
     private http: HttpClient
   ) {}
 
-  requestProduct(productId: string): Observable<any> {
-    return this.http.post(
+  requestProduct(productId: string): Observable<{product: {product: ProductInterface, img: string}}> {
+    return this.http.post<{product: {product: ProductInterface, img: string}}>(
       AUTH_API + 'get',
       {
         productId
