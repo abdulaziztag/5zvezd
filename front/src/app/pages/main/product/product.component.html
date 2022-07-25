@@ -36,7 +36,7 @@
           </div>
           <div class="cost">
             <ng-container *ngIf="product.minCost">
-              Cost: {{product.minCost}} {{product.maxCost ? (' - ' + product.maxCost) : ''}} $
+              Cost: {{product.minCost}} {{(product.maxCost && product.maxCost !== product.minCost) ? (' - ' + product.maxCost) : ''}} $
             </ng-container>
             <ng-container *ngIf="!product.minCost">
               Cost is not defined
@@ -46,10 +46,6 @@
         <div class="container__product__info__description">
           {{product.description}}
         </div>
-
-        <ng-container *ngIf="!product">
-          saassas
-        </ng-container>
       </div>
       <div class="container__product__info__date">
         {{product.createdAt | date: 'dd MMM, yyyy'}}
@@ -106,6 +102,8 @@
   </div>
   <mat-spinner
     class="spinner"
+    strokeWidth="6"
+    diameter="200"
     *ngIf="(loaderService.getLoader() | async) === true"
   ></mat-spinner>
   <div class="container__reviews" *ngIf="commentService.comment$ | async as comments">
