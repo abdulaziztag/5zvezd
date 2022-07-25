@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from "./modules/material/material.module";
 import {ErrorPageComponent} from "./components/error-page/error-page.component";
 import {MainRoutingModule} from "../pages/main/main-routing.module";
@@ -20,12 +20,13 @@ import {DeleteCommentDialogComponent} from './components/delete-comment-dialog/d
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MaterialModule,
-    MainRoutingModule,
-    HttpClientModule,
-  ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        MainRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     ErrorPageComponent,
     DrawerComponent,
