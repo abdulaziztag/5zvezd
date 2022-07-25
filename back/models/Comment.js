@@ -19,6 +19,7 @@ const commentSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true,
+    max: 5,
   },
 }, {
   timestamps: true,

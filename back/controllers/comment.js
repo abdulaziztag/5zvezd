@@ -72,7 +72,7 @@ export const addComment = async (
       await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
     }
 
-    await calculateAverageRating(productId, res); // in product controller
+    await calculateAverageRating(productId, res, 'Successfully added!'); // in product controller
   } catch (e) {
     res.status(500).send({message: 'Something went wrong!'});
   }
@@ -140,15 +140,15 @@ export const sortCommentByField = async (req, res) => {
   }
 };
 
-export const deleteComment = async ({headers, user}, res) => {
+export const deleteComment = async ({body, user}, res) => {
   try {
     const comment = await Comment
-        .findOne({'user': user._id}, ['_id'])
+        .findOne({user: user._id, productId: body.productId}, ['_id'])
         .lean()
         .populate('user', ['_id']);
     if (comment.user._id.toString() === user._id.toString()) {
       await Comment.deleteOne({'user': user._id});
-      res.send({message: 'Successfully deleted!'});
+      await calculateAverageRating(body.productId, res, 'Successfully deleted!');
     } else {
       res.status(403).send({message: 'You do not have permission to do this!'});
     }
