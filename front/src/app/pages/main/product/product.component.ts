@@ -84,10 +84,19 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(): void {
-    this.dialog.open(AddReviewDialogComponent, {
+    const dialogRef = this.dialog.open(AddReviewDialogComponent, {
       disableClose: true,
-      minWidth: '70vw'
+      minWidth: '70vw',
+      data: {
+        productId: this.route.snapshot.params['productId']
+      }
     });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.notifier)).subscribe(
+      (res) => {
+        this.commentOwner = res.commentOwner
+      }
+    );
   }
 
   public loadReviews(): void {

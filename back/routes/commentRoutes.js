@@ -7,7 +7,7 @@ const auth = passport.authenticate('jwt', { session: false });
 
 router.post('/add', auth, addComment);
 router.post('/get', getComments);
-router.delete('/delete', auth, deleteComment);
+router.post('/delete', auth, deleteComment);
 router.post('/sortByField', sortCommentByField);
 
 export const commentRoutes = router;

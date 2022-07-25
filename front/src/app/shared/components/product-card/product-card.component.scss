@@ -31,14 +31,25 @@
     &__info {
       position: absolute;
       bottom: 20px;
+      width: 210px;
+      height: 28px;
       display: flex;
       align-items: center;
       left: 15px;
-      color: #000;
       padding: 3px 5px;
       border-radius: 5px;
       background: #ffffff;
       font-size: 23px;
+
+      & > div {
+        font-size: 23px;
+        color: #000;
+        max-width: 156px;
+        margin-right: 4px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
 
       & > mat-icon {
         color: #ffc400;

@@ -15,8 +15,9 @@ const httpOptions = {
 
 export class ProductService {
   public product$ = new Subject<ProductInterface>();
-  public recentlyAdded$ = new Subject<ProductInterface[]>()
+  public recentlyAdded$ = new Subject<ProductCardInterface[]>()
   public popular$ = new Subject<ProductCardInterface[]>()
+  public mostExpensive$ = new Subject<ProductCardInterface[]>()
   constructor(
     private http: HttpClient
   ) {}
@@ -53,5 +54,13 @@ export class ProductService {
 
   public setPopular(product: ProductCardInterface[]): void {
     this.popular$.next(product);
+  }
+
+  public setRecently(product: ProductCardInterface[]): void {
+    this.recentlyAdded$.next(product);
+  }
+
+  public setMostExpensive(product: ProductCardInterface[]): void {
+    this.mostExpensive$.next(product);
   }
 }

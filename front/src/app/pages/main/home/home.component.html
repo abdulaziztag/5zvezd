@@ -1,10 +1,6 @@
 <app-carousel
   [slides]="data.getCarouselItems() | async"
 ></app-carousel>
-<!--<app-product-list
-  title="Recently added"
-  [data]="productList"
-></app-product-list>-->
 <ng-container
   *ngIf="productService.popular$ | async as popular"
 >
@@ -14,22 +10,25 @@
   ></app-product-list>
 </ng-container>
 <ng-container
-  *ngIf="productService.popular$ | async as popular"
+  *ngIf="productService.recentlyAdded$ | async as recently"
 >
   <app-product-list
-    title="Popular products"
-    [data]="popular"
+    title="Recently added"
+    [data]="recently"
   ></app-product-list>
 </ng-container>
 <ng-container
-  *ngIf="productService.popular$ | async as popular"
+  *ngIf="productService.mostExpensive$ | async as mostExpensive"
 >
   <app-product-list
-    title="Popular products"
-    [data]="popular"
+    title="Most expensive"
+    [data]="mostExpensive"
   ></app-product-list>
 </ng-container>
-<!--<app-product-list
-  title="Category: 'Foods'"
-  [data]="productList"
-></app-product-list>-->
+<mat-spinner
+  strokeWidth="4"
+  diameter="100"
+  style="margin: 10px auto"
+  *ngIf="(loader.getLoader() | async)"
+>
+</mat-spinner>

@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  get regForm(){
+  public get regForm(){
     return this.form.controls;
   }
 
