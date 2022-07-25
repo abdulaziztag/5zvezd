@@ -64,12 +64,14 @@ export const addComment = async (
       }
     });
 
-    const product = await Product.findOne({'_id': productId});
+    if (cost) {
+      const product = await Product.findOne({'_id': productId});
 
-    if (product.minCost > +cost || product.minCost === 0) {
-      await Product.findOneAndUpdate({'_id': productId}, {minCost: +cost});
-    } else if (product.maxCost < +cost) {
-      await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
+      if (product.minCost > +cost || product.minCost === 0) {
+        await Product.findOneAndUpdate({'_id': productId}, {minCost: +cost});
+      } else if (product.maxCost < +cost) {
+        await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
+      }
     }
 
     await calculateAverageRating(productId, res, 'Successfully added!'); // in product controller
@@ -146,13 +148,13 @@ export const deleteComment = async ({body, user}, res) => {
         .findOne({user: user._id, productId: body.productId}, ['_id'])
         .lean()
         .populate('user', ['_id']);
-    if (comment.user._id.toString() === user._id.toString()) {
+    if (comment) {
       await Comment.deleteOne({'user': user._id});
       await calculateAverageRating(body.productId, res, 'Successfully deleted!');
     } else {
       res.status(403).send({message: 'You do not have permission to do this!'});
     }
   } catch (e) {
-    res.send({message: 'Comment not found or you are not author of this comment!'});
+    res.status(404).send({message: 'Comment not found or you are not author of this comment!'});
   }
 };
