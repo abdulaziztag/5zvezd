@@ -28,8 +28,8 @@ export const tabs = (): TabInterface[]  => {
           params: `medicine`
         },
         {
-          listItemTitle: 'Drinks',
-          params: `drinks`
+          listItemTitle: 'Drink',
+          params: `drink`
         }
       ]
     }
