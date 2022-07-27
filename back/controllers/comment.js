@@ -58,23 +58,23 @@ export const addComment = async (
       rating,
     });
 
-    await comment.save((err) => {
+    await comment.save(async (err) => {
       if (err) {
         res.send(err);
+      } else {
+        if (cost) {
+          const product = await Product.findOne({'_id': productId});
+
+          if (product.minCost > +cost || product.minCost === 0) {
+            await Product.findOneAndUpdate({'_id': productId}, {minCost: +cost});
+          } else if (product.maxCost < +cost) {
+            await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
+          }
+        }
+
+        await calculateAverageRating(productId, res, 'Successfully added!'); // in product controller
       }
     });
-
-    if (cost) {
-      const product = await Product.findOne({'_id': productId});
-
-      if (product.minCost > +cost || product.minCost === 0) {
-        await Product.findOneAndUpdate({'_id': productId}, {minCost: +cost});
-      } else if (product.maxCost < +cost) {
-        await Product.findOneAndUpdate({'_id': productId}, {maxCost: +cost});
-      }
-    }
-
-    await calculateAverageRating(productId, res, 'Successfully added!'); // in product controller
   } catch (e) {
     res.status(500).send({message: 'Something went wrong!'});
   }
@@ -149,7 +149,7 @@ export const deleteComment = async ({body, user}, res) => {
         .lean()
         .populate('user', ['_id']);
     if (comment) {
-      await Comment.deleteOne({'user': user._id});
+      await Comment.deleteOne({'_id': comment._id});
       await calculateAverageRating(body.productId, res, 'Successfully deleted!');
     } else {
       res.status(403).send({message: 'You do not have permission to do this!'});

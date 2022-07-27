@@ -3,6 +3,7 @@ import {CommentService} from "../../services/comment.service";
 import {AlertService} from "../../services/alert.service";
 import {Subject, takeUntil} from "rxjs";
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-delete-comment-dialog',
@@ -18,6 +19,7 @@ export class DeleteCommentDialogComponent implements OnInit, OnDestroy {
     private comment: CommentService,
     private notification: AlertService,
     private dialog: MatDialog,
+    private productService: ProductService
   ) {
   }
 

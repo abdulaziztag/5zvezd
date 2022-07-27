@@ -6,30 +6,31 @@
 >
   <img
     mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    alt="Photo of a Shiba Inu"
+    [src]="product.img"
+    [alt]="product.title"
+    class="img"
   >
   <mat-card-content>
-    <mat-card-title>
-      Product
+    <mat-card-title class="title">
+      {{ product.title }}
     </mat-card-title>
     <mat-card-subtitle>
-      Nestle, Drinks
+      {{ product.company }}, {{ product.category }}
     </mat-card-subtitle>
     <div class="card__numbers">
       <div class="rating">
-        Rating: 4.6
+        Rating: {{ product.averageRating }}
         <mat-icon>star</mat-icon>
       </div>
       <div class="cost">
-        Cost: 1 - 3 $
+        Cost: {{product.minCost}} {{(product.maxCost && product.maxCost !== product.minCost) ? (' - ' + product.maxCost) : ''}} $
       </div>
     </div>
   </mat-card-content>
   <mat-card-actions align="end">
     <button
       mat-raised-button
-      routerLink="/product/aa"
+      [routerLink]="'/product/' + product._id"
       color="primary"
     >More</button>
   </mat-card-actions>
