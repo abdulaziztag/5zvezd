@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProductCardInterface, ProductInterface} from "../interfaces/product.interface";
+import {FilteredProductsInterface, ProductCardInterface, ProductInterface} from "../interfaces/product.interface";
 import {Observable, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -18,6 +18,8 @@ export class ProductService {
   public recentlyAdded$ = new Subject<ProductCardInterface[]>()
   public popular$ = new Subject<ProductCardInterface[]>()
   public mostExpensive$ = new Subject<ProductCardInterface[]>()
+  public filtered$ = new Subject<FilteredProductsInterface[]>()
+
   constructor(
     private http: HttpClient
   ) {}
@@ -48,6 +50,22 @@ export class ProductService {
     );
   }
 
+  requestFilteredProducts(
+    title: string,
+    company: string[],
+    category: string[]
+  ): Observable<any> {
+    return this.http.post(
+      AUTH_API + 'filter',
+      {
+        title,
+        company,
+        category
+      },
+      httpOptions
+    )
+  }
+
   public setProduct(product: ProductInterface): void {
     this.product$.next(product);
   }
@@ -63,4 +81,9 @@ export class ProductService {
   public setMostExpensive(product: ProductCardInterface[]): void {
     this.mostExpensive$.next(product);
   }
+
+  public setFiltered(product: FilteredProductsInterface[]): void {
+    this.filtered$.next(product);
+  }
+
 }
