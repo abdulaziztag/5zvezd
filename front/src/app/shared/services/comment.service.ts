@@ -58,8 +58,8 @@ export class CommentService {
       rating: number,
       body: string,
       productId: string
-    ): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
+    ): Observable<{ message: string, averageRating: number }> {
+    return this.http.post<{ message: string, averageRating: number }>(
       AUTH_API + 'add',
       {
         title,
@@ -72,8 +72,8 @@ export class CommentService {
     )
   }
 
-  public deleteComment(productId: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
+  public deleteComment(productId: string): Observable<{ message: string, averageRating: number }> {
+    return this.http.post<{ message: string, averageRating: number }>(
       AUTH_API + 'delete',
       {
         productId
