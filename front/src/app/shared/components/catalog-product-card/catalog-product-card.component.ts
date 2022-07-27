@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FilteredProductsInterface} from "../../interfaces/product.interface";
 
 @Component({
   selector: 'app-catalog-product-card',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catalog-product-card.component.scss']
 })
 export class CatalogProductCardComponent implements OnInit {
-  public isHover: boolean = false
+  @Input() public product: FilteredProductsInterface;
+  public isHover: boolean = false;
 
   constructor() { }
 
