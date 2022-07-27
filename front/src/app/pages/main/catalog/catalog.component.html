@@ -6,10 +6,15 @@
       type="text"
       placeholder="Search"
       autocomplete="off"
+      (keydown.enter)="search()"
+      (input)="search()"
+      [formControl]="searchInput"
+      value=""
       class="search-input mat-elevation-z4"
     >
     <button
       mat-icon-button
+      (click)="search()"
       class="search-button"
     >
       <mat-icon>search</mat-icon>
@@ -26,6 +31,7 @@
       <mat-label>{{ tab.title }}</mat-label>
       <mat-select
         multiple
+        (selectionChange)="filter()"
         [formControlName]="tab.queryKey"
       >
         <mat-option
@@ -37,14 +43,6 @@
       </mat-select>
     </mat-form-field>
   </div>
-
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="filter()"
-    >
-      Apply filters
-    </button>
   <div class="container__chips">
     <div
       class="chip"
@@ -53,27 +51,22 @@
       {{ chip.charAt(0).toUpperCase() + chip.slice(1) }}
       <mat-icon
         (click)="deleteChip(chip)"
-      >close</mat-icon>
+      >close
+      </mat-icon>
     </div>
   </div>
-  <div class="container__products">
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
-    <app-catalog-product-card></app-catalog-product-card>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="applyFilters()"
+  >
+    Apply filters
+  </button>
+  <div class="container__products" *ngIf="productService.filtered$ | async as products">
+    <ng-container *ngFor="let product of products">
+      <app-catalog-product-card
+        [product]="product"
+      ></app-catalog-product-card>
+    </ng-container>
   </div>
 </div>

@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {tabs} from 'src/app/shared/helpers/tabs.data';
 import {TabInterface} from "../../../shared/interfaces/tab.interface";
-import {FormBuilder, FormGroup} from "@angular/forms";
-
-type RouteParams = Params | {brand: string, category: string};
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ProductService} from "../../../shared/services/product.service";
 
 @Component({
   selector: 'app-catalog',
@@ -16,38 +15,64 @@ type RouteParams = Params | {brand: string, category: string};
 export class CatalogComponent implements OnInit, OnDestroy {
   private notifier = new Subject<void>();
   public form: FormGroup = new FormGroup({});
-  public tabs: TabInterface[] = tabs()
-  public chips: string[] = []
+  public tabs: TabInterface[] = tabs();
+  public chips: string[] = [];
+  public searchInput: FormControl = new FormControl('');
+  private tempSearchInput: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public productService: ProductService
   ) {
     this.form = fb.group({
       brand: [],
       category: []
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .pipe(takeUntil(this.notifier))
-      .subscribe((params: RouteParams) => {
-          this.form.patchValue({
-            brand: [params.brand],
-            category: [params.category]
-          });
-        this.chips = [params.brand, params.category].filter((item) => !!item);
-        }
-      );
+    const params = this.route.snapshot.queryParams
+    this.form.patchValue({
+      brand: [params['brand']],
+      category: [params['category']]
+    })
+    this.chips = [params['brand'], params['category']].filter((item) => !!item);
+    this.applyFilters();
   }
 
   public get getForm() {
-    return this.form.controls
+    return this.form.controls;
   }
 
   public filter(): void {
-    this.chips = [...this.getForm['brand'].value, ...this.getForm['category'].value]
+    this.chips = [
+      ...this.getForm['brand'].value,
+      ...this.getForm['category'].value,
+      this.searchInput.value
+    ].filter((key: string) => (key !== undefined) && (key !== ''));
+  }
+
+  public search(): void {
+    const index = this.chips.findIndex((key: string) => key === this.tempSearchInput)
+    if (index !== -1) {
+      this.chips[index] = this.searchInput.value
+    } else {
+      this.chips.push(this.searchInput.value);
+    }
+    this.tempSearchInput = this.searchInput.value
+    this.chips = this.chips.filter((key: string) => key !== '')
+  }
+
+  public applyFilters(): void {
+    this.productService.requestFilteredProducts(
+      this.searchInput.value,
+      this.getForm['brand'].value.filter((key: string) => key !== undefined),
+      this.getForm['category'].value.filter((key: string) => key !== undefined)
+    ).pipe(takeUntil(this.notifier))
+      .subscribe(data => {
+        this.productService.setFiltered(data.filteredProducts)
+      })
   }
 
   public deleteChip(chip: string): void {
