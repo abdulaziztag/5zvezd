@@ -136,12 +136,16 @@ export const calculateAverageRating = async (productId, res, message) => {
         },
       },
     ]);
+    const averageRating = average.length !== 0 ? average[0].AverageRating.toFixed(1) : 0;
     await Product.findOneAndUpdate(
         {'_id': productId},
-        {'averageRating': average[0].AverageRating.toFixed(1)},
+        {'averageRating': averageRating},
     );
 
-    res.send({message});
+    res.send({
+      message,
+      averageRating: averageRating,
+    });
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
@@ -149,23 +153,44 @@ export const calculateAverageRating = async (productId, res, message) => {
 
 export const filterProducts = async ({body}, res) => {
   try {
-    const category = await Product
+    const filteredProductsByTitle = await Product
+        .find({
+          $or: [
+            { $text: { $search: body.title}},
+          ],
+        })
+        .select(selectArguments);
+    const filteredProductsByKey = await Product
         .find({
           $or: [
             {
-              category: {'$in': body.category},
+              category: {'$in': body.category.map((key) => key.charAt(0).toUpperCase() + key.slice(1))},
             },
             {
               company: {'$in': body.company},
             },
-            {
-              title: body.title,
-            },
           ],
-        })
-        .select(selectArguments);
+        });
+
+    const filteredProducts = await Promise.all(
+        [...filteredProductsByTitle, ...filteredProductsByKey].map(async (product) => {
+          const img = await resize(product.img, 300, 250);
+          return {
+            img,
+            title: product.title,
+            _id: product._id,
+            averageRating: product.averageRating,
+            company: product.company,
+            category: product.category,
+            maxCost: product.maxCost,
+            minCost: product.minCost,
+            createdAt: product.createdAt,
+          };
+        }),
+    );
+
     res.send({
-      category,
+      filteredProducts,
     });
   } catch (e) {
     res.send({message: 'Something went wrong!'});
