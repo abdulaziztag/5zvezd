@@ -5,6 +5,7 @@ import {Subject, takeUntil} from "rxjs";
 import {CommentService} from "../../services/comment.service";
 import {AlertService} from "../../services/alert.service";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -28,7 +29,8 @@ export class AddReviewDialogComponent implements OnInit {
     private fb: FormBuilder,
     private comment: CommentService,
     private alert: AlertService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private productService: ProductService
   ) {
     this.form = fb.group({
       title: ['', [Validators.required]],
@@ -59,7 +61,7 @@ export class AddReviewDialogComponent implements OnInit {
     )
       .pipe(takeUntil(this.notifier))
       .subscribe(
-        (data: { message: string }) => {
+        (data: { message: string, averageRating: number }) => {
           this.loader = false
           this.alert.openSnackBar(data.message);
           this.comment.setCommentOwner({
