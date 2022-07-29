@@ -167,14 +167,17 @@ export const filterProducts = async ({body}, res) => {
               category: {'$in': body.category.map((key) => key.charAt(0).toUpperCase() + key.slice(1))},
             },
             {
-              company: {'$in': body.company},
+              company: {'$in': body.company.map((key) => key.charAt(0).toUpperCase() + key.slice(1))},
+            },
+            {
+              _id: {'$in': body.productId},
             },
           ],
         });
 
     const filteredProducts = await Promise.all(
         [...filteredProductsByTitle, ...filteredProductsByKey].map(async (product) => {
-          const img = await resize(product.img, 300, 250);
+          const img = await resize(product.img, body.width, body.height);
           return {
             img,
             title: product.title,
@@ -193,6 +196,7 @@ export const filterProducts = async ({body}, res) => {
       filteredProducts,
     });
   } catch (e) {
+    console.log(e);
     res.send({message: 'Something went wrong!'});
   }
 };
