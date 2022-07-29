@@ -1,6 +1,8 @@
-<app-carousel
-  [slides]="data.getCarouselItems() | async"
-></app-carousel>
+<ng-container *ngIf="productService.carouselSlides$ | async as slides">
+  <app-carousel
+    [slides]="slides"
+  ></app-carousel>
+</ng-container>
 <ng-container
   *ngIf="productService.popular$ | async as popular"
 >

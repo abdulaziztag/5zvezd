@@ -19,6 +19,7 @@ export class ProductService {
   public popular$ = new Subject<ProductCardInterface[]>()
   public mostExpensive$ = new Subject<ProductCardInterface[]>()
   public filtered$ = new Subject<FilteredProductsInterface[]>()
+  public carouselSlides$ = new Subject<FilteredProductsInterface[]>()
 
   constructor(
     private http: HttpClient
@@ -51,16 +52,22 @@ export class ProductService {
   }
 
   requestFilteredProducts(
-    title: string,
-    company: string[],
-    category: string[]
+    title?: string,
+    company?: string[],
+    category?: string[],
+    productId?: string[],
+    width?: number,
+    height?: number
   ): Observable<any> {
     return this.http.post(
       AUTH_API + 'filter',
       {
         title,
         company,
-        category
+        category,
+        productId,
+        width,
+        height
       },
       httpOptions
     )
@@ -84,6 +91,10 @@ export class ProductService {
 
   public setFiltered(product: FilteredProductsInterface[]): void {
     this.filtered$.next(product);
+  }
+
+  public setCarouselItems(products: FilteredProductsInterface[]): void {
+    this.carouselSlides$.next(products)
   }
 
 }
