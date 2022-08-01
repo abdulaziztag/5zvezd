@@ -20,7 +20,6 @@ export const uploadAvatar = async (req, res) => {
         contentType: 'image/png',
       },
     }, {new: true, fields: ['img']});
-    fs.unlinkSync(filePath);
     if (updateAvatar) {
       res.send({
         message: 'Successfully changed',
@@ -29,6 +28,7 @@ export const uploadAvatar = async (req, res) => {
     } else {
       res.send({message: 'User not found!'});
     }
+    fs.unlinkSync(filePath);
   } catch (e) {
     res.send({message: 'Something went wrong!'});
   }
