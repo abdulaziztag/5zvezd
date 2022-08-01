@@ -2,6 +2,7 @@ import {User} from '../models/index.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import {sendConfirmationEmail} from '../utils/nodemailer.util.js';
+import {resize} from '../utils/resize.util.js';
 
 export const login = async (req, res) => {
   const candidate = await User.findOne({email: req.body.email});
@@ -27,6 +28,7 @@ export const login = async (req, res) => {
         lastName: candidate.lastName,
         email: candidate.email,
         userId: candidate._id,
+        img: await resize(candidate.img),
       });
     } else {
       res.status(401).send({

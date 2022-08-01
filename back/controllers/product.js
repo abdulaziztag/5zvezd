@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import mongoose from 'mongoose';
-import sharp from 'sharp';
+import {resize} from '../utils/resize.util.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,15 +11,6 @@ const __dirname = path.dirname(__filename);
 const selectArguments = [
   'title', 'averageRating', 'img',
   'company', 'category', 'minCost', 'maxCost', 'createdAt'];
-
-// eslint-disable-next-line require-jsdoc
-async function resize(img, width, height) {
-  const buffer = await sharp(Buffer.from(img.data, 'base64'))
-      .resize(width || null, height || null)
-      .toBuffer();
-  const resizedImageData = buffer.toString('base64');
-  return `data:${img.contentType};base64,${resizedImageData}`;
-}
 
 export const getProductById = async ({body: {productId}}, res) => {
   try {
