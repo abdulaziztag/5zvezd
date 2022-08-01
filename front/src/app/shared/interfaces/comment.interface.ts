@@ -7,6 +7,9 @@ export interface CommentInterface {
   userInfo: {
     firstName: string,
     lastName: string,
-    img?: string,
+    img?: {
+      data: string,
+      contentType: string
+    },
   }[]
 }
