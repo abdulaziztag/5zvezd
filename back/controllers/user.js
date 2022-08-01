@@ -2,6 +2,7 @@ import {User} from '../models/index.js';
 import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
+import {resize} from '../utils/resize.util.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -21,7 +22,10 @@ export const uploadAvatar = async (req, res) => {
     }, {new: true, fields: ['img']});
     fs.unlinkSync(filePath);
     if (updateAvatar) {
-      res.send({message: 'Successfully changed', updateAvatar});
+      res.send({
+        message: 'Successfully changed',
+        img: await resize(updateAvatar.img),
+      });
     } else {
       res.send({message: 'User not found!'});
     }
@@ -30,12 +34,12 @@ export const uploadAvatar = async (req, res) => {
   }
 };
 
-export const changeSettings = async ({body: {settings, userId}}, res) => {
+export const changeSettings = async ({body: {settings}, user}, res) => {
   try {
-    const user = await User.findOne({'_id': userId});
-    if (user) {
-      user.settings = settings;
-      user.save();
+    const foundUser = await User.findOne({'_id': user._id});
+    if (foundUser) {
+      foundUser.settings = settings;
+      foundUser.save();
       res.send({message: 'Successfully changed!'});
     } else {
       res.send({message: 'User not found!'});
@@ -45,6 +49,18 @@ export const changeSettings = async ({body: {settings, userId}}, res) => {
   }
 };
 
+export const getSettings = async (req, res) => {
+  try {
+    const settings = await User.findOne({'_id': req.user._id}, ['settings']);
+    if (settings) {
+      res.send(settings);
+    } else {
+      res.send({message: 'User not found!'});
+    }
+  } catch (e) {
+    res.send({message: 'Something went wrong!'});
+  }
+};
 
 export const adminRights = async ({headers, user}, res) => {
   try {
