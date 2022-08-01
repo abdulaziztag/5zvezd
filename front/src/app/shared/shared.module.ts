@@ -15,9 +15,9 @@ import {ReviewComponent} from './components/review/review.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {AddReviewDialogComponent} from './components/add-review-dialog/add-review-dialog.component';
 import {CatalogProductCardComponent} from './components/catalog-product-card/catalog-product-card.component';
-import {SafeHtml} from "./pipes/safeHtml";
 import {DeleteCommentDialogComponent} from './components/delete-comment-dialog/delete-comment-dialog.component';
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
+import { UserSettingsDialogComponent } from './components/user-settings-dialog/user-settings-dialog.component';
 
 @NgModule({
     imports: [
@@ -39,13 +39,12 @@ import {authInterceptorProviders} from "./helpers/auth.interceptor";
     AlertComponent,
     AddReviewDialogComponent,
     CatalogProductCardComponent,
-    SafeHtml,
-    DeleteCommentDialogComponent
+    DeleteCommentDialogComponent,
+    UserSettingsDialogComponent
   ],
   exports: [
     CommonModule,
     FormsModule,
-    SafeHtml,
     MaterialModule,
     ErrorPageComponent,
     DrawerComponent,
