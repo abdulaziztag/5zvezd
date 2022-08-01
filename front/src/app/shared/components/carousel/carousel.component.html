@@ -2,10 +2,10 @@
   <ng-container *ngFor="let slide of slides; let i = index">
     <img
       *ngIf="i === currentSlide"
-      [src]="slide.imgSrc"
+      [src]="slide.img"
       class="slide"
       @carouselAnimation
-      [alt]="slide.url"
+      [alt]="slide.title"
     />
   </ng-container>
 
@@ -15,15 +15,22 @@
   <div class="slide__information">
     <div>
       <div class="slide__information__rating">
-        {{ activeSlide?.title }} -
-        {{ activeSlide?.rating }}
+        {{ activeSlide.title }} -
+        {{ activeSlide.averageRating }}
         <mat-icon>star</mat-icon>
       </div>
       <div class="slide__information__mini-info">
-        <a [routerLink]="'/brand/' + activeSlide?.brand?.toLowerCase()">
-          {{ activeSlide?.brand }}</a>,
-        <a [routerLink]="'/category/' + activeSlide?.category?.toLowerCase()">
-          {{ activeSlide?.category }}
+        <a
+          [routerLink]="'/all'"
+          [queryParams]="{brand: activeSlide.company.toLowerCase()}"
+        >
+          {{ activeSlide.company }}
+        </a>,
+        <a
+          [routerLink]="'/all'"
+          [queryParams]="{category: activeSlide.category.toLowerCase()}"
+        >
+          {{ activeSlide.category }}
         </a>
       </div>
     </div>
@@ -31,7 +38,7 @@
       <button
         mat-raised-button
         color="primary"
-        [routerLink]="'/product/' + activeSlide?.url"
+        [routerLink]="'/product/' + activeSlide._id"
       >More</button>
     </div>
   </div>

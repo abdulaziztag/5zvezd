@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {FilteredProductsInterface, ProductCardInterface, ProductInterface} from "../interfaces/product.interface";
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
@@ -14,11 +14,12 @@ const httpOptions = {
 })
 
 export class ProductService {
-  public product$ = new Subject<ProductInterface>();
+  public product$ = new BehaviorSubject<ProductInterface>(null);
   public recentlyAdded$ = new Subject<ProductCardInterface[]>()
   public popular$ = new Subject<ProductCardInterface[]>()
   public mostExpensive$ = new Subject<ProductCardInterface[]>()
   public filtered$ = new Subject<FilteredProductsInterface[]>()
+  public carouselSlides$ = new Subject<FilteredProductsInterface[]>()
 
   constructor(
     private http: HttpClient
@@ -51,16 +52,22 @@ export class ProductService {
   }
 
   requestFilteredProducts(
-    title: string,
-    company: string[],
-    category: string[]
+    title?: string,
+    company?: string[],
+    category?: string[],
+    productId?: string[],
+    width?: number,
+    height?: number
   ): Observable<any> {
     return this.http.post(
       AUTH_API + 'filter',
       {
         title,
         company,
-        category
+        category,
+        productId,
+        width,
+        height
       },
       httpOptions
     )
@@ -86,4 +93,12 @@ export class ProductService {
     this.filtered$.next(product);
   }
 
+  public setCarouselItems(products: FilteredProductsInterface[]): void {
+    this.carouselSlides$.next(products)
+  }
+
+  public changeRating(averageRating: number): void {
+    this.product$.getValue()
+    this.product$.next({...this.product$.getValue(), averageRating})
+  }
 }

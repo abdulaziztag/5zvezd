@@ -16,16 +16,18 @@ passportGuard(passport);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-mongoose.connect(mongoUrl);
+mongoose.connect(mongoUrl, (error) => {
+  if (error) {
+    app.response.send({message: 'Something went wrong!'});
+  } else {
+    console.log('Mongo connected!');
+  }
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/comment', commentRoutes);
-
-app.get('/', (req, res) => {
-  res.send('Hello!');
-});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('Running!');

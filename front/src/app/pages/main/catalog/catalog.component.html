@@ -58,15 +58,31 @@
   <button
     mat-raised-button
     color="primary"
+    [disabled]="loader.getLoader() | async"
     (click)="applyFilters()"
   >
     Apply filters
   </button>
-  <div class="container__products" *ngIf="productService.filtered$ | async as products">
-    <ng-container *ngFor="let product of products">
-      <app-catalog-product-card
-        [product]="product"
-      ></app-catalog-product-card>
+  <div
+    class="container__products"
+  >
+    <mat-spinner
+      class="loader"
+      *ngIf="loader.getLoader() | async"
+      strokeWidth="8"
+      diameter="200"
+    ></mat-spinner>
+
+    <ng-container *ngIf="productService.filtered$ | async as products"
+    >
+      <ng-container
+        *ngIf="(loader.getLoader() | async) === false"
+      >
+        <app-catalog-product-card
+          *ngFor="let product of products"
+          [product]="product"
+        ></app-catalog-product-card>
+      </ng-container>
     </ng-container>
   </div>
 </div>

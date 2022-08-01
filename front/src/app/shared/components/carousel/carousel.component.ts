@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {CarouselItemInterface} from '../../interfaces/carousel.interface'
 import {carouselAnimation} from "../../helpers/carousel.animation";
+import {FilteredProductsInterface} from "../../interfaces/product.interface";
 
 @Component({
   selector: 'app-carousel',
@@ -12,10 +12,10 @@ import {carouselAnimation} from "../../helpers/carousel.animation";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CarouselComponent implements OnInit {
-  @Input() slides: CarouselItemInterface[] = [];
+  @Input() slides: FilteredProductsInterface[] = [];
 
   public currentSlide: number = 0;
-  public activeSlide?: CarouselItemInterface;
+  public activeSlide?: FilteredProductsInterface;
   constructor() { }
 
   ngOnInit(): void {

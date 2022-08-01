@@ -3,18 +3,24 @@
     <div
       class="account__avatar"
     >
-      <div
-        [style.background-image]="'url(' + 'https://images.unsplash.com/photo-1567653418876-5bb0e566e1c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80' + ')'"
+      <img
+        [src]="avatar"
         class="account__avatar__image"
-        (click)="chooseAvatar()"
-      >
-        <div class="add-photo">
-          <mat-icon>photo_camera</mat-icon>
-        </div>
+        (click)="file.click()"
+        [alt]="tokenService.getUser().firstName"
+      />
+      <div class="add-photo">
+        <mat-icon>photo_camera</mat-icon>
       </div>
     </div>
 
-    <input type="file" #file style="display: none">
+    <input
+      type="file"
+      #file
+      style="display: none"
+      accept="image/*"
+      (change)="changeAvatar($event)"
+    >
 
     <div class="account__info">
       <div class=" mat-body-2">
@@ -24,7 +30,10 @@
         {{tokenService.getUser().email}}
       </div>
       <div class="account__info__actions">
-        <button mat-icon-button>
+        <button
+          mat-icon-button
+          (click)="openSettings()"
+        >
           <mat-icon>settings</mat-icon>
         </button>
         <button

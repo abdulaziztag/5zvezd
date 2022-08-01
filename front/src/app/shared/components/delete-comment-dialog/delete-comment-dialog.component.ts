@@ -32,6 +32,7 @@ export class DeleteCommentDialogComponent implements OnInit, OnDestroy {
       .subscribe(data => {
           this.notification.openSnackBar(data.message);
           this.comment.setCommentOwner(null);
+          this.productService.changeRating(data.averageRating);
           this.dialog.closeAll();
         },
         error => {

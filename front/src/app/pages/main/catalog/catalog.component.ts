@@ -5,6 +5,7 @@ import {tabs} from 'src/app/shared/helpers/tabs.data';
 import {TabInterface} from "../../../shared/interfaces/tab.interface";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../../shared/services/product.service";
+import {LoaderService} from "../../../shared/services/loader.service";
 
 @Component({
   selector: 'app-catalog',
@@ -23,7 +24,8 @@ export class CatalogComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     public fb: FormBuilder,
-    public productService: ProductService
+    public productService: ProductService,
+    public loader: LoaderService
   ) {
     this.form = fb.group({
       brand: [],
@@ -65,13 +67,18 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   public applyFilters(): void {
+    this.loader.setLoader(true)
     this.productService.requestFilteredProducts(
       this.searchInput.value,
       this.getForm['brand'].value.filter((key: string) => key !== undefined),
-      this.getForm['category'].value.filter((key: string) => key !== undefined)
+      this.getForm['category'].value.filter((key: string) => key !== undefined),
+      null,
+      300,
+      250
     ).pipe(takeUntil(this.notifier))
       .subscribe(data => {
         this.productService.setFiltered(data.filteredProducts)
+        this.loader.setLoader(false)
       })
   }
 

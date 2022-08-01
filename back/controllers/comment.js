@@ -14,14 +14,14 @@ const checkSettingsAndSendFields = [
       lastName: {
         $cond: {
           if: '$settings.hideName',
-          then: 0,
+          then: '',
           else: '$lastName',
         },
       },
       img: {
         $cond: {
           if: '$settings.hideAvatar',
-          then: 0,
+          then: '',
           else: '$img',
         },
       },
