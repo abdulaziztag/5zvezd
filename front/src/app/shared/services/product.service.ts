@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {FilteredProductsInterface, ProductCardInterface, ProductInterface} from "../interfaces/product.interface";
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
@@ -14,7 +14,7 @@ const httpOptions = {
 })
 
 export class ProductService {
-  public product$ = new Subject<ProductInterface>();
+  public product$ = new BehaviorSubject<ProductInterface>(null);
   public recentlyAdded$ = new Subject<ProductCardInterface[]>()
   public popular$ = new Subject<ProductCardInterface[]>()
   public mostExpensive$ = new Subject<ProductCardInterface[]>()
@@ -97,4 +97,8 @@ export class ProductService {
     this.carouselSlides$.next(products)
   }
 
+  public changeRating(averageRating: number): void {
+    this.product$.getValue()
+    this.product$.next({...this.product$.getValue(), averageRating})
+  }
 }
