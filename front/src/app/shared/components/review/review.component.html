@@ -2,24 +2,19 @@
   <div class="review__user-info">
     <div class="review__user-info__avatar">
       <img
-        [src]="comment.userInfo[0].img"
+        [src]="'data:' + userInfo?.img?.contentType + ';base64,' + userInfo?.img?.data"
         [alt]="comment.title"
         class="mat-elevation-z3"
-        *ngIf="comment.userInfo[0].img !== '' && comment.userInfo[0].img"
+        *ngIf="userInfo?.img?.data !== '' && userInfo?.img?.data"
       >
       <img
         src="../../../../assets/hiddenAvatar.png"
         alt=""
-        *ngIf="!comment.userInfo[0].img"
+        *ngIf="!userInfo?.img"
       >
     </div>
     <div class="review__user-info__name">
-      {{comment.userInfo[0]?.firstName}} {{comment.userInfo[0]?.lastName}}
-      <ng-container
-        *ngIf="!comment.userInfo[0]?.firstName && !comment.userInfo[0]?.lastName"
-      >
-        Name hidden
-      </ng-container>
+      {{userInfo.firstName}} {{ userInfo.lastName }}
     </div>
   </div>
   <div class="review__data">

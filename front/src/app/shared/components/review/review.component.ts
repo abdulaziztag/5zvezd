@@ -19,6 +19,10 @@ export class ReviewComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  public get userInfo() {
+    return this.comment.userInfo[0]
+  }
+
   ngOnInit(): void {
   }
 
