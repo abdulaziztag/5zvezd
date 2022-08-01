@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         lastName: data.lastName,
         email: data.email,
         userId: data.userId,
+        img: data.img,
       });
       this.router.navigate(['/']);
     }, error => {
