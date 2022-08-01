@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddReviewDialogComponent} from "../../../shared/components/add-review-dialog/add-review-dialog.component";
 import {AlertService} from "../../../shared/services/alert.service";
 import {CommentService} from "../../../shared/services/comment.service";
+import {Title} from '@angular/platform-browser';
 import {LoaderService} from "../../../shared/services/loader.service";
 import {CommentInterface} from "../../../shared/interfaces/comment.interface";
 
@@ -32,7 +33,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private router: Router,
     public commentService: CommentService,
-    public loaderService: LoaderService
+    public loaderService: LoaderService,
+    private titleService: Title
   ) {
   }
 
@@ -51,8 +53,9 @@ export class ProductComponent implements OnInit, OnDestroy {
           return throwError(error);
         }),
         switchMap((data) => {
-          this.productService.setProduct({...data.product.product, img: data.product.img})
-          const userId = this.tokenService.getUser().userId
+          this.productService.setProduct({...data.product.product, img: data.product.img});
+          const userId = this.tokenService.getUser().userId;
+          this.titleService.setTitle(data.product.product.title);
 
           return this.commentService.requestComment(
             productId,
