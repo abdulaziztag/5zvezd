@@ -75,6 +75,7 @@ export class AddReviewDialogComponent implements OnInit {
               lastName: this.tokenService.getUser().lastName
             }]
           })
+          this.productService.changeRating(data.averageRating);
           this.dialogRef.close({
             commentOwner: true
           });
