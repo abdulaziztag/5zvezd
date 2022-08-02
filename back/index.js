@@ -28,7 +28,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/comment', commentRoutes);
+app.use(express.static('public'));
 
-app.listen(process.env.PORT || 3000, () => {
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+app.listen(process.env.PORT || 8080, () => {
   console.log('Running!');
 });
