@@ -7,11 +7,20 @@
         [src]="avatar"
         class="account__avatar__image"
         (click)="file.click()"
+        [style.filter]="loader ? 'brightness(50%)' : 'brightness(100%)'"
         [alt]="tokenService.getUser().firstName"
       />
-      <div class="add-photo">
+      <div class="add-photo" *ngIf="!loader">
         <mat-icon>photo_camera</mat-icon>
       </div>
+
+      <mat-spinner
+        *ngIf="loader"
+        color="accent"
+        class="spinner"
+        strokeWidth="4"
+        diameter="80"
+      ></mat-spinner>
     </div>
 
     <input
