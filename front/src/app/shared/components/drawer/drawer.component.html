@@ -79,13 +79,20 @@
   >
     <mat-form-field appearance="outline" class="search__form">
       <mat-label>Search</mat-label>
-      <input type="text" autocomplete="off" matInput>
+      <input
+        type="text"
+        autocomplete="off"
+        matInput
+        [formControl]="searchInput"
+        (keydown.enter)="search()"
+      >
       <button
         matSuffix
         mat-icon-button
         mat-stroked-button
         color="primary"
         style="margin-bottom: 14px"
+        (click)="search()"
       >
         <mat-icon>search</mat-icon>
       </button>

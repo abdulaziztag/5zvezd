@@ -3,6 +3,7 @@ import {DrawerService} from "../../services/drawer.service";
 import {TabInterface} from "../../interfaces/tab.interface";
 import {TokenStorageService} from "../../services/token-storage.service";
 import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,8 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
   @Input() tabs: TabInterface[] = [];
+  public searchInput = new FormControl('');
+
   constructor(
     private drawerService: DrawerService,
     public tokenService: TokenStorageService,
@@ -25,6 +28,14 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/all'], {
       queryParams: {
         [queryKey]: queryValue
+      }
+    });
+  }
+
+  public search(): void {
+    this.router.navigate(['/all'], {
+      queryParams: {
+        title: this.searchInput.value
       }
     });
   }

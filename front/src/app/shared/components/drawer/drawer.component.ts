@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {UserSettingsDialogComponent} from "../user-settings-dialog/user-settings-dialog.component";
 import {UserService} from "../../services/user.service";
 import {Subject, takeUntil} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-drawer',
@@ -20,6 +21,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   public avatar: string = '';
   private notifier = new Subject<void>();
   public loader: boolean = false;
+  public searchInput = new FormControl('');
 
   constructor(
     public drawerService: DrawerService,
@@ -70,6 +72,15 @@ export class DrawerComponent implements OnInit, OnDestroy {
     this.dialog.open(UserSettingsDialogComponent, {
       disableClose: true
     })
+  }
+
+  public search(): void {
+    this.router.navigate(['/all'], {
+      queryParams: {
+        title: this.searchInput.value
+      }
+    });
+    this.drawerService.setDrawer(false);
   }
 
   ngOnDestroy() {
