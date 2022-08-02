@@ -23,7 +23,7 @@ export const uploadAvatar = async (req, res) => {
     if (updateAvatar) {
       res.send({
         message: 'Successfully changed',
-        img: await resize(updateAvatar.img),
+        img: await resize(updateAvatar.img, 200, 200),
       });
     } else {
       res.send({message: 'User not found!'});

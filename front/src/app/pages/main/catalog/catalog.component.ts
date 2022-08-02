@@ -6,6 +6,7 @@ import {TabInterface} from "../../../shared/interfaces/tab.interface";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../../shared/services/product.service";
 import {LoaderService} from "../../../shared/services/loader.service";
+import {FilteredProductsInterface} from "../../../shared/interfaces/product.interface";
 
 @Component({
   selector: 'app-catalog',
@@ -34,12 +35,17 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const params = this.route.snapshot.queryParams
+    const params = this.route.snapshot.queryParams;
+    const title = params['title'] !== undefined && params['title'];
+    if (title) {
+      this.searchInput.setValue(params['title']);
+      this.search();
+    }
     this.form.patchValue({
       brand: [params['brand']],
       category: [params['category']]
     })
-    this.chips = [params['brand'], params['category']].filter((item) => !!item);
+    this.chips = [...this.chips, params['brand'], params['category']].filter((item) => !!item);
     this.applyFilters();
   }
 
@@ -77,7 +83,16 @@ export class CatalogComponent implements OnInit, OnDestroy {
       250
     ).pipe(takeUntil(this.notifier))
       .subscribe(data => {
-        this.productService.setFiltered(data.filteredProducts)
+        const uniqueIds: string[] = [];
+        const unique = data.filteredProducts.filter((element: FilteredProductsInterface) => {
+          const isDuplicate = uniqueIds.includes(element._id);
+          if (!isDuplicate) {
+            uniqueIds.push(element._id);
+            return true;
+          }
+          return false;
+        });
+        this.productService.setFiltered(unique)
         this.loader.setLoader(false)
       })
   }

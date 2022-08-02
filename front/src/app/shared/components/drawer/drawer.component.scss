@@ -147,6 +147,11 @@
     padding: 0 0 10px 0;
     margin: 0;
   }
+
+  .spinner {
+    position: absolute;
+    align-self: center;
+  }
 }
 
 @media (max-width: 950px) and (min-width: 650px) {

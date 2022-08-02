@@ -7,11 +7,20 @@
         [src]="avatar"
         class="account__avatar__image"
         (click)="file.click()"
+        [style.filter]="loader ? 'brightness(50%)' : 'brightness(100%)'"
         [alt]="tokenService.getUser().firstName"
       />
-      <div class="add-photo">
+      <div class="add-photo" *ngIf="!loader">
         <mat-icon>photo_camera</mat-icon>
       </div>
+
+      <mat-spinner
+        *ngIf="loader"
+        color="accent"
+        class="spinner"
+        strokeWidth="4"
+        diameter="80"
+      ></mat-spinner>
     </div>
 
     <input
@@ -70,13 +79,20 @@
   >
     <mat-form-field appearance="outline" class="search__form">
       <mat-label>Search</mat-label>
-      <input type="text" autocomplete="off" matInput>
+      <input
+        type="text"
+        autocomplete="off"
+        matInput
+        [formControl]="searchInput"
+        (keydown.enter)="search()"
+      >
       <button
         matSuffix
         mat-icon-button
         mat-stroked-button
         color="primary"
         style="margin-bottom: 14px"
+        (click)="search()"
       >
         <mat-icon>search</mat-icon>
       </button>

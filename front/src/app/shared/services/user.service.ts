@@ -13,6 +13,7 @@ const httpOptions = {
 })
 export class UserService {
   private avatar$ = new Subject<string>()
+  private avatar = this.avatar$.asObservable()
 
   constructor(private http: HttpClient) {
   }
@@ -34,11 +35,20 @@ export class UserService {
     )
   }
 
+  public uploadAvatar(img: string | Blob): Observable<{ message: string, img: string }> {
+    const fb = new FormData()
+    fb.append('img', img)
+    return this.http.post<{ message: string, img: string }>(
+      AUTH_API + 'upload',
+      fb
+    )
+  }
+
   public setAvatar(img: string) {
     this.avatar$.next(img)
   }
 
-  public getAvatar(): Subject<string> {
-    return this.avatar$
+  public getAvatar(): Observable<string> {
+    return this.avatar
   }
 }
