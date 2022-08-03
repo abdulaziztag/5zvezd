@@ -6,6 +6,7 @@ import {AlertService} from "../../../shared/services/alert.service";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../../../shared/services/token-storage.service";
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +23,8 @@ export class RegistrationComponent implements OnInit {
     public loaderService: LoaderService,
     private alertService: AlertService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
   ) {
     this.form = fb.group({
       firstName: ['', [Validators.required]],
@@ -35,7 +37,7 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  public get regForm(){
+  public get regForm() {
     return this.form.controls;
   }
 
@@ -71,7 +73,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loaderService.setLoader(false);
+    this.tokenStorage.getToken()
+      ? this.router.navigate(['/'])
+      : this.loaderService.setLoader(false);
   }
-
 }
