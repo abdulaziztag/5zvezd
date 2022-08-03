@@ -18,6 +18,7 @@ import {CatalogProductCardComponent} from './components/catalog-product-card/cat
 import {DeleteCommentDialogComponent} from './components/delete-comment-dialog/delete-comment-dialog.component';
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
 import { UserSettingsDialogComponent } from './components/user-settings-dialog/user-settings-dialog.component';
+import { AccountMenuComponent } from './components/account-menu/account-menu.component';
 
 @NgModule({
     imports: [
@@ -40,7 +41,8 @@ import { UserSettingsDialogComponent } from './components/user-settings-dialog/u
     AddReviewDialogComponent,
     CatalogProductCardComponent,
     DeleteCommentDialogComponent,
-    UserSettingsDialogComponent
+    UserSettingsDialogComponent,
+    AccountMenuComponent
   ],
   exports: [
     CommonModule,
