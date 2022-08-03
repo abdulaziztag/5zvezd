@@ -60,6 +60,10 @@
       margin: auto 2px
     }
   }
+
+  ::ng-deep .mat-menu-content {
+    min-width: 3000px!important;
+  }
 }
 
 @media (min-width: 950px) {

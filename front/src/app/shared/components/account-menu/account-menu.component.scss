@@ -1,0 +1,93 @@
+@mixin resizeAccount {
+  :host {
+    .account {
+      flex-direction: column;
+      aspect-ratio: 1/1;
+      margin: 0 auto;
+
+      &__avatar {
+        width: 100px;
+        align-self: center;
+      }
+
+      &__info {
+        text-align: center;
+        width: 100% !important;
+        margin: 0;
+      }
+    }
+
+  }
+}
+
+:host {
+  .account {
+    display: flex;
+    min-height: 100px;
+    max-height: 200px;
+    flex-direction: row;
+    padding: 0 20px 10px 20px;
+
+    &__avatar {
+      border-radius: 100%;
+      overflow: hidden;
+      display: flex;
+      height: 100px;
+      justify-content: center;
+      align-content: center;
+      cursor: pointer;
+      position: relative;
+
+      &__image {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+      }
+
+      &:hover > div {
+        bottom: 0;
+      }
+    }
+
+    &__info {
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      justify-content: space-between;
+
+      &__name {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .add-photo {
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    bottom: -30px;
+    background-color: rgba(0, 0, 0, .6);
+    transition: .3s bottom;
+    display: flex;
+    justify-content: center;
+    color: white;
+
+    & > mat-icon {
+      transform: scale(.9);
+    }
+  }
+
+  .spinner {
+    position: absolute;
+    align-self: center;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 850px) {
+  @include resizeAccount;
+}
+
+@media (max-width: 450px) {
+  @include resizeAccount;
+}

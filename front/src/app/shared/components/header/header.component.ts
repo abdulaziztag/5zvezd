@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public search(): void {
+    this.searchInput.value !== '' &&
     this.router.navigate(['/all'], {
       queryParams: {
         title: this.searchInput.value
