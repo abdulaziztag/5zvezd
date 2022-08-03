@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {AuthService} from "../../../shared/services/auth.service";
 import {AlertService} from "../../../shared/services/alert.service";
@@ -18,7 +18,8 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     private authService: AuthService,
     private alertService: AlertService,
-    public loaderService: LoaderService
+    public loaderService: LoaderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +35,7 @@ export class ConfirmationComponent implements OnInit, OnDestroy {
         'error',
         1000*60*10
       );
+      this.router.navigate(['/'])
     })
   }
 

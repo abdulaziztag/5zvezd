@@ -21,7 +21,7 @@ export const sendConfirmationEmail = (firstName, lastName = '', email, confirmat
     html: `<h1>Email Confirmation</h1>
         <h2>Hello ${firstName} ${lastName}</h2>
         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-        <a href=http://localhost:4200/auth/confirmation/${confirmationCode}> Click here</a>
+        <a href=https://zvezd5.herokuapp.com//auth/confirmation/${confirmationCode}> Click here</a>
         </div>`,
   }, (err) => {
     if (err) {

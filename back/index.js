@@ -5,6 +5,11 @@ import cors from 'cors';
 import {config} from 'dotenv';
 import {authRoutes, commentRoutes, productRoutes, userRoutes} from './routes/index.js';
 import {passportGuard} from './middleware/passport.js';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 config();
@@ -30,7 +35,7 @@ app.use('/api/product', productRoutes);
 app.use('/api/comment', commentRoutes);
 app.use(express.static('public'));
 
-app.get('*', (req, res)=>{
+app.get('/*', (req, res)=>{
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 

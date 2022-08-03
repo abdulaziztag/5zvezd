@@ -1,59 +1,7 @@
 <div [class]="['drawer', (drawerService.getDrawer() | async) && 'active']">
-  <div class="account" *ngIf="!!tokenService.getToken()">
-    <div
-      class="account__avatar"
-    >
-      <img
-        [src]="avatar"
-        class="account__avatar__image"
-        (click)="file.click()"
-        [style.filter]="loader ? 'brightness(50%)' : 'brightness(100%)'"
-        [alt]="tokenService.getUser().firstName"
-      />
-      <div class="add-photo" *ngIf="!loader">
-        <mat-icon>photo_camera</mat-icon>
-      </div>
-
-      <mat-spinner
-        *ngIf="loader"
-        color="accent"
-        class="spinner"
-        strokeWidth="4"
-        diameter="80"
-      ></mat-spinner>
-    </div>
-
-    <input
-      type="file"
-      #file
-      style="display: none"
-      accept="image/*"
-      (change)="changeAvatar($event)"
-    >
-
-    <div class="account__info">
-      <div class=" mat-body-2">
-        {{tokenService.getUser().firstName}} {{tokenService.getUser().lastName}}
-      </div>
-      <div class="mat-subheading-1">
-        {{tokenService.getUser().email}}
-      </div>
-      <div class="account__info__actions">
-        <button
-          mat-icon-button
-          (click)="openSettings()"
-        >
-          <mat-icon>settings</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          (click)="signOut()"
-        >
-          <mat-icon>logout</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
+  <ng-container *ngIf="!!tokenService.getToken()">
+    <app-account-menu></app-account-menu>
+  </ng-container>
   <div
     class="sign-in-options"
     *ngIf="!tokenService.getToken()"
