@@ -55,7 +55,7 @@
   >
     <mat-icon>person_circle</mat-icon>
   </button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
+  <mat-menu #beforeMenu="matMenu" xPosition="before" class="my-class">
     <app-account-menu></app-account-menu>
   </mat-menu>
   <div class="header__divider header__items" *ngIf="!tokenService.getToken()"></div>

@@ -60,9 +60,9 @@
       margin: auto 2px
     }
   }
-
-  ::ng-deep .mat-menu-content {
-    min-width: 3000px!important;
+  ::ng-deep .mat-menu-panel.my-class {
+    min-width: 400px!important;
+    max-width: none!important;
   }
 }
 
