@@ -1,11 +1,12 @@
 <!--suppress HtmlUnknownAnchorTarget -->
 <div class="container">
   <div
-    class="container__product"
+    class="container__product mat-elevation-z2"
     *ngIf="productService.product$ | async as product"
   >
     <div class="container__product__image">
       <img
+        class="mat-elevation-z2"
         [src]="product.img"
         [alt]="product.title"
       >
