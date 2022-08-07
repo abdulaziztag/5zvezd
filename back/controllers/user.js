@@ -71,3 +71,15 @@ export const adminRights = async ({headers, user}, res) => {
     res.send({message: 'Something went wrong!'});
   }
 };
+
+export const checkAdmin = async ({user}, res) => {
+  try {
+    if (user.role === 'Admin') {
+      res.send({message: 'Welcome admin!'});
+    } else {
+      res.status(403).send({message: 'Don\'t even try! Go out!'});
+    }
+  } catch (e) {
+    res.send({message: 'Something went wrong!'});
+  }
+};
