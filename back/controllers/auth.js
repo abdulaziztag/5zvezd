@@ -28,7 +28,7 @@ export const login = async (req, res) => {
         lastName: candidate.lastName,
         email: candidate.email,
         userId: candidate._id,
-        img: candidate.img ? await resize(candidate.img, 200, 200) : '',
+        img: candidate.img !== '' ? await resize(candidate.img, 200, 200) : '',
       });
     } else {
       res.status(401).send({
