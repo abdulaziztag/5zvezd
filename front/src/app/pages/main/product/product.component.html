@@ -11,6 +11,17 @@
         [alt]="product.title"
       >
     </div>
+    <button
+      mat-icon-button
+      color="error"
+      (click)="deleteProduct()"
+      *ngIf="isAdmin"
+      class="delete"
+    >
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
     <div class="container__product__info">
       <div>
         <div class="container__product__info__title">
