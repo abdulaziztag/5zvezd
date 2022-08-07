@@ -16,6 +16,14 @@ export const tabs = (): TabInterface[]  => {
         {
           listItemTitle: 'Lactel',
           params: `lactel`
+        },
+        {
+          listItemTitle: 'The Cola-Cola',
+          params: 'coca-cola'
+        },
+        {
+          listItemTitle: 'Danone',
+          params: 'danone'
         }
       ],
     },

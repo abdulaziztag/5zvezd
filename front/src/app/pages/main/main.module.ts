@@ -7,13 +7,15 @@ import {ProductComponent} from './product/product.component';
 import {SharedModule} from "../../shared/shared.module";
 import { CatalogComponent } from './catalog/catalog.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     ProductComponent,
-    CatalogComponent
+    CatalogComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

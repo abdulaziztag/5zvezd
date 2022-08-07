@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Delete product</h1>
+<mat-dialog-content>
+  Would you like to delete your product?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+    [disabled]="loader"
+    color="primary"
+  >No</button>
+  <button
+    mat-button
+    color="primary"
+    [disabled]="loader"
+    (click)="deleteProduct()"
+  >Yes</button>
+</mat-dialog-actions>
+

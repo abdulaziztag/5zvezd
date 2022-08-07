@@ -8,8 +8,11 @@
 .error {
   background: #ff5252;
 }
+
+.mat-raised-button.mat-success,
 .success {
   background: #4caf50;
+  color: #fff;
 }
 .warning {
   background: #fb8c00;
@@ -36,4 +39,7 @@
 
 .mat-simple-snackbar-action {
   color: white;
+}
+.mat-menu-panel.my-class {
+  max-width: none!important;
 }

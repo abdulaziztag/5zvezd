@@ -10,6 +10,8 @@ import {CommentService} from "../../../shared/services/comment.service";
 import {Title} from '@angular/platform-browser';
 import {LoaderService} from "../../../shared/services/loader.service";
 import {CommentInterface} from "../../../shared/interfaces/comment.interface";
+import {DashboardService} from "../../../shared/services/dashboard.service";
+import {DeleteProductComponent} from "../../../shared/components/delete-product/delete-product.component";
 
 @Component({
   selector: 'app-product',
@@ -24,6 +26,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   public loadAllReviews: boolean = false
   public reviewLoader: boolean = false
   public commentOwner: boolean;
+  public isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +37,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private router: Router,
     public commentService: CommentService,
     public loaderService: LoaderService,
-    private titleService: Title
+    private titleService: Title,
+    private dashboardService: DashboardService
   ) {
   }
 
@@ -61,7 +65,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             productId,
             undefined,
             undefined,
-             (!userId ? 1 : 2),
+            (!userId ? 1 : 2),
             userId
           )
         })
@@ -83,6 +87,15 @@ export class ProductComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.commentService.setComment(data);
         this.loaderService.setLoader(false);
+      })
+
+    this.dashboardService
+      .checkForAdmin()
+      .pipe(takeUntil(this.notifier))
+      .subscribe(() => {
+        this.isAdmin = true;
+      }, () => {
+        this.isAdmin = false
       })
   }
 
@@ -121,6 +134,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.commentService.setComment(data)
       })
     this.loadAllReviews = true
+  }
+
+  public deleteProduct(): void {
+    this.dialog.open(DeleteProductComponent, {
+      disableClose: true,
+      data: {
+        productId: this.route.snapshot.params['productId']
+      }
+    })
   }
 
   ngOnDestroy(): void {

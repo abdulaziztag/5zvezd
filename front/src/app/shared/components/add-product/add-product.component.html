@@ -1,0 +1,54 @@
+<form class="container" [formGroup]="form">
+  <h2>Add product</h2>
+  <mat-form-field appearance="outline" >
+    <mat-label>Title of product</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="5"
+      formControlName="description"
+    >
+    </textarea>
+  </mat-form-field>
+  <div class="container__selects">
+    <mat-form-field
+      appearance="outline"
+      *ngFor="let tab of tabs"
+    >
+      <mat-label>{{ tab.title }}</mat-label>
+      <mat-select
+        [formControlName]="tab.queryKey"
+      >
+        <mat-option
+          *ngFor="let listItem of tab.list"
+          [value]="listItem.listItemTitle"
+        >
+          {{ listItem.listItemTitle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="container__input">
+    <button
+      type="button"
+      mat-raised-button
+      (click)="fileInput.click()"
+      color="primary"
+    >Choose File</button>
+    {{selectedFile?.name}}
+    <input hidden #fileInput (change)="onFileSelected($event)" type="file" id="file">
+  </div>
+  <button
+    mat-raised-button
+    color="success"
+    type="button"
+    [disabled]="loader.getLoader() | async"
+    (click)="addProduct()"
+  >
+    Add product
+  </button>
+</form>
