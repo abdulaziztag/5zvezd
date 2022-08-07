@@ -19,6 +19,8 @@ import {DeleteCommentDialogComponent} from './components/delete-comment-dialog/d
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
 import { UserSettingsDialogComponent } from './components/user-settings-dialog/user-settings-dialog.component';
 import { AccountMenuComponent } from './components/account-menu/account-menu.component';
+import {AddProductComponent} from "./components/add-product/add-product.component";
+import { DeleteProductComponent } from './components/delete-product/delete-product.component';
 
 @NgModule({
     imports: [
@@ -42,7 +44,9 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
     CatalogProductCardComponent,
     DeleteCommentDialogComponent,
     UserSettingsDialogComponent,
-    AccountMenuComponent
+    AccountMenuComponent,
+    AddProductComponent,
+    DeleteProductComponent
   ],
   exports: [
     CommonModule,
@@ -55,7 +59,8 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
     ProductListComponent,
     ReviewComponent,
     AlertComponent,
-    CatalogProductCardComponent
+    CatalogProductCardComponent,
+    AddProductComponent
   ],
   providers: [
     authInterceptorProviders
